@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import ora from "ora";
+import path from "path";
 import { IFile } from "~types/Installer";
 import { formatError } from "./helpers";
 
@@ -44,4 +45,19 @@ export async function overWriteFile(userDir: string) {
   } catch (e) {
     spinner.fail(`Couldn't empty directory: ${formatError(e)}`);
   }
+}
+
+export async function modifyJSON(
+  userDir: string,
+  cb: (json: any) => Promise<any>
+) {
+  const json = JSON.parse(
+    await fs.readFile(path.join(userDir, "package.json"), "utf8")
+  );
+  const newJson = await cb({ ...json });
+  await fs.writeFile(
+    path.join(userDir, "package.json"),
+    JSON.stringify(newJson, null, 2)
+  );
+  return newJson;
 }

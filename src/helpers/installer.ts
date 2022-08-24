@@ -1,8 +1,7 @@
 import ora from "ora";
 import { IInstaller, IPkg, IPkgInfo } from "~types/Installer";
-import { execFiles } from "~utils/files";
+import { execFiles, modifyJSON } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
-import { isPkgInfo, modifyJSON } from "~utils/node";
 import { IEnv } from "~types/Env";
 import { IKeyValue } from "~types/Static";
 

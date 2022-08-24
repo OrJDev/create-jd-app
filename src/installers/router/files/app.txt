@@ -1,0 +1,22 @@
+import { Component } from "solid-js";
+import { Home } from "./pages";
+import SolidTrpc from "./utils/trpc";
+import { Routes, Route, Router } from "@solidjs/router"
+
+interface IAppProps { };
+
+const App: Component<IAppProps> = ({ }) => {
+    return (
+        <SolidTrpc
+            opts={{ url: "http://localhost:4000/trpc" }}
+        >
+            <Router>
+                <Routes>
+                    <Route path="/" component={Home} />
+                </Routes>
+            </Router>
+        </SolidTrpc>
+    )
+}
+
+export default App;

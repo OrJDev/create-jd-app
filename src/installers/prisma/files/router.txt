@@ -1,6 +1,5 @@
 import { createRouter } from "../trpc";
 import { z } from "zod";
-import { prisma } from "../db";
 
 export default createRouter()
   .query("test", {
@@ -17,7 +16,7 @@ export default createRouter()
   })
   .mutation("prisma", {
     input: z.object({ text: z.string() }),
-    async resolve({ input }) {
-      return await prisma.example.create({ data: input });
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.example.create({ data: input });
     },
   });

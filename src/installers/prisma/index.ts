@@ -15,6 +15,10 @@ const config: IConfigCallBack = (userDir, _installers) => ({
       path: `${__dirname}/files/router.txt`,
       to: `${userDir}/packages/server/src/router/example.ts`,
     },
+    {
+      path: `${__dirname}/files/trpc.txt`,
+      to: `${userDir}/packages/server/src/trpc.ts`,
+    },
   ],
   pkgs: {
     prisma: {

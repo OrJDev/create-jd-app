@@ -22,6 +22,7 @@ npm create jd-app@latest
 - TRPC + Types Safety
 - SolidJS
 - Tailwind
+- Solid Router
 - TypeScript
 
 ![Preview](https://i.ibb.co/1LsmbWY/Screenshot-1.png)

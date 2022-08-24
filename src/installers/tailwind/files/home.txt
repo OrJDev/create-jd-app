@@ -3,7 +3,7 @@ import { useTrpc } from "../../utils/trpc";
 
 interface IHomeProps { };
 
-const App: Component<IHomeProps> = ({ }) => {
+const Home: Component<IHomeProps> = ({ }) => {
   const trpc = useTrpc();
   const [response] = trpc.useQuery("example.test", { name: "example" });
   const [useMutationExample, { loading, data }] = trpc.useMutation("example.mTest", {
@@ -33,4 +33,4 @@ const App: Component<IHomeProps> = ({ }) => {
   )
 }
 
-export default App;
+export default Home;
