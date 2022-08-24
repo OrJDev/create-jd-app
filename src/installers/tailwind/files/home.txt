@@ -1,21 +1,23 @@
-import { Component, onMount, createSignal } from "solid-js";
+import { Component, onMount } from "solid-js";
 import { useTrpc } from "../../utils/trpc";
 
 interface IHomeProps { };
 
 const App: Component<IHomeProps> = ({ }) => {
   const trpc = useTrpc();
-  const [response] = trpc.query("example.test", { name: "example" });
-  const [example, setExample] = createSignal<string | undefined>("loading...");
-  const mutateExample = trpc.mutate("example.mTest");
+  const [response] = trpc.useQuery("example.test", { name: "example" });
+  const [useMutationExample, { loading, data }] = trpc.useMutation("example.mTest", {
+    onSuccess: (data, variables) => {
+      console.log({ weSuccessSo: { data, variables } });
+    }
+  });
 
   onMount(() => {
     (async () => {
       try {
-        const response = await mutateExample({ number: 1 })
-        setExample(response)
+        const response = await useMutationExample({ number: 1 })
+        console.log({ response })
       } catch (e) {
-        setExample(undefined)
         console.log(e);
       }
     })()
@@ -24,7 +26,7 @@ const App: Component<IHomeProps> = ({ }) => {
   return (
     <div class="flex flex-col items-center">
       <h1 class="font-bold text-gray-300 text-xl">{response() ?? "no data || yet"}</h1>
-      <h1 class="font-bold text-gray-300 text-xl">{example() ?? "no data"}</h1>
+      <h1 class="font-bold text-gray-300 text-xl">{loading() ? "loading..." : data() ?? "no data"}</h1>
       <h1 class="font-semibold text-3xl">keys length</h1>
       <h2 class="text-2xl text-red-500">{Object.keys(trpc).length}</h2>
     </div>
