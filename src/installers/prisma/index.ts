@@ -19,6 +19,10 @@ const config: IConfigCallBack = (userDir, _installers) => ({
       path: `${__dirname}/files/trpc.txt`,
       to: `${userDir}/packages/server/src/trpc.ts`,
     },
+    {
+      path: `${__dirname}/files/db.sqlite`,
+      to: `${userDir}/packages/server/prisma/db.sqlite`,
+    },
   ],
   pkgs: {
     prisma: {
@@ -35,7 +39,7 @@ const config: IConfigCallBack = (userDir, _installers) => ({
     {
       key: "DATABASE_URL",
       type: "string().url()",
-      defaulValue: "mysql://root:root@localhost:3306/db",
+      defaulValue: "file:./db.sqlite",
     },
     {
       key: "NODE_ENV",

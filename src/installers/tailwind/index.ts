@@ -3,12 +3,8 @@ import { IConfigCallBack } from "~types/Config";
 const config: IConfigCallBack = (userDir, _installers) => ({
   files: [
     {
-      path: `${__dirname}/files/globals.txt`,
+      path: `${__dirname}/files/styles.txt`,
       to: `${userDir}/packages/client/src/index.css`,
-    },
-    {
-      path: `${__dirname}/files/home.txt`,
-      to: `${userDir}/packages/client/src/pages/Home/Home.tsx`,
     },
     {
       path: `${__dirname}/files/postcss.config.txt`,

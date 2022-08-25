@@ -9,6 +9,7 @@ import { IEnv } from "~types/Env";
 import { INullAble } from "~types/Static";
 import inquirer from "inquirer";
 import chalk from "chalk";
+import func from "~helpers/func";
 
 export async function initApp(): Promise<[string, string]> {
   console.log();
@@ -18,6 +19,7 @@ export async function initApp(): Promise<[string, string]> {
       type: "input",
       message: "What is the name of the app?",
       validate: validateName,
+      default: "my-app",
     })
   ).appName;
   const userDir = path.resolve(process.cwd(), appName);
@@ -71,7 +73,6 @@ export async function copyTemplate(userDir: string, appName: string) {
 }
 
 export async function installDeps(userDir: string) {
-  console.log();
   const spinner = ora("Installing template dependencies").start();
   try {
     await execa(`npm install`, { cwd: userDir });
@@ -93,6 +94,22 @@ export async function execInstallers(
 > {
   const data = await runInstallers(userDir, pkgs);
   return data;
+}
+
+export async function modifyProject(
+  appName: string,
+  userDir: string,
+  pkgs: string[]
+) {
+  console.log();
+  const spinner = ora("Modifying project").start();
+  try {
+    await func(userDir, appName, pkgs);
+    spinner.succeed("Modified project");
+  } catch (e) {
+    spinner.fail(`Couldn't modify project: ${formatError(e)}`);
+    process.exit(1);
+  }
 }
 
 export async function modifyEnv(userDir: string, env: IEnv[][]) {

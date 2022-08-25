@@ -22,6 +22,7 @@ export type IFile = {
 export type IHelper = (
   userDir: string,
   appName: string,
-  installers: string[],
-  plugins: string[]
+  installers: string[]
 ) => Promise<void>;
+
+export type IUtil = (installers: string[]) => void;

@@ -25,4 +25,4 @@ npm create jd-app@latest
 - Solid Router
 - TypeScript
 
-![Preview](https://i.ibb.co/1LsmbWY/Screenshot-1.png)
+![Preview](https://i.ibb.co/3hmmgY0/Screenshot-1.png)
