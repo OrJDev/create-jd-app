@@ -3,6 +3,7 @@ import { promisify } from "util";
 import fs from "fs-extra";
 import path from "path";
 import inquirer from "inquirer";
+import { IAppCtx, ICtx } from "~types/Context";
 
 export const execa = promisify(exec);
 
@@ -34,13 +35,22 @@ export const validateName = (name: string) => {
     : "This is not a valid name";
 };
 
-export async function getInstallers(): Promise<string[]> {
+export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: string[] = [];
+  const INSTALLERS_DIR = path.join(__dirname, "../installers");
+  installers = (await fs.readdir(path.join(INSTALLERS_DIR, "static"))).map(
+    (item) => `Static/${item}`
+  );
   try {
-    installers = await fs.readdir(path.join(__dirname, "../installers"));
-  } catch {}
-  if (installers.length) {
+    installers = [
+      ...installers,
+      ...(await fs.readdir(path.join(INSTALLERS_DIR, ctx.framework))).map(
+        (item) => `${ctx.framework}/${item}`
+      ),
+    ];
+  } catch {}  
+    console.log();
     pkgs = (
       await inquirer.prompt<{ pkgs: string[] }>({
         name: "pkgs",
@@ -49,6 +59,5 @@ export async function getInstallers(): Promise<string[]> {
         choices: installers,
       })
     ).pkgs;
-  }
-  return pkgs;
+  return { ...ctx, installers: pkgs };
 }

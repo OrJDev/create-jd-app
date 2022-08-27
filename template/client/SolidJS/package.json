@@ -1,0 +1,23 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vite": "^3.0.0",
+    "vite-plugin-solid": "^2.3.0",
+    "api":"*"
+  },
+  "dependencies": {
+    "@trpc/client": "^9.27.1",
+    "@trpc/react": "^9.27.1",
+    "@trpc/server": "^9.27.1",
+    "react-query": "^3.39.2",
+    "solid-js": "^1.4.7"
+  }
+}

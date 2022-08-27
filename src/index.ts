@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 import * as project from "./utils/project";
-import { formatError, getInstallers } from "./utils/helpers";
+import { formatError, getCtxWithInstallers } from "./utils/helpers";
 import chalk from "chalk";
+import runInstallers from "./helpers/installer";
 
 async function main() {
-  const [appName, userDir] = await project.initApp();
-  await project.copyTemplate(userDir, appName);
-  const pkgs = await getInstallers();
-  await project.modifyProject(appName, userDir, pkgs);
-  await project.installDeps(userDir);
-  const [env, commands] = await project.execInstallers(userDir, pkgs);
-  await project.modifyEnv(userDir, env);
+  const appCtx = await project.initApp();
+  await project.copyTemplate(appCtx);
+  const ctx = await getCtxWithInstallers(appCtx);
+  await project.installDeps(ctx.userDir);
+  const [env, commands, plugins] = await runInstallers(ctx);
+  await project.modifyProject(ctx, plugins);
+  await project.modifyEnv(appCtx.userDir, env);
   await project.runCommands(commands);
-  project.finished(appName, pkgs);
+  project.finished(ctx);
 }
 
 main().catch((e) => {

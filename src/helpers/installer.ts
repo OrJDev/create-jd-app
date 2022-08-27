@@ -4,19 +4,20 @@ import { execFiles, modifyJSON } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
 import { IEnv } from "~types/Env";
 import { IKeyValue } from "~types/Static";
+import { ICtx } from "~types/Context";
 
 export default async (
-  userDir: string,
-  pkgs: string[]
-): Promise<[IEnv[][], Array<() => Promise<void>>]> => {
+  ctx: ICtx
+): Promise<[IEnv[][], Array<() => Promise<void>>, string[]]> => {
   let env: IEnv[][] = [];
   let scripts: IKeyValue = {};
   const commands: Array<() => Promise<void>> = [];
+  let plugins: string[] = [];
 
   const resp = await Promise.all(
-    pkgs.map((pkg) =>
+    ctx.installers.map((pkg) =>
       import(`../installers/${pkg}/index`).then(
-        (installer: { default: IInstaller }) => installer.default(userDir, pkgs)
+        (installer: { default: IInstaller }) => installer.default(ctx)
       )
     )
   );
@@ -29,9 +30,10 @@ export default async (
   env.push([DEFAULT_ENV]);
 
   if (resp.length) {
+    console.log();
     const spinner = ora("Initializing installers").start();
     try {
-      let deps: IDeps = { server: [[], []], client: [[], []] };
+      let deps: IDeps = {};
       await Promise.all(
         resp.map(async (cfg) => {
           if (cfg.env) {
@@ -44,8 +46,11 @@ export default async (
             let newDeps = await sortToDevAndNormal(cfg.pkgs);
             deps = mergeDeps(deps, newDeps);
           }
+          if (cfg.plugins) {
+            plugins = [...plugins, ...cfg.plugins];
+          }
           if (cfg.files.length) {
-            await execFiles(cfg.files, pkgs);
+            await execFiles(cfg.files, ctx.installers);
           }
           if (cfg.onFinish) {
             commands.push(cfg.onFinish);
@@ -53,12 +58,8 @@ export default async (
         })
       );
       for (const key in deps)
-        await installPkgs(
-          userDir,
-          key as IPkgInfo["type"],
-          deps[key as IPkgInfo["type"]]
-        );
-      await modifyJSON(userDir, (json) => {
+        await installPkgs(ctx.userDir, key, deps[key as keyof typeof deps]);
+      await modifyJSON(ctx.userDir, (json) => {
         json.scripts = { ...json.scripts, ...scripts };
         return json;
       });
@@ -68,31 +69,26 @@ export default async (
       process.exit(1);
     }
   }
-  return [env, commands];
+  return [env, commands, plugins];
 };
 
-type IDeps = { server: [string[], string[]]; client: [string[], string[]] };
+type IDeps = { [key: string]: [string[], string[]] };
 const sortToDevAndNormal = (pkgs: IPkg): Promise<IDeps> =>
   new Promise((resolve) => {
-    const data = Object.entries(pkgs).reduce(
-      (current, [name, value]) => {
-        let newName = value.customVersion
-          ? `${name}@${value.customVersion}`
-          : name;
-        const [normal, devs] = current[value.type];
-        let newValues = value.devMode
+    const data = Object.entries(pkgs).reduce((current, [name, value]) => {
+      let newName = value.customVersion
+        ? `${name}@${value.customVersion}`
+        : name;
+      const [normal, devs] = Object.hasOwnProperty.call(current, value.type)
+        ? current[value.type as keyof typeof current]
+        : [[], []];
+      return {
+        ...current,
+        [value.type]: (value.devMode
           ? [normal, [...devs, newName]]
-          : [[...normal, newName], devs];
-        return {
-          ...current,
-          [value.type]: newValues,
-        };
-      },
-      {
-        server: [[], []] as [string[], string[]],
-        client: [[], []] as [string[], string[]],
-      }
-    );
+          : [[...normal, newName], devs]) as [string[], string[]],
+      };
+    }, {} as IDeps);
     return resolve(data);
   });
 
@@ -104,25 +100,28 @@ const installPkgs = async (
   const [normal, devs] = deps;
   if (normal.length) {
     await execa(`npm install ${normal.join(" ")}`, {
-      cwd: `${userDir}/packages/${type}`,
+      cwd: `${userDir}/${type}`,
     });
   }
   if (devs.length) {
     await execa(`npm install ${devs.join(" ")}`, {
-      cwd: `${userDir}/packages/${type}`,
+      cwd: `${userDir}/${type}`,
     });
   }
 };
 
-const mergeDeps = (current: IDeps, next: IDeps): IDeps => {
-  return {
-    server: [
-      [...current.server[0], ...next.server[0]],
-      [...current.server[1], ...next.server[1]],
-    ],
-    client: [
-      [...current.client[0], ...next.client[0]],
-      [...current.client[1], ...next.client[1]],
-    ],
-  };
+const mergeDeps = (deps: IDeps, newDeps: IDeps): IDeps => {
+  for (const key in newDeps) {
+    if (Object.hasOwnProperty.call(deps, key)) {
+      const [normal, devs] = deps[key];
+      const [newNormal, newDevs] = newDeps[key];
+      deps[key] = [
+        [...normal, ...newNormal],
+        [...devs, ...newDevs],
+      ];
+    } else {
+      deps[key] = newDeps[key];
+    }
+  }
+  return deps;
 };

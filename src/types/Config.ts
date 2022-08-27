@@ -7,10 +7,6 @@ export type IConfig = {
   pkgs?: IPkg;
   scripts?: IKeyValue;
   env?: IEnv[];
+  plugins?: string[];
   onFinish?: () => Promise<void>;
 };
-
-export type IConfigCallBack = (
-  userDir: string,
-  installers: string[]
-) => IConfig;

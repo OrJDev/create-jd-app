@@ -9,21 +9,20 @@ async function main() {
     path.join(__dirname, "../../", "README.md"),
     path.join(__dirname, "../../", "dist", "README.md")
   );
-  await Promise.all([
-    ...(
-      await fs.readdir(basePath)
-    ).map(async (installer) => {
-      const oldPath = path.join(basePath, installer, "files");
-      const newPath = oldPath.replace("src", "dist");
-      if (await fs.pathExists(oldPath)) {
-        await fs.copy(oldPath, newPath);
-      }
-    }),
-    fs.copy(
-      path.join(__dirname, "../../", "README.md"),
-      path.join(__dirname, "../../", "dist", "README.md")
-    ),
-  ]);
+  const types = await fs.readdir(basePath);
+  for (const type of types) {
+    const newBasePath = path.join(basePath, type);
+    const resp = await fs.readdir(newBasePath);
+    await Promise.all(
+      resp.map(async (installer) => {
+        const oldPath = path.join(newBasePath, installer, "files");
+        const newPath = oldPath.replace("src", "dist");
+        if (await fs.pathExists(oldPath)) {
+          await fs.copy(oldPath, newPath);
+        }
+      })
+    );
+  }
 }
 
 main().catch((e) => {

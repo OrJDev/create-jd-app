@@ -1,15 +1,13 @@
 import { IConfig } from "./Config";
-import { IKeyValue } from "./Static";
+import { ICtx } from "./Context";
+import { IKeyValue, IPromiseOrType } from "./Static";
 
-export type IInstaller = (
-  userDir: string,
-  usingInstallers: string[]
-) => Promise<IConfig>;
+export type IInstaller = (ctx: ICtx) => IPromiseOrType<IConfig>;
 
 export type IPkgInfo = {
   customVersion?: string;
   devMode?: boolean;
-  type: "client" | "server";
+  type: string;
 };
 export type IPkg = IKeyValue<IPkgInfo>;
 
@@ -19,10 +17,6 @@ export type IFile = {
   path?: string;
 };
 
-export type IHelper = (
-  userDir: string,
-  appName: string,
-  installers: string[]
-) => Promise<void>;
+export type IHelper = (ctx: ICtx, plugins: string[]) => IPromiseOrType<void>;
 
-export type IUtil = (installers: string[]) => void;
+export type IUtil = (installers: string[]) => string;

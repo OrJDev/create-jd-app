@@ -1,0 +1,13 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "start:server": "cd apps/server && npm start",
+    "start:client": "cd apps/client && npm start"
+  }
+}
