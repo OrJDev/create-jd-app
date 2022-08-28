@@ -146,15 +146,13 @@ export function finished(ctx: ICtx) {
   ctx.installers.includes("Static/Prisma") &&
     console.log(`\t${chalk.yellow(`cd apps/server && npx prisma db push`)}\n`);
 
-  console.log();
-  for (const name of APPS_ARR) {
+  for (const [index, name] of APPS_ARR.entries()) {
     console.log(`\t${chalk.bold(chalk.cyan(`npm run start:${name}`))}`);
-  }
-  console.log(`\n\n     ${chalk.gray("#or")}\n`);
-  for (const name of APPS_ARR) {
+    console.log(`     ${chalk.gray("#or")}`);
     console.log(
       `\t${chalk.bold(chalk.blueBright(`cd apps/${name} && npm start`))}`
     );
+    index !== APPS_ARR.length - 1 && console.log();
   }
   console.log();
   process.exit(0);

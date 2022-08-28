@@ -55,12 +55,12 @@ const useMutation = (client: IClient) => <TPath extends AppMutationsKeys>(
         setData(undefined);
         try {
             const response = await client.mutation(path, ...args as any);
-            await options?.onSuccess?.(response, ...args);
+             options?.onSuccess?.(response, ...args);
             setData(response as any);
             setLoading(false);
             return response;
         } catch (e) {
-            await options?.onError?.(e, ...args);
+             options?.onError?.(e, ...args);
             setError(e);
             setLoading(false);
             throw e;

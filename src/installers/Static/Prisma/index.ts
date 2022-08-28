@@ -42,11 +42,6 @@ const config: IInstaller = (ctx) => ({
       type: "string().url()",
       defaulValue: "file:./db.sqlite",
     },
-    {
-      key: "NODE_ENV",
-      type: 'enum(["development", "test", "production"]).default("development")',
-      ignore: true,
-    },
   ],
   onFinish: async () => {
     await execa("npx prisma generate", {

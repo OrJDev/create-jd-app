@@ -22,12 +22,18 @@ export default async (
     )
   );
 
-  const DEFAULT_ENV: IEnv = {
-    type: "string().transform((port) => parseInt(port) ?? 4000)",
-    key: "PORT",
-    defaulValue: 4000,
-  };
-  env.push([DEFAULT_ENV]);
+  env.push([
+    {
+      type: "string().transform((port) => parseInt(port) ?? 4000)",
+      key: "PORT",
+      defaulValue: 4000,
+    },
+    {
+      key: "NODE_ENV",
+      type: 'enum(["development", "test", "production"]).default("development")',
+      ignore: true,
+    },
+  ]);
 
   if (resp.length) {
     console.log();
