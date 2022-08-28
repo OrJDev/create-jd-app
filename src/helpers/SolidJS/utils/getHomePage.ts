@@ -1,8 +1,7 @@
 import { IUtil } from "~types/Installer";
 
 const getHomePage: IUtil = (installers) => {
-  const useTailwind = installers.includes("SolidJS/TailwindCSS");
-  const usePrisma = installers.includes("Static/Prisma");
+  const useTailwind = installers.includes("TailwindCSS");
   const getInput = (input: string, cond: boolean) => (cond ? input : "");
   const getStyles = (styles: string) =>
     getInput(` class="${styles}"`, useTailwind);
@@ -19,23 +18,19 @@ const App: Component<IHomeProps> = ({ }) => {
         onSuccess: (data, variables) => {
             console.log({ weSuccessSo: { data, variables } });
         }
-    });${getInput(
-      `\n    const [prismaMutate] = trpc.useMutation("example.prisma", {
+    });
+    const [prismaMutate] = trpc.useMutation("example.prisma", {
         onSuccess: (data, variables) => {
             console.log({ prisma: true, weSuccessSo: { data, variables } });
         }
-    })`,
-      usePrisma
-    )}
-
+    });
+    
     onMount(() => {
         (async () => {
             try {
-                const response = await useMutationExample({ number: 1 });${getInput(
-                  `\n                const second = await prismaMutate({ text: "hey" })`,
-                  usePrisma
-                )}
-                console.log({ response${getInput(", second", usePrisma)} })
+                const response = await useMutationExample({ number: 1 });
+                const second = await prismaMutate({ text: "hey" });
+                console.log({ response, second })
             } catch (e) {
                 console.log(e);
             }
