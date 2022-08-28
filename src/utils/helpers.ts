@@ -58,16 +58,16 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
       ) {
         pkgs = [inst];
       }
+    } else {
+      pkgs = (
+        await inquirer.prompt<{ pkgs: string[] }>({
+          name: "pkgs",
+          type: "checkbox",
+          message: "What should we use for this app?",
+          choices: installers,
+        })
+      ).pkgs;
     }
-  } else {
-    pkgs = (
-      await inquirer.prompt<{ pkgs: string[] }>({
-        name: "pkgs",
-        type: "checkbox",
-        message: "What should we use for this app?",
-        choices: installers,
-      })
-    ).pkgs;
   }
   return { ...ctx, installers: pkgs };
 }
