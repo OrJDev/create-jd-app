@@ -4,4 +4,6 @@ export type IAppCtx = {
   appName: string;
 };
 
-export type ICtx = IAppCtx & { installers: string[] };
+export type ICtxWith<T> = IAppCtx & T;
+
+export type ICtx = ICtxWith<{ installers: string[] }>;

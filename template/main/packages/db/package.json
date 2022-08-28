@@ -1,0 +1,20 @@
+{
+    "name": "db",
+    "version": "0.0.0",
+    "private": true,
+    "main": "src/index.ts",
+    "scripts": {
+        "postinstall": "prisma generate"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.2.1",
+        "config": "*"
+    },
+    "devDependencies": {
+        "typescript": "^4.4.4",
+        "prisma": "^4.2.1"
+    },
+    "prisma": {
+        "schema": "./src/prisma/schema.prisma"
+    }
+}

@@ -9,18 +9,18 @@
   "private": true,
   "dependencies": {
     "@trpc/server": "^9.18.0",
+    "api": "*",
+    "config": "*",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "tsc-alias": "^1.7.0",
-    "zod": "^3.11.6",
-    "api": "*",
-    "config": "*"
+    "zod": "^3.11.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "tsconfig-paths": "^4.1.0",
     "tsc-alias": "^1.7.0",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.4.4"
   }
 }

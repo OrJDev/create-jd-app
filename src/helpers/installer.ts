@@ -3,20 +3,15 @@ import { IInstaller, IPkg, IPkgInfo } from "~types/Installer";
 import { execFiles, modifyJSON } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
 import { IEnv } from "~types/Env";
-import { IKeyValue } from "~types/Static";
 import { ICtx } from "~types/Context";
 
-export default async (
-  ctx: ICtx
-): Promise<[IEnv[][], Array<() => Promise<void>>, string[]]> => {
+export default async (ctx: ICtx): Promise<[IEnv[][], string[]]> => {
   let env: IEnv[][] = [];
-  let scripts: IKeyValue = {};
-  const commands: Array<() => Promise<void>> = [];
   let plugins: string[] = [];
 
   const resp = await Promise.all(
     ctx.installers.map((pkg) =>
-      import(`../installers/${pkg}/index`).then(
+      import(`../installers/${ctx.framework}/${pkg}/index`).then(
         (installer: { default: IInstaller }) => installer.default(ctx)
       )
     )
@@ -45,9 +40,6 @@ export default async (
           if (cfg.env) {
             env.push(cfg.env);
           }
-          if (cfg.scripts) {
-            scripts = { ...scripts, ...cfg.scripts };
-          }
           if (cfg.pkgs) {
             let newDeps = await sortToDevAndNormal(cfg.pkgs);
             deps = mergeDeps(deps, newDeps);
@@ -58,24 +50,17 @@ export default async (
           if (cfg.files.length) {
             await execFiles(cfg.files, ctx.installers);
           }
-          if (cfg.onFinish) {
-            commands.push(cfg.onFinish);
-          }
         })
       );
       for (const key in deps)
         await installPkgs(ctx.userDir, key, deps[key as keyof typeof deps]);
-      await modifyJSON(ctx.userDir, (json) => {
-        json.scripts = { ...json.scripts, ...scripts };
-        return json;
-      });
       spinner.succeed(`Initialized ${resp.length} installers`);
     } catch (e) {
       spinner.fail(`Couldn't initialize installers: ${formatError(e)}`);
       process.exit(1);
     }
   }
-  return [env, commands, plugins];
+  return [env, plugins];
 };
 
 type IDeps = { [key: string]: [string[], string[]] };

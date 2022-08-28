@@ -35,30 +35,39 @@ export const validateName = (name: string) => {
     : "This is not a valid name";
 };
 
-const STATIC_DIR = "Static";
-const INSTALLERS_DIR = path.join(__dirname, "../installers");
-
 export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
-  let frameworkInstallers: string[] = [];
-  let staticInstallers: string[] = [];
+  let installers: string[] = [];
   let pkgs: string[] = [];
-  staticInstallers = await fs.readdir(path.join(INSTALLERS_DIR, STATIC_DIR));
   try {
-    frameworkInstallers = await fs.readdir(
-      path.join(INSTALLERS_DIR, ctx.framework)
+    installers = await fs.readdir(
+      path.join(__dirname, "../installers", ctx.framework)
     );
   } catch {}
-  console.log();
-  pkgs = (
-    await inquirer.prompt<{ pkgs: string[] }>({
-      name: "pkgs",
-      type: "checkbox",
-      message: "What should we use for this app?",
-      choices: [...staticInstallers, ...frameworkInstallers],
-    })
-  ).pkgs.map(
-    (pkg) =>
-      `${frameworkInstallers.includes(pkg) ? ctx.framework : STATIC_DIR}/${pkg}`
-  );
+  if (installers.length) {
+    console.log();
+    if (installers.length === 1) {
+      const inst = <string>installers.shift();
+      if (
+        (
+          await inquirer.prompt<{ install: boolean }>({
+            name: "install",
+            type: "confirm",
+            message: `Do you want to use ${inst}?`,
+          })
+        ).install
+      ) {
+        pkgs = [inst];
+      }
+    }
+  } else {
+    pkgs = (
+      await inquirer.prompt<{ pkgs: string[] }>({
+        name: "pkgs",
+        type: "checkbox",
+        message: "What should we use for this app?",
+        choices: installers,
+      })
+    ).pkgs;
+  }
   return { ...ctx, installers: pkgs };
 }

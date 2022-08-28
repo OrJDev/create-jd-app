@@ -13,4 +13,10 @@ export default createRouter()
     resolve({ input }) {
       return input.number / 2 + 1;
     },
+  })
+  .mutation("prisma", {
+    input: z.object({ text: z.string() }),
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.example.create({ data: input });
+    },
   });

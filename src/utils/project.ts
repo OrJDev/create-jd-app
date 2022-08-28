@@ -124,7 +124,13 @@ export async function modifyEnv(userDir: string, env: IEnv[][]) {
   }
 }
 
-export async function runCommands(commands: Array<() => Promise<void>>) {
+export async function runCommands(ctx: IAppCtx) {
+  let commands = [
+    async () =>
+      await execa("npx prisma generate", {
+        cwd: `${ctx.userDir}/packages/db`,
+      }),
+  ];
   const len = commands.length;
   if (len) {
     const end = len > 1 ? "s" : "";
@@ -139,20 +145,11 @@ export async function runCommands(commands: Array<() => Promise<void>>) {
   }
 }
 
-const APPS_ARR = ["client", "server"];
-
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  ctx.installers.includes("Static/Prisma") &&
-    console.log(`\t${chalk.yellow(`cd apps/server && npx prisma db push`)}\n`);
-
-  for (const [index, name] of APPS_ARR.entries()) {
-    console.log(`\t${chalk.bold(chalk.cyan(`npm run start:${name}`))}`);
-    console.log(`     ${chalk.gray("#or")}`);
-    console.log(
-      `\t${chalk.bold(chalk.blueBright(`cd apps/${name} && npm start`))}`
-    );
-    index !== APPS_ARR.length - 1 && console.log();
+  console.log();
+  for (const app of ["client", "server"]) {
+    console.log(`\t${chalk.bold(chalk.blue(`npm run start:${app}`))}`);
   }
   console.log();
   process.exit(0);

@@ -4,7 +4,9 @@
     "private": true,
     "main": "src/index.ts",
     "dependencies": {
-        "config": "*"
+        "@trpc/server": "^9.18.0",
+        "config": "*",
+        "db": "*"
     },
     "devDependencies": {
         "typescript": "^4.4.4"

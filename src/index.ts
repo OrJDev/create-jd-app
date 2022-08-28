@@ -9,10 +9,10 @@ async function main() {
   await project.copyTemplate(appCtx);
   const ctx = await getCtxWithInstallers(appCtx);
   await project.installDeps(ctx.userDir);
-  const [env, commands, plugins] = await runInstallers(ctx);
+  const [env, plugins] = await runInstallers(ctx);
   await project.modifyProject(ctx, plugins);
   await project.modifyEnv(appCtx.userDir, env);
-  await project.runCommands(commands);
+  await project.runCommands(appCtx);
   project.finished(ctx);
 }
 
