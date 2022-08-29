@@ -93,7 +93,7 @@ export async function installDeps(userDir: string) {
     await execa(`npm install`, { cwd: userDir });
     spinner.succeed(`Installed template dependencies`);
   } catch (e) {
-    spinner.fail(`Couldn't Install template dependencies: ${formatError(e)}`);
+    spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
   }
 }
 export async function modifyProject(ctx: ICtx, plugins: string[]) {
@@ -115,7 +115,7 @@ export async function modifyEnv(userDir: string, env: IEnv[][]) {
     console.log();
     const spinner = ora("Updating environment variables").start();
     try {
-      await updateEnv(`${userDir}/apps/server`, envVariables);
+      await updateEnv(`${userDir}/packages/env`, envVariables);
       spinner.succeed("Updated environment variables");
     } catch (e) {
       spinner.fail(`Couldn't update environment variables: ${formatError(e)}`);
@@ -148,8 +148,12 @@ export async function runCommands(ctx: IAppCtx) {
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   console.log();
-  for (const app of ["client", "server"]) {
-    console.log(`\t${chalk.bold(chalk.blue(`npm run start:${app}`))}`);
+  for (const [idx, app] of ["client", "server"].entries()) {
+    console.log(
+      `\t${chalk.bold(
+        chalk[idx === 0 ? "blue" : "yellow"](`npm run start:${app}`)
+      )}`
+    );
   }
   console.log();
   process.exit(0);

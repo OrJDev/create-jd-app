@@ -13,6 +13,7 @@ npm create jd-app@latest
 ### Server
 
 - TRPC
+- Zod
 - Prisma
 - Express
 - TypeScript
@@ -25,4 +26,4 @@ npm create jd-app@latest
 - Solid Router / React Native Navigation
 - SolidJS / Expo React Native
 
-![Preview](https://i.ibb.co/Sr4ctx2/Screenshot-1.png)
+![Preview](https://i.ibb.co/52VPqxn/Screenshot-2.png)

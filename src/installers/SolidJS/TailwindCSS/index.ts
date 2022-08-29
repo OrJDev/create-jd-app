@@ -14,6 +14,10 @@ const config: IInstaller = (ctx) => ({
       path: `${__dirname}/files/tailwind.config.txt`,
       to: `${ctx.userDir}/apps/client/tailwind.config.cjs`,
     },
+    {
+      path: `${__dirname}/files/home.txt`,
+      to: `${ctx.userDir}/apps/client/src/pages/Home/Home.tsx`,
+    },
   ],
   pkgs: {
     tailwindcss: { devMode: true, type: "apps/client" },

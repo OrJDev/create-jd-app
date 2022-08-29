@@ -8,7 +8,7 @@ export type IResolveEnvResp = {
 };
 
 export async function updateEnv(userDir: string, env: IResolveEnvResp) {
-  let schema = path.join(userDir, "src", "env", "schema.ts");
+  let schema = path.join(userDir, "src", "schema.ts");
   await fs.writeFile(
     schema,
     `import { z } from "zod";

@@ -6,7 +6,8 @@
     "dependencies": {
         "@trpc/server": "^9.18.0",
         "config": "*",
-        "db": "*"
+        "db": "*",
+        "env":"*"
     },
     "devDependencies": {
         "typescript": "^4.4.4"

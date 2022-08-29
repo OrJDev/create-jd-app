@@ -11,6 +11,7 @@
     "typescript": "^4.7.4",
     "vite": "^3.0.0",
     "vite-plugin-solid": "^2.3.0",
+    "vite-tsconfig-paths": "^3.5.0",
     "api":"*"
   },
   "dependencies": {

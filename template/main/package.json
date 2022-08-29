@@ -7,7 +7,7 @@
     "apps/*"
   ],
   "scripts": {
-    "start:server": "cd apps/server && npm start",
-    "start:client": "cd apps/client && npm start"
+    "start:server": "npm start -w apps/server",
+    "start:client": "npm start -w apps/client"
   }
 }

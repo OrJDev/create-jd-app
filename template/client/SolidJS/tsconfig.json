@@ -2,6 +2,10 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,

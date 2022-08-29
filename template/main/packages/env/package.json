@@ -1,0 +1,13 @@
+{
+    "name": "env",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./src/index.ts",
+    "dependencies": {
+        "dotenv": "^16.0.1",
+        "zod": "^3.11.6"
+    },
+    "devDependencies": {
+        "typescript": "^4.4.4"
+    }
+}

@@ -11,10 +11,10 @@
     "@trpc/server": "^9.18.0",
     "api": "*",
     "config": "*",
+    "env": "*",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "tsc-alias": "^1.7.0",
-    "zod": "^3.11.6"
+    "tsc-alias": "^1.7.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

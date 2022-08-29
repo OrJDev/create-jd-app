@@ -1,4 +1,6 @@
+import "./init";
 import schema from "./schema";
+
 const _serverEnv = schema.safeParse(process.env);
 
 if (!_serverEnv.success) {

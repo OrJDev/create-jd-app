@@ -1,6 +1,6 @@
 import { createRouter } from "../utils";
-import Example from "./example";
+import exampleRouter from "./example";
 
-export const appRouter = createRouter().merge("example.", Example);
+export const appRouter = createRouter().merge("example.", exampleRouter);
 
 export type IAppRouter = typeof appRouter;
