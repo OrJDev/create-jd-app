@@ -1,4 +1,4 @@
-import { createMemo, createResource, createSignal } from "solid-js";
+import { createResource, createSignal } from "solid-js";
 import type { IAppRouter } from "api";
 import { createTRPCClient } from "@trpc/client";
 import { inferHandlerInput, inferProcedureOutput } from "@trpc/server";
@@ -45,23 +45,21 @@ export const trpc = {
       data: InferMutationOutput<TPath> | undefined;
     }>(DEFAULT_STATE);
 
-    const mutateAsync = createMemo(() => {
-      return async (
-        ...args: inferHandlerInput<AppMutations[TPath]>
-      ): Promise<InferMutationOutput<TPath>> => {
-        setCurrentState(DEFAULT_STATE);
-        try {
-          const response = await client.mutation(path, ...(args as any));
-          options?.onSuccess?.(response, ...args);
-          setCurrentState({ loading: false, error: null, data: response });
-          return response;
-        } catch (error) {
-          options?.onError?.(error, ...args);
-          setCurrentState({ loading: false, error: error, data: undefined });
-          throw error;
-        }
-      };
-    });
-    return [mutateAsync(), currentState] as const;
+    const mutateAsync = async (
+      ...args: inferHandlerInput<AppMutations[TPath]>
+    ): Promise<InferMutationOutput<TPath>> => {
+      setCurrentState(DEFAULT_STATE);
+      try {
+        const response = await client.mutation(path, ...(args as any));
+        options?.onSuccess?.(response, ...args);
+        setCurrentState({ loading: false, error: null, data: response });
+        return response;
+      } catch (error) {
+        options?.onError?.(error, ...args);
+        setCurrentState({ loading: false, error: error, data: undefined });
+        throw error;
+      }
+    };
+    return [mutateAsync, currentState] as const;
   },
 };
