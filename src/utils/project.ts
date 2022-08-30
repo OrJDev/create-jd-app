@@ -53,33 +53,18 @@ export async function initApp(): Promise<IAppCtx> {
 export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   try {
-    const APPS_DIR = path.join(appContext.userDir, "apps");
     await fs.copy(
       path.join(__dirname, "../..", "template", "main"),
       appContext.userDir
     );
     await fs.copy(
       path.join(__dirname, "../..", "template", "client", appContext.framework),
-      path.join(APPS_DIR, "client")
+      path.join(appContext.userDir, "apps", "client")
     );
-    await Promise.all([
-      fs.rename(
-        path.join(APPS_DIR, "server", "_gitignore"),
-        path.join(APPS_DIR, "server", ".gitignore")
-      ),
-      fs.rename(
-        path.join(APPS_DIR, "client", "_gitignore"),
-        path.join(APPS_DIR, "client", ".gitignore")
-      ),
-      fs.rename(
-        path.join(appContext.userDir, "_gitignore"),
-        path.join(appContext.userDir, ".gitignore")
-      ),
-      modifyJSON(appContext.userDir, (json) => {
-        json.name = appContext.appName;
-        return json;
-      }),
-    ]);
+    await modifyJSON(appContext.userDir, (json) => {
+      json.name = appContext.appName;
+      return json;
+    });
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);

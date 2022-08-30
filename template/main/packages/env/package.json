@@ -5,7 +5,8 @@
     "main": "./src/index.ts",
     "dependencies": {
         "dotenv": "^16.0.1",
-        "zod": "^3.11.6"
+        "zod": "^3.11.6",
+        "config": "*"
     },
     "devDependencies": {
         "typescript": "^4.4.4"

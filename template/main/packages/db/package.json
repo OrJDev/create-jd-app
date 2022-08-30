@@ -4,7 +4,8 @@
     "private": true,
     "main": "src/index.ts",
     "scripts": {
-        "postinstall": "prisma generate"
+        "postinstall": "prisma generate",
+        "push": "prisma db push"
     },
     "dependencies": {
         "@prisma/client": "^4.2.1",
