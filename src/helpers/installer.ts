@@ -1,14 +1,46 @@
 import ora from "ora";
 import { IInstaller, IPkg, IPkgInfo } from "~types/Installer";
-import { execFiles, modifyJSON } from "~utils/files";
+import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
 import { IEnv } from "~types/Env";
 import { ICtx } from "~types/Context";
+import { updateNode } from "./node";
+import path from "path";
 
-export default async (ctx: ICtx): Promise<[IEnv[][], string[]]> => {
+export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
   let env: IEnv[][] = [];
   let plugins: string[] = [];
-
+  let deps: IDeps = {};
+  if (ctx.initServer) {
+    const defaultPkg: IPkg = {
+      "@trpc/client": {
+        customVersion: "9.27.1",
+        type: "client",
+      },
+      api: {
+        customVersion: "*", // workspace
+        type: "client",
+      },
+      "@trpc/server": {
+        customVersion: "9.27.1",
+        type: "client",
+      },
+    };
+    const expoPkg: IPkg = {
+      "@trpc/react": {
+        customVersion: "9.27.1",
+        type: "client",
+      },
+      "react-query": {
+        customVersion: "3.37.0",
+        type: "client",
+      },
+    };
+    await updateNode(path.join(ctx.userDir, ctx.clientDir), {
+      ...defaultPkg,
+      ...(ctx.framework === "Expo" ? expoPkg : {}),
+    });
+  }
   const resp = await Promise.all(
     ctx.installers.map((pkg) =>
       import(`../installers/${ctx.framework}/${pkg}/index`).then(
@@ -16,28 +48,28 @@ export default async (ctx: ICtx): Promise<[IEnv[][], string[]]> => {
       )
     )
   );
-
-  env.push([
-    {
-      type: "string().transform((port) => parseInt(port) ?? 4000)",
-      key: "PORT",
-      defaulValue: 4000,
-    },
-    {
-      key: "NODE_ENV",
-      type: 'enum(["development", "test", "production"]).default("development")',
-      ignore: true,
-    },
-  ]);
+  if (ctx.initServer) {
+    env.push([
+      {
+        type: "string().transform((port) => parseInt(port) ?? 4000)",
+        key: "PORT",
+        defaulValue: 4000,
+      },
+      {
+        key: "NODE_ENV",
+        type: 'enum(["development", "test", "production"]).default("development")',
+        ignore: true,
+      },
+    ]);
+  }
 
   if (resp.length) {
     console.log();
     const spinner = ora("Initializing installers").start();
     try {
-      let deps: IDeps = {};
       await Promise.all(
         resp.map(async (cfg) => {
-          if (cfg.env) {
+          if (cfg.env && ctx.initServer) {
             env.push(cfg.env);
           }
           if (cfg.pkgs) {
@@ -48,55 +80,58 @@ export default async (ctx: ICtx): Promise<[IEnv[][], string[]]> => {
             plugins = [...plugins, ...cfg.plugins];
           }
           if (cfg.files.length) {
-            await execFiles(cfg.files, ctx.installers);
+            await execFiles(cfg.files, ctx);
           }
         })
       );
-      for (const key in deps)
-        await installPkgs(ctx.userDir, key, deps[key as keyof typeof deps]);
       spinner.succeed(`Initialized ${resp.length} installers`);
     } catch (e) {
       spinner.fail(`Couldn't initialize installers: ${formatError(e)}`);
       process.exit(1);
     }
   }
-  return [env, plugins];
+  return [env, plugins, deps];
 };
 
-type IDeps = { [key: string]: [string[], string[]] };
+export type IDeps = { [key: string]: [string[], string[]] };
 const sortToDevAndNormal = (pkgs: IPkg): Promise<IDeps> =>
   new Promise((resolve) => {
     const data = Object.entries(pkgs).reduce((current, [name, value]) => {
       let newName = value.customVersion
         ? `${name}@${value.customVersion}`
         : name;
-      const [normal, devs] = Object.hasOwnProperty.call(current, value.type)
-        ? current[value.type as keyof typeof current]
+      const type = value.type === "" ? "_" : value.type;
+      const [normal, devs] = Object.hasOwnProperty.call(current, type)
+        ? current[type as keyof typeof current]
         : [[], []];
+      if (value.devMode) {
+        devs.push(newName);
+      } else {
+        normal.push(newName);
+      }
       return {
         ...current,
-        [value.type]: (value.devMode
-          ? [normal, [...devs, newName]]
-          : [[...normal, newName], devs]) as [string[], string[]],
+        [type]: [normal, devs] as [string[], string[]],
       };
     }, {} as IDeps);
     return resolve(data);
   });
 
-const installPkgs = async (
+export const installPkgs = async (
   userDir: string,
   type: IPkgInfo["type"],
-  deps: IDeps["client"]
+  deps: IDeps[keyof IDeps]
 ) => {
   const [normal, devs] = deps;
+  const newType = type === "_" ? "" : type;
   if (normal.length) {
     await execa(`npm install ${normal.join(" ")}`, {
-      cwd: `${userDir}/${type}`,
+      cwd: `${userDir}${newType}`,
     });
   }
   if (devs.length) {
-    await execa(`npm install ${devs.join(" ")}`, {
-      cwd: `${userDir}/${type}`,
+    await execa(`npm install ${devs.join(" ")} -D`, {
+      cwd: `${userDir}${newType}`,
     });
   }
 };

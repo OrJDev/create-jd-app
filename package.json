@@ -1,6 +1,6 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register src",
@@ -26,6 +26,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^9.0.0",
     "@types/node": "^18.6.4",
+    "@types/ora": "^3.2.0",
     "tsc-alias": "^1.7.0",
     "tsconfig-paths": "^4.1.0"
   },
@@ -40,7 +41,8 @@
     "jdev",
     "trpc",
     "typescript",
-    "tailwind"
+    "tailwind",
+    "solidjs"
   ],
   "author": "OrJDev",
   "bugs": {

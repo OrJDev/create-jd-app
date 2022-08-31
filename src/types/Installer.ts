@@ -19,4 +19,4 @@ export type IFile = {
 
 export type IHelper = (ctx: ICtx, plugins: string[]) => IPromiseOrType<void>;
 
-export type IUtil = (installers: string[]) => string;
+export type IUtil = (ctx: ICtx) => string;

@@ -44,7 +44,6 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
     );
   } catch {}
   if (installers.length) {
-    console.log();
     if (installers.length === 1) {
       const inst = <string>installers.shift();
       if (
@@ -69,5 +68,8 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
       ).pkgs;
     }
   }
-  return { ...ctx, installers: pkgs };
+  return {
+    ...ctx,
+    installers: pkgs,
+  };
 }

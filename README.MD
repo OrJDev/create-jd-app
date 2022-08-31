@@ -10,7 +10,7 @@ npm create jd-app@latest
 
 ## Features
 
-### Server
+### Server (Optional)
 
 - TRPC
 - Zod
@@ -26,4 +26,5 @@ npm create jd-app@latest
 - Solid Router / React Native Navigation
 - SolidJS / Expo React Native
 
-![Preview](https://i.ibb.co/52VPqxn/Screenshot-2.png)
+![Preview](https://i.ibb.co/gTgXQNz/Screenshot-1.png)
+![Preview With Server](https://i.ibb.co/7kwwPrn/Screenshot-1.png)
