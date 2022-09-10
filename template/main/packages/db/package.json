@@ -5,7 +5,8 @@
     "main": "src/index.ts",
     "scripts": {
         "postinstall": "prisma generate",
-        "push": "prisma db push"
+        "push": "prisma db push",
+        "generate":"prisma generate"
     },
     "dependencies": {
         "@prisma/client": "^4.2.1",

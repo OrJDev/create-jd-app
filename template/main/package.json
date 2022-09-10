@@ -9,6 +9,7 @@
   "scripts": {
     "start:server": "npm start -w apps/server",
     "start:client": "npm start -w apps/client",
-    "push": "npm run push -w packages/db"
+    "push": "npm run push -w packages/db",
+    "generate": "npm run generate -w packages/db"
   }
 }

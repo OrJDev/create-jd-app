@@ -77,11 +77,16 @@ export async function copyTemplate(appContext: IAppCtx) {
       path.join(templateDir, "client", appContext.framework),
       path.join(appContext.userDir, appContext.clientDir)
     );
-    await modifyJSON(appContext.userDir, (json) => {
-      json.name = appContext.appName;
-      return json;
-    });
-
+    await Promise.all([
+      fs.rename(
+        path.join(appContext.userDir, "_gitignore"),
+        path.join(appContext.userDir, ".gitignore")
+      ),
+      modifyJSON(appContext.userDir, (json) => {
+        json.name = appContext.appName;
+        return json;
+      }),
+    ]);
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);
