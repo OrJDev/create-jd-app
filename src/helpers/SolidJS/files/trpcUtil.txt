@@ -46,7 +46,7 @@ export const trpc = {
     const mutateAsync = async (
       ...args: inferHandlerInput<AppMutations[TPath]>
     ): Promise<InferMutationOutput<TPath>> => {
-      setCurrentState({ loading: false, error: null, data: undefined });
+      setCurrentState({ loading: true, error: null, data: undefined });
       try {
         const response = await client.mutation(path, ...(args as any));
         options?.onSuccess?.(response, ...args);
