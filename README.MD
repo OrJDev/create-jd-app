@@ -26,5 +26,4 @@ npm create jd-app@latest
 - Solid Router / React Native Navigation
 - SolidJS / Expo React Native
 
-![Preview](https://i.ibb.co/gTgXQNz/Screenshot-1.png)
-![Preview With Server](https://i.ibb.co/7kwwPrn/Screenshot-1.png)
+![Preview With Server](https://i.ibb.co/t8jkGDK/Screenshot-1.png)
