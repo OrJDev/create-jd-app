@@ -14,7 +14,6 @@
     "@trpc/server": "^9.27.2",
     "api": "*",
     "db": "*",
-    "cors": "^2.8.5",
     "next": "12.2.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -22,7 +21,6 @@
     "zod": "^3.19.0"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.12",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
