@@ -15,7 +15,7 @@ npm create jd-app@latest
 - TRPC
 - Zod
 - Prisma
-- Express
+- NextJS
 - TypeScript
 
 ### Client

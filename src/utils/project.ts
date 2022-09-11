@@ -1,15 +1,16 @@
 import path from "path";
 import fs from "fs-extra";
 import ora from "ora";
-import { existsOrCreate, overWriteFile, modifyJSON } from "./files";
+import { existsOrCreate, overWriteFile } from "./files";
 import { execa, formatError, validateName } from "./helpers";
 import { updateEnv, resolveEnv, IResolveEnvResp } from "~helpers/env";
-import { IEnv } from "~types/Env";
 import { INullAble } from "~types/Static";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { IAppCtx, ICtx } from "~types/Context";
 import { IDeps, installPkgs } from "~helpers/installer";
+import { modifyJSON } from "~helpers/node";
+import { IEnv } from "~types/Config";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -72,21 +73,19 @@ export async function copyTemplate(appContext: IAppCtx) {
   try {
     if (appContext.initServer) {
       await fs.copy(path.join(templateDir, "main"), appContext.userDir);
+      await fs.rename(
+        path.join(appContext.userDir, "_gitignore"),
+        path.join(appContext.userDir, ".gitignore")
+      );
     }
     await fs.copy(
       path.join(templateDir, "client", appContext.framework),
       path.join(appContext.userDir, appContext.clientDir)
     );
-    await Promise.all([
-      fs.rename(
-        path.join(appContext.userDir, "_gitignore"),
-        path.join(appContext.userDir, ".gitignore")
-      ),
-      modifyJSON(appContext.userDir, (json) => {
-        json.name = appContext.appName;
-        return json;
-      }),
-    ]);
+    await modifyJSON(appContext.userDir, (json) => {
+      json.name = appContext.appName;
+      return json;
+    });
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);
@@ -94,15 +93,13 @@ export async function copyTemplate(appContext: IAppCtx) {
   }
 }
 export async function modifyProject(ctx: ICtx, plugins: string[]) {
-  if (ctx.installers.length) {
-    const spinner = ora("Modifying project").start();
-    try {
-      await (await import(`../helpers/${ctx.framework}`)).default(ctx, plugins);
-      spinner.succeed("Modified project");
-    } catch (e) {
-      spinner.fail(`Couldn't modify project: ${formatError(e)}`);
-      process.exit(1);
-    }
+  const spinner = ora("Modifying project").start();
+  try {
+    await (await import(`../helpers/${ctx.framework}`)).default(ctx, plugins);
+    spinner.succeed("Modified project");
+  } catch (e) {
+    spinner.fail(`Couldn't modify project: ${formatError(e)}`);
+    process.exit(1);
   }
 }
 
@@ -141,7 +138,7 @@ export async function modifyEnv(userDir: string, env: IEnv[][]) {
     console.log();
     const spinner = ora("Updating environment variables").start();
     try {
-      await updateEnv(`${userDir}/packages/env`, envVariables);
+      await updateEnv(userDir, envVariables);
       spinner.succeed("Updated environment variables");
     } catch (e) {
       spinner.fail(`Couldn't update environment variables: ${formatError(e)}`);
@@ -173,16 +170,7 @@ export async function runCommands(ctx: IAppCtx) {
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  if (ctx.initServer) {
-    console.log();
-    for (const [idx, app] of ["client", "server"].entries()) {
-      console.log(
-        `\t${chalk.bold(
-          chalk[idx === 0 ? "blue" : "yellow"](`npm run start:${app}`)
-        )}`
-      );
-    }
-  } else console.log(`\t${chalk.bold(chalk.blue(`npm start`))}`);
+  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
   console.log();
   process.exit(0);
 }

@@ -2,43 +2,20 @@ import ora from "ora";
 import { IInstaller, IPkg, IPkgInfo } from "~types/Installer";
 import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
-import { IEnv } from "~types/Env";
 import { ICtx } from "~types/Context";
 import { updateNode } from "./node";
 import path from "path";
+import { defaultEnv, trpcDefaultPkg, trpcExpoPkg } from "~constants";
+import { IEnv } from "~types/Config";
 
 export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
   let env: IEnv[][] = [];
   let plugins: string[] = [];
   let deps: IDeps = {};
   if (ctx.initServer) {
-    const defaultPkg: IPkg = {
-      "@trpc/client": {
-        customVersion: "9.27.1",
-        type: "client",
-      },
-      api: {
-        customVersion: "*", // workspace
-        type: "client",
-      },
-      "@trpc/server": {
-        customVersion: "9.27.1",
-        type: "client",
-      },
-    };
-    const expoPkg: IPkg = {
-      "@trpc/react": {
-        customVersion: "9.27.1",
-        type: "client",
-      },
-      "react-query": {
-        customVersion: "3.37.0",
-        type: "client",
-      },
-    };
     await updateNode(path.join(ctx.userDir, ctx.clientDir), {
-      ...defaultPkg,
-      ...(ctx.framework === "Expo" ? expoPkg : {}),
+      ...trpcDefaultPkg,
+      ...(ctx.framework === "Expo" ? trpcExpoPkg : {}),
     });
   }
   const resp = await Promise.all(
@@ -49,18 +26,7 @@ export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
     )
   );
   if (ctx.initServer) {
-    env.push([
-      {
-        type: "string().transform((port) => parseInt(port) ?? 4000)",
-        key: "PORT",
-        defaulValue: 4000,
-      },
-      {
-        key: "NODE_ENV",
-        type: 'enum(["development", "test", "production"]).default("development")',
-        ignore: true,
-      },
-    ]);
+    env.push(defaultEnv);
   }
 
   if (resp.length) {

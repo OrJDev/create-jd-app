@@ -1,4 +1,3 @@
-import { IEnv } from "./Env";
 import { IPkg, IFile } from "./Installer";
 
 export type IConfig = {
@@ -6,4 +5,11 @@ export type IConfig = {
   pkgs?: IPkg;
   env?: IEnv[];
   plugins?: string[];
+};
+
+export type IEnv = {
+  type: string;
+  key: string;
+  defaulValue?: any;
+  ignore?: boolean;
 };

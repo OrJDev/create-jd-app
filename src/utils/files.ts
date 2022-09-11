@@ -18,6 +18,8 @@ export async function execFiles(files: IFile[], ctx: ICtx) {
           await fs.outputFile(file.to, method.default(ctx));
         } else if (file.type === "delete") {
           await fs.remove(file.to);
+        } else if (file.type === "write") {
+          await fs.outputFile(file.to, file.content);
         }
       } else {
         if (!file.path) {
@@ -47,19 +49,4 @@ export async function overWriteFile(userDir: string) {
   } catch (e) {
     spinner.fail(`Couldn't empty directory: ${formatError(e)}`);
   }
-}
-
-export async function modifyJSON(
-  userDir: string,
-  cb: (json: any) => Promise<any>
-) {
-  const json = JSON.parse(
-    await fs.readFile(path.join(userDir, "package.json"), "utf8")
-  );
-  const newJson = await cb({ ...json });
-  await fs.writeFile(
-    path.join(userDir, "package.json"),
-    JSON.stringify(newJson, null, 2)
-  );
-  return newJson;
 }

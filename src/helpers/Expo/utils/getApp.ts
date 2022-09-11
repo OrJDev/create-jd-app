@@ -37,7 +37,7 @@ const getConstants = (initServer: boolean) => {
     ? `  const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
-      url: \`http://\${Constants.manifest?.debuggerHost?.split(':').shift()}:4000/trpc\`,
+      url: \`http://\${Constants.manifest?.debuggerHost?.split(':').shift()}:3001/api/trpc\`,
     }),
   );`
     : "";

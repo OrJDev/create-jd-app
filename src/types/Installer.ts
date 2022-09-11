@@ -13,7 +13,8 @@ export type IPkg = IKeyValue<IPkgInfo>;
 
 export type IFile = {
   to: string;
-  type?: "copy" | "exec" | "delete";
+  content?: string;
+  type?: "copy" | "exec" | "delete" | "write";
   path?: string;
 };
 

@@ -1,15 +1,15 @@
 {
-    "name": "api",
-    "version": "0.0.0",
-    "private": true,
-    "main": "src/index.ts",
-    "dependencies": {
-        "@trpc/server": "^9.18.0",
-        "config": "*",
-        "db": "*",
-        "env":"*"
-    },
-    "devDependencies": {
-        "typescript": "^4.4.4"
-    }
+  "name": "api",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@trpc/client": "^9.27.2",
+    "@trpc/server": "^9.27.2",
+    "db": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
 }

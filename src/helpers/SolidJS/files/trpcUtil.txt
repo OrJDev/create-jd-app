@@ -9,10 +9,8 @@ type AppMutations = IAppRouter["_def"]["mutations"];
 type AppQueryKeys = keyof AppQueries & string;
 type AppMutationsKeys = keyof AppMutations & string;
 
-const DEFAULT_STATE = { loading: false, error: null, data: undefined };
-
 export const client = createTRPCClient<IAppRouter>({
-  url: "http://localhost:4000/trpc",
+  url: "http://localhost:3000/api/trpc",
 });
 
 export type InferMutationOutput<TRouteKey extends AppMutationsKeys> =
@@ -43,12 +41,12 @@ export const trpc = {
       loading: boolean;
       error: any;
       data: InferMutationOutput<TPath> | undefined;
-    }>(DEFAULT_STATE);
+    }>({ loading: false, error: null, data: undefined });
 
     const mutateAsync = async (
       ...args: inferHandlerInput<AppMutations[TPath]>
     ): Promise<InferMutationOutput<TPath>> => {
-      setCurrentState(DEFAULT_STATE);
+      setCurrentState({ loading: false, error: null, data: undefined });
       try {
         const response = await client.mutation(path, ...(args as any));
         options?.onSuccess?.(response, ...args);

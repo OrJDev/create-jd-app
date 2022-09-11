@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [solidPlugin(), tsconfigPaths()],
   server: {
-    port: 3000,
+    port: 3001,
   },
   build: {
     target: "esnext",

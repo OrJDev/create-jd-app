@@ -22,6 +22,26 @@ const helperFunc: IHelper = async (ctx, plugins) => {
       to: `${ctx.userDir}${ctx.clientDir}/src/App.tsx`,
       type: "exec",
     });
+  } else {
+    files.push({
+      to: `${ctx.userDir}/.gitignore`,
+      type: "write",
+      content: `node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store
+`,
+    });
   }
   await execFiles(files, ctx);
   if (!ctx.installers.length) return;

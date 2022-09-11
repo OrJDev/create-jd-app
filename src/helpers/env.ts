@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs-extra";
-import { IEnv } from "~types/Env";
+import { IEnv } from "~types/Config";
 
 export type IResolveEnvResp = {
   newSchema: string;
@@ -8,14 +8,15 @@ export type IResolveEnvResp = {
 };
 
 export async function updateEnv(userDir: string, env: IResolveEnvResp) {
-  let schema = path.join(userDir, "src", "schema.ts");
+  let schema = path.join(userDir, "apps/server/src", "env", "schema.mjs");
   await fs.writeFile(
     schema,
-    `import { z } from "zod";
-
-export default z.object({\n${env.newSchema}
-});
-`
+    `// @ts-check
+    import { z } from "zod";
+    
+    export default z.object({\n${env.newSchema}
+    });
+    `
   );
   await fs.appendFile(path.join(userDir, ".env"), env.newEnv);
 }

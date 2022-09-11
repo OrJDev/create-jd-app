@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
@@ -14,6 +14,10 @@
     "vite-tsconfig-paths": "^3.5.0"
   },
   "dependencies": {
+    "@solidjs/router": "^0.4.3",
+    "@trpc/client": "9.27.1",
+    "@trpc/server": "9.27.1",
+    "api": "*",
     "solid-js": "^1.4.7"
   }
 }

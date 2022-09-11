@@ -1,10 +1,5 @@
-import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { appRouter, type IAppRouter } from "./router";
-import { createContext } from "./context";
+import { appRouter } from "./router";
+import { createContext } from "./utils";
 
-export const expressMW = createExpressMiddleware({
-  router: appRouter,
-  createContext,
-});
-
-export { type IAppRouter };
+export type IAppRouter = typeof appRouter;
+export { createContext, appRouter };
