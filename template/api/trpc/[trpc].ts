@@ -5,10 +5,8 @@ import { inferAsyncReturnType } from "@trpc/server";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
-const createContext = (opts: trpcNext.CreateNextContextOptions) => ({
-  ...opts,
-  prisma,
-});
+
+const createContext = (opts: trpcNext.CreateNextContextOptions) => opts;
 const createRouter = () =>
   trpc.router<inferAsyncReturnType<typeof createContext>>();
 

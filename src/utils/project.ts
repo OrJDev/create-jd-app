@@ -93,9 +93,21 @@ export async function modifyProject(ctx: ICtx, scripts: IKeyValue<string>) {
   const spinner = ora("Modifying project").start();
   try {
     await SolidHelper(ctx);
-    if (Object.keys(scripts).length) {
+    if (ctx.initServer) {
+      await fs.writeFile(
+        path.join(ctx.userDir, ".env"),
+        `DATABASE_URL=file:./db.sqlite`
+      );
+    }
+    const len = Object.keys(scripts).length;
+    if (len || ctx.initServer) {
       await modifyJSON(ctx.userDir, (json) => {
-        json.scripts = { ...json.scripts, ...scripts };
+        if (len) {
+          json.scripts = { ...json.scripts, ...scripts };
+        }
+        if (ctx.initServer) {
+          json.prisna = { scheme: "../prisma/schema.prisma" };
+        }
         return json;
       });
     }
