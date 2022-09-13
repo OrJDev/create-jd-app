@@ -7,7 +7,6 @@ export type IInstaller = (ctx: ICtx) => IPromiseOrType<IConfig>;
 export type IPkgInfo = {
   customVersion?: string;
   devMode?: boolean;
-  type: string;
 };
 export type IPkg = IKeyValue<IPkgInfo>;
 
@@ -17,7 +16,5 @@ export type IFile = {
   type?: "copy" | "exec" | "delete" | "write";
   path?: string;
 };
-
-export type IHelper = (ctx: ICtx, plugins: string[]) => IPromiseOrType<void>;
 
 export type IUtil = (ctx: ICtx) => string;

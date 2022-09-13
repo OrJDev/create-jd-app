@@ -39,9 +39,7 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: string[] = [];
   try {
-    installers = await fs.readdir(
-      path.join(__dirname, "../installers", ctx.framework)
-    );
+    installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
     if (installers.length === 1) {
@@ -72,4 +70,19 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
     ...ctx,
     installers: pkgs,
   };
+}
+
+export async function modifyJSON(
+  userDir: string,
+  cb: (json: any) => Promise<any>
+) {
+  const json = JSON.parse(
+    await fs.readFile(path.join(userDir, "package.json"), "utf8")
+  );
+  const newJson = await cb({ ...json });
+  await fs.writeFile(
+    path.join(userDir, "package.json"),
+    JSON.stringify(newJson, null, 2)
+  );
+  return newJson;
 }

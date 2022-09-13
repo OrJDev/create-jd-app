@@ -1,0 +1,22 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "vdev": "vercel dev --local-config ./vercel-dev.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.7.4",
+    "vite": "^3.0.0",
+    "vite-plugin-solid": "^2.3.0",
+    "vite-tsconfig-paths": "^3.5.0"
+  },
+  "dependencies": {
+    "@solidjs/router": "^0.4.3",
+    "solid-js": "^1.4.7",
+    "zod": "^3.11.6"
+  }
+}

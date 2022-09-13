@@ -8,12 +8,11 @@ async function main() {
   const appCtx = await project.initApp();
   await project.copyTemplate(appCtx);
   const ctx = await getCtxWithInstallers(appCtx);
-  const [env, plugins, deps] = await runInstallers(ctx);
-  await project.modifyProject(ctx, plugins);
-  await project.installDeps(ctx.userDir, ctx.installers.length);
+  const [scripts, deps] = await runInstallers(ctx);
+  await project.modifyProject(ctx, scripts);
+  await project.installDeps(ctx.userDir);
   await project.installAddonsDependencies(ctx, deps);
   if (appCtx.initServer) {
-    await project.modifyEnv(appCtx.userDir, env);
     await project.runCommands(appCtx);
   }
   project.finished(ctx);

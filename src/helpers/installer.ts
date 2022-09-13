@@ -1,33 +1,37 @@
 import ora from "ora";
-import { IInstaller, IPkg, IPkgInfo } from "~types/Installer";
+import { IInstaller, IPkg } from "~types/Installer";
 import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
 import { ICtx } from "~types/Context";
-import { updateNode } from "./node";
-import path from "path";
-import { defaultEnv, trpcDefaultPkg, trpcExpoPkg } from "~constants";
-import { IEnv } from "~types/Config";
+import { trpcPkg } from "~constants";
+import { IKeyValue } from "~types/Static";
 
-export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
-  let env: IEnv[][] = [];
-  let plugins: string[] = [];
-  let deps: IDeps = {};
+export default async (
+  ctx: ICtx
+): Promise<[IKeyValue<string>, [string[], string[]]]> => {
+  let normalDeps: string[] = [];
+  let devModeDeps: string[] = [];
+  let scripts: IKeyValue<string> = {};
+
   if (ctx.initServer) {
-    await updateNode(path.join(ctx.userDir, ctx.clientDir), {
-      ...trpcDefaultPkg,
-      ...(ctx.framework === "Expo" ? trpcExpoPkg : {}),
-    });
+    const newDeps = sortToDevAndNormal(trpcPkg);
+    normalDeps = [...normalDeps, ...newDeps[0]];
+    devModeDeps = [...devModeDeps, ...newDeps[1]];
+    scripts = {
+      ...scripts,
+      postinstall: "prisma generate",
+      push: "prisma db push",
+      generate: "prisma generate",
+    };
   }
+
   const resp = await Promise.all(
     ctx.installers.map((pkg) =>
-      import(`../installers/${ctx.framework}/${pkg}/index`).then(
+      import(`../installers/${pkg}/index`).then(
         (installer: { default: IInstaller }) => installer.default(ctx)
       )
     )
   );
-  if (ctx.initServer) {
-    env.push(defaultEnv);
-  }
 
   if (resp.length) {
     console.log();
@@ -35,15 +39,13 @@ export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
     try {
       await Promise.all(
         resp.map(async (cfg) => {
-          if (cfg.env && ctx.initServer) {
-            env.push(cfg.env);
-          }
           if (cfg.pkgs) {
-            let newDeps = await sortToDevAndNormal(cfg.pkgs);
-            deps = mergeDeps(deps, newDeps);
+            let newDeps = sortToDevAndNormal(cfg.pkgs);
+            normalDeps = [...normalDeps, ...newDeps[0]];
+            devModeDeps = [...devModeDeps, ...newDeps[1]];
           }
-          if (cfg.plugins) {
-            plugins = [...plugins, ...cfg.plugins];
+          if (cfg.scripts) {
+            scripts = { ...scripts, ...cfg.scripts };
           }
           if (cfg.files.length) {
             await execFiles(cfg.files, ctx);
@@ -56,64 +58,33 @@ export default async (ctx: ICtx): Promise<[IEnv[][], string[], IDeps]> => {
       process.exit(1);
     }
   }
-  return [env, plugins, deps];
+  return [scripts, [normalDeps, devModeDeps]];
 };
 
-export type IDeps = { [key: string]: [string[], string[]] };
-const sortToDevAndNormal = (pkgs: IPkg): Promise<IDeps> =>
-  new Promise((resolve) => {
-    const data = Object.entries(pkgs).reduce((current, [name, value]) => {
-      let newName = value.customVersion
-        ? `${name}@${value.customVersion}`
-        : name;
-      const type = value.type === "" ? "_" : value.type;
-      const [normal, devs] = Object.hasOwnProperty.call(current, type)
-        ? current[type as keyof typeof current]
-        : [[], []];
-      if (value.devMode) {
-        devs.push(newName);
-      } else {
-        normal.push(newName);
-      }
-      return {
-        ...current,
-        [type]: [normal, devs] as [string[], string[]],
-      };
-    }, {} as IDeps);
-    return resolve(data);
+const sortToDevAndNormal = (pkgs: IPkg): [string[], string[]] => {
+  const normal: string[] = [];
+  const devs: string[] = [];
+  Object.entries(pkgs).forEach(([key, value]) => {
+    const newKey = value.customVersion ? `${key}@${value.customVersion}` : key;
+    if (value.devMode) {
+      devs.push(newKey);
+    } else {
+      normal.push(newKey);
+    }
   });
+  return [normal, devs];
+};
 
-export const installPkgs = async (
-  userDir: string,
-  type: IPkgInfo["type"],
-  deps: IDeps[keyof IDeps]
-) => {
+export const installPkgs = async (cwd: string, deps: [string[], string[]]) => {
   const [normal, devs] = deps;
-  const newType = type === "_" ? "" : type;
   if (normal.length) {
     await execa(`npm install ${normal.join(" ")}`, {
-      cwd: `${userDir}${newType}`,
+      cwd,
     });
   }
   if (devs.length) {
     await execa(`npm install ${devs.join(" ")} -D`, {
-      cwd: `${userDir}${newType}`,
+      cwd,
     });
   }
-};
-
-const mergeDeps = (deps: IDeps, newDeps: IDeps): IDeps => {
-  for (const key in newDeps) {
-    if (Object.hasOwnProperty.call(deps, key)) {
-      const [normal, devs] = deps[key];
-      const [newNormal, newDevs] = newDeps[key];
-      deps[key] = [
-        [...normal, ...newNormal],
-        [...devs, ...newDevs],
-      ];
-    } else {
-      deps[key] = newDeps[key];
-    }
-  }
-  return deps;
 };

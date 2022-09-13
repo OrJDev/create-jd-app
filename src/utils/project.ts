@@ -2,15 +2,13 @@ import path from "path";
 import fs from "fs-extra";
 import ora from "ora";
 import { existsOrCreate, overWriteFile } from "./files";
-import { execa, formatError, validateName } from "./helpers";
-import { updateEnv, resolveEnv, IResolveEnvResp } from "~helpers/env";
-import { INullAble } from "~types/Static";
+import { execa, formatError, validateName, modifyJSON } from "./helpers";
+import { IKeyValue, INullAble } from "~types/Static";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { IAppCtx, ICtx } from "~types/Context";
-import { IDeps, installPkgs } from "~helpers/installer";
-import { modifyJSON } from "~helpers/node";
-import { IEnv } from "~types/Config";
+import { installPkgs } from "~helpers/installer";
+import SolidHelper from "~helpers/solid";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -41,28 +39,17 @@ export async function initApp(): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  const framework = (
-    await inquirer.prompt<{ framework: string }>({
-      type: "list",
-      name: "framework",
-      message: "What framework do you want to use?",
-      choices: await fs.readdir(path.join(__dirname, "../../template/client")),
-    })
-  ).framework;
   const initServer = (
     await inquirer.prompt<{ initServer: boolean }>({
       name: "initServer",
       type: "confirm",
-      message: `Do you want to scaffold a server?`,
+      message: `Do you want to use trpc?`,
     })
   ).initServer;
   return {
     appName,
     userDir,
-    framework,
     initServer,
-    // if we don't want a server the main dir becomes the client dir, therfore we keep it empty $USERDIR/""
-    clientDir: initServer ? "/apps/client" : "",
   };
 }
 
@@ -71,17 +58,26 @@ export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   const templateDir = path.join(__dirname, "../..", "template");
   try {
-    if (appContext.initServer) {
-      await fs.copy(path.join(templateDir, "main"), appContext.userDir);
-      await fs.rename(
-        path.join(appContext.userDir, "_gitignore"),
-        path.join(appContext.userDir, ".gitignore")
-      );
-    }
     await fs.copy(
-      path.join(templateDir, "client", appContext.framework),
-      path.join(appContext.userDir, appContext.clientDir)
+      path.join(templateDir, "client"),
+      path.join(appContext.userDir)
     );
+    await fs.rename(
+      path.join(appContext.userDir, "_gitignore"),
+      path.join(appContext.userDir, ".gitignore")
+    );
+    if (appContext.initServer) {
+      await Promise.all([
+        fs.copy(
+          path.join(templateDir, "api"),
+          path.join(appContext.userDir, "api")
+        ),
+        fs.copy(
+          path.join(templateDir, "prisma"),
+          path.join(appContext.userDir, "prisma")
+        ),
+      ]);
+    }
     await modifyJSON(appContext.userDir, (json) => {
       json.name = appContext.appName;
       return json;
@@ -92,10 +88,17 @@ export async function copyTemplate(appContext: IAppCtx) {
     process.exit(1);
   }
 }
-export async function modifyProject(ctx: ICtx, plugins: string[]) {
+export async function modifyProject(ctx: ICtx, scripts: IKeyValue<string>) {
+  console.log();
   const spinner = ora("Modifying project").start();
   try {
-    await (await import(`../helpers/${ctx.framework}`)).default(ctx, plugins);
+    await SolidHelper(ctx);
+    if (Object.keys(scripts).length) {
+      await modifyJSON(ctx.userDir, (json) => {
+        json.scripts = { ...json.scripts, ...scripts };
+        return json;
+      });
+    }
     spinner.succeed("Modified project");
   } catch (e) {
     spinner.fail(`Couldn't modify project: ${formatError(e)}`);
@@ -103,8 +106,7 @@ export async function modifyProject(ctx: ICtx, plugins: string[]) {
   }
 }
 
-export async function installDeps(userDir: string, len: number) {
-  len && console.log();
+export async function installDeps(userDir: string) {
   const spinner = ora("Installing template dependencies").start();
   try {
     await execa("npm install", { cwd: userDir });
@@ -115,33 +117,17 @@ export async function installDeps(userDir: string, len: number) {
   }
 }
 
-export async function installAddonsDependencies(ctx: ICtx, deps: IDeps) {
+export async function installAddonsDependencies(
+  ctx: ICtx,
+  deps: [string[], string[]]
+) {
   if (Object.keys(deps).length) {
     const spinner = ora("Installing addons dependencies").start();
     try {
-      for (const key in deps)
-        await installPkgs(ctx.userDir, key, deps[key as keyof typeof deps]);
+      await installPkgs(ctx.userDir, deps);
       spinner.succeed("Installed addons dependencies");
     } catch (e) {
       spinner.fail(`Couldn't install addons dependencies: ${formatError(e)}`);
-      process.exit(1);
-    }
-  }
-}
-
-export async function modifyEnv(userDir: string, env: IEnv[][]) {
-  let envVariables: INullAble<IResolveEnvResp> = null;
-  try {
-    envVariables = await resolveEnv(env);
-  } catch {}
-  if (envVariables && envVariables.newEnv.length) {
-    console.log();
-    const spinner = ora("Updating environment variables").start();
-    try {
-      await updateEnv(userDir, envVariables);
-      spinner.succeed("Updated environment variables");
-    } catch (e) {
-      spinner.fail(`Couldn't update environment variables: ${formatError(e)}`);
       process.exit(1);
     }
   }
@@ -151,7 +137,7 @@ export async function runCommands(ctx: IAppCtx) {
   let commands = [
     async () =>
       await execa("npx prisma generate", {
-        cwd: `${ctx.userDir}/packages/db`,
+        cwd: ctx.userDir,
       }),
   ];
   const len = commands.length;
@@ -170,7 +156,9 @@ export async function runCommands(ctx: IAppCtx) {
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
+  console.log(
+    chalk.bold(chalk.blue(`\tnpm run ${ctx.initServer ? "vdev" : "dev"}`))
+  );
   console.log();
   process.exit(0);
 }

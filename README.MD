@@ -1,6 +1,6 @@
 # Create JD App
 
-Create modern SolidJS / React Native & TRPC full stack TypeScript application within seconds.
+Create modern SolidJS & tRPC full stack TypeScript application within seconds.
 
 ## Getting Started
 
@@ -8,22 +8,13 @@ Create modern SolidJS / React Native & TRPC full stack TypeScript application wi
 npm create jd-app@latest
 ```
 
-## Features
+## What's the Stack?
 
-### Server (Optional)
-
-- TRPC
+- NextJS Handler + tRPC
 - Zod
 - Prisma
-- NextJS
 - TypeScript
+- SolidJS & Router
+- TailwindCSS
 
-### Client
-
-- TRPC + Types Safety
-- TypeScript
-- Tailwind / NativeWind
-- Solid Router / React Native Navigation
-- SolidJS / Expo React Native
-
-![Preview With Server](https://i.ibb.co/t8jkGDK/Screenshot-1.png)
+![Preview](https://i.ibb.co/2vWqVwZ/Screenshot-1.png)

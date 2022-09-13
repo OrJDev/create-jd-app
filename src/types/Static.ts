@@ -1,4 +1,4 @@
-export type IKeyValue<T = string> = {
+export type IKeyValue<T> = {
   [key: string]: T;
 };
 

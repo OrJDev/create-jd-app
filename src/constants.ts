@@ -1,35 +1,27 @@
-import { IEnv } from "~types/Config";
 import { IPkg } from "~types/Installer";
+import { IKeyValue } from "~types/Static";
 
-export const trpcDefaultPkg: IPkg = {
+export const trpcPkg: IPkg = {
   "@trpc/client": {
     customVersion: "9.27.2",
-    type: "client",
-  },
-  api: {
-    customVersion: "*",
-    type: "client",
   },
   "@trpc/server": {
     customVersion: "9.27.2",
-    type: "client",
   },
-};
-export const trpcExpoPkg: IPkg = {
-  "@trpc/react": {
+  "@trpc/next": {
     customVersion: "9.27.2",
-    type: "client",
-  },
-  "react-query": {
-    customVersion: "3.37.0",
-    type: "client",
   },
 };
 
-export const defaultEnv: IEnv[] = [
-  {
-    key: "NODE_ENV",
-    type: 'enum(["development", "test", "production"]).default("development")',
-    ignore: true,
+export const prismaPkgs: IPkg = {
+  prisma: {
+    devMode: true,
   },
-];
+  "@prisma/client": {},
+};
+
+export const prismaScripts: IKeyValue<string> = {
+  postinstall: "prisma generate",
+  push: "prisma db push",
+  generate: "prisma generate",
+};
