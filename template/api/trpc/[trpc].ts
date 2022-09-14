@@ -1,35 +1,10 @@
-import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
-import { PrismaClient } from "@prisma/client";
-import { inferAsyncReturnType } from "@trpc/server";
-import { z } from "zod";
-
-const prisma = new PrismaClient();
-
-const createContext = (opts: trpcNext.CreateNextContextOptions) => opts;
-const createRouter = () =>
-  trpc.router<inferAsyncReturnType<typeof createContext>>();
-
-const testRouter = createRouter()
-  .query("test", {
-    input: z.object({ name: z.string() }),
-    resolve({ input }) {
-      return `hey ${input.name}`;
-    },
-  })
-  .mutation("mTest", {
-    input: z.object({ number: z.number() }),
-    resolve({ input }) {
-      return input.number / 2 + 1.5;
-    },
-  });
-const appRouter = createRouter().merge("example.", testRouter);
-
-export type IAppRouter = typeof appRouter;
+import { appRouter } from "../src/routers/_route";
+import { createContext } from "../src/_utils";
 
 export default trpcNext.createNextApiHandler({
   router: appRouter,
-  createContext: createContext as any,
+  createContext: createContext,
   responseMeta({ ctx, type, errors }) {
     const allOk = errors.length === 0;
     const isQuery = type === "query";

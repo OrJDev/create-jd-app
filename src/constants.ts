@@ -11,6 +11,13 @@ export const trpcPkg: IPkg = {
   "@trpc/next": {
     customVersion: "9.27.2",
   },
+  // dep of @trpc/next
+  "@types/react": {
+    devMode: true,
+  },
+  "@types/react-dom": {
+    devMode: true,
+  },
 };
 
 export const prismaPkgs: IPkg = {
