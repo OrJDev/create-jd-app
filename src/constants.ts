@@ -1,5 +1,4 @@
-import { IPkg } from "~types/Installer";
-import { IKeyValue } from "~types/Static";
+import { IPkg } from "~types";
 
 export const trpcPkg: IPkg = {
   "@trpc/client": {
@@ -27,8 +26,10 @@ export const prismaPkgs: IPkg = {
   "@prisma/client": {},
 };
 
-export const prismaScripts: IKeyValue<string> = {
+export const prismaScripts: Record<string, string> = {
   postinstall: "prisma generate",
   push: "prisma db push",
   generate: "prisma generate",
 };
+
+export const prismaEnv = [`DATABASE_URL=file:./db.sqlite`].join("\n");

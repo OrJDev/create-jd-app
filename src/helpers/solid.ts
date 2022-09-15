@@ -1,6 +1,5 @@
-import { IFile } from "~types/Installer";
 import { execFiles } from "~utils/files";
-import { ICtx } from "~types/Context";
+import { ICtx, IFile } from "~types";
 
 const helperFunc = async (ctx: ICtx) => {
   const files: IFile[] = [

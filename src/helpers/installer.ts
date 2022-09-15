@@ -1,27 +1,23 @@
 import ora from "ora";
-import { IInstaller, IPkg } from "~types/Installer";
+import { IInstaller, IPkg, ICtx } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
-import { ICtx } from "~types/Context";
-import { trpcPkg } from "~constants";
-import { IKeyValue } from "~types/Static";
+import { trpcPkg, prismaScripts, prismaPkgs } from "~constants";
 
 export default async (
   ctx: ICtx
-): Promise<[IKeyValue<string>, [string[], string[]]]> => {
+): Promise<[Record<string, string>, [string[], string[]]]> => {
   let normalDeps: string[] = [];
   let devModeDeps: string[] = [];
-  let scripts: IKeyValue<string> = {};
+  let scripts: Record<string, string> = {};
 
   if (ctx.initServer) {
-    const newDeps = sortToDevAndNormal(trpcPkg);
+    const newDeps = sortToDevAndNormal({ ...trpcPkg, ...prismaPkgs });
     normalDeps = [...normalDeps, ...newDeps[0]];
     devModeDeps = [...devModeDeps, ...newDeps[1]];
     scripts = {
       ...scripts,
-      postinstall: "prisma generate",
-      push: "prisma db push",
-      generate: "prisma generate",
+      ...prismaScripts,
     };
   }
 
@@ -33,9 +29,10 @@ export default async (
     )
   );
 
+  console.log();
+  const spinner = ora("Initializing installers").start();
+
   if (resp.length) {
-    console.log();
-    const spinner = ora("Initializing installers").start();
     try {
       await Promise.all(
         resp.map(async (cfg) => {
@@ -57,6 +54,8 @@ export default async (
       spinner.fail(`Couldn't initialize installers: ${formatError(e)}`);
       process.exit(1);
     }
+  } else {
+    spinner.succeed("No installers to initialize");
   }
   return [scripts, [normalDeps, devModeDeps]];
 };

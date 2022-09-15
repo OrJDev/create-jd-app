@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import * as project from "./utils/project";
 import { formatError, getCtxWithInstallers } from "./utils/helpers";
 import chalk from "chalk";
@@ -12,9 +13,7 @@ async function main() {
   await project.modifyProject(ctx, scripts);
   await project.installDeps(ctx.userDir);
   await project.installAddonsDependencies(ctx, deps);
-  if (appCtx.initServer) {
-    await project.runCommands(appCtx);
-  }
+  appCtx.initServer && (await project.runServerCommands(appCtx));
   project.finished(ctx);
 }
 

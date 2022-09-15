@@ -3,12 +3,12 @@ import fs from "fs-extra";
 import ora from "ora";
 import { existsOrCreate, overWriteFile } from "./files";
 import { execa, formatError, validateName, modifyJSON } from "./helpers";
-import { IKeyValue, INullAble } from "~types/Static";
+import { IAppCtx, ICtx } from "~types";
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { IAppCtx, ICtx } from "~types/Context";
 import { installPkgs } from "~helpers/installer";
 import SolidHelper from "~helpers/solid";
+import { prismaEnv } from "~constants";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -43,7 +43,7 @@ export async function initApp(): Promise<IAppCtx> {
     await inquirer.prompt<{ initServer: boolean }>({
       name: "initServer",
       type: "confirm",
-      message: `Do you want to use trpc?`,
+      message: `Do you want to use tRPC?`,
     })
   ).initServer;
   return {
@@ -67,46 +67,44 @@ export async function copyTemplate(appContext: IAppCtx) {
       path.join(appContext.userDir, ".gitignore")
     );
     if (appContext.initServer) {
-      await Promise.all([
-        fs.copy(
-          path.join(templateDir, "api"),
-          path.join(appContext.userDir, "api")
-        ),
-        fs.copy(
-          path.join(templateDir, "prisma"),
-          path.join(appContext.userDir, "prisma")
-        ),
-      ]);
+      const trpcTemplateDir = path.join(templateDir, "server");
+      const trpcFiles = await fs.readdir(trpcTemplateDir);
+      await Promise.all(
+        trpcFiles.map(
+          async (file) =>
+            await fs.copy(
+              path.join(trpcTemplateDir, file),
+              path.join(appContext.userDir, file)
+            )
+        )
+      );
     }
-    await modifyJSON(appContext.userDir, (json) => {
-      json.name = appContext.appName;
-      return json;
-    });
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);
     process.exit(1);
   }
 }
-export async function modifyProject(ctx: ICtx, scripts: IKeyValue<string>) {
-  console.log();
+export async function modifyProject(
+  ctx: ICtx,
+  scripts: Record<string, string>
+) {
   const spinner = ora("Modifying project").start();
   try {
     await SolidHelper(ctx);
     if (ctx.initServer) {
-      await fs.writeFile(
-        path.join(ctx.userDir, ".env"),
-        `DATABASE_URL=file:./db.sqlite`
-      );
+      await fs.writeFile(path.join(ctx.userDir, ".env"), prismaEnv);
     }
     const len = Object.keys(scripts).length;
     if (len || ctx.initServer) {
       await modifyJSON(ctx.userDir, (json) => {
-        if (len) {
-          json.scripts = { ...json.scripts, ...scripts };
-        }
+        json.name = ctx.appName;
         if (ctx.initServer) {
           json.prisna = { scheme: "../prisma/schema.prisma" };
+          delete json.scripts.dev;
+        }
+        if (len) {
+          json.scripts = { ...json.scripts, ...scripts };
         }
         return json;
       });
@@ -119,6 +117,7 @@ export async function modifyProject(ctx: ICtx, scripts: IKeyValue<string>) {
 }
 
 export async function installDeps(userDir: string) {
+  console.log();
   const spinner = ora("Installing template dependencies").start();
   try {
     await execa("npm install", { cwd: userDir });
@@ -133,8 +132,8 @@ export async function installAddonsDependencies(
   ctx: ICtx,
   deps: [string[], string[]]
 ) {
+  const spinner = ora("Installing addons dependencies").start();
   if (Object.keys(deps).length) {
-    const spinner = ora("Installing addons dependencies").start();
     try {
       await installPkgs(ctx.userDir, deps);
       spinner.succeed("Installed addons dependencies");
@@ -142,10 +141,12 @@ export async function installAddonsDependencies(
       spinner.fail(`Couldn't install addons dependencies: ${formatError(e)}`);
       process.exit(1);
     }
+  } else {
+    spinner.succeed("No addons to install");
   }
 }
 
-export async function runCommands(ctx: IAppCtx) {
+export async function runServerCommands(ctx: IAppCtx) {
   let commands = [
     async () =>
       await execa("npx prisma generate", {
@@ -168,6 +169,7 @@ export async function runCommands(ctx: IAppCtx) {
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
+  ctx.initServer && console.log(chalk.yellow("\tnpm run push"));
   console.log(
     chalk.bold(chalk.blue(`\tnpm run ${ctx.initServer ? "vdev" : "dev"}`))
   );

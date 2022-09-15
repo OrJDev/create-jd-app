@@ -1,5 +1,5 @@
 import { createResource, createSignal } from "solid-js";
-import { IAppRouter } from "api/trpc/[trpc]";
+import { IAppRouter } from "api/src/routers/_route";
 import { createTRPCClient } from "@trpc/client";
 import { inferHandlerInput, inferProcedureOutput } from "@trpc/server";
 

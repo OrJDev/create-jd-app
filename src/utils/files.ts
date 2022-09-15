@@ -1,8 +1,6 @@
 import fs from "fs-extra";
 import ora from "ora";
-import path from "path";
-import { ICtx } from "~types/Context";
-import { IFile } from "~types/Installer";
+import { ICtx, IFile } from "~types";
 import { formatError } from "./helpers";
 
 export async function execFiles(files: IFile[], ctx: ICtx) {
@@ -11,7 +9,6 @@ export async function execFiles(files: IFile[], ctx: ICtx) {
       if (file.type && file.type !== "copy") {
         if (file.type === "exec") {
           if (!file.path) {
-            // shouldn't happen as paths will always be mentioned for the type exec
             throw new Error("Missing path for a file with type exec");
           }
           const method = await import(file.path);

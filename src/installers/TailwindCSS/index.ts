@@ -1,4 +1,4 @@
-import { IInstaller } from "~types/Installer";
+import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
   files: [

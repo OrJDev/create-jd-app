@@ -1,5 +1,5 @@
-import { IUtil } from "~types/Installer";
-import { getStyle } from "~utils/react";
+import { IUtil } from "~types";
+import { getStyle } from "~utils/jsx";
 
 const getHomePage: IUtil = (ctx) => {
   const useTW = ctx.installers.includes("TailwindCSS");
@@ -14,21 +14,11 @@ interface IHomeProps { };
 
 const Home: Component<IHomeProps> = ({ }) => {${ctx.initServer ? trpc : ""}
     return (
-        <div${getStyle(useTW, "flex flex-col items-center", "", true)}>
-            <h1${getStyle(
-              useTW,
-              "font-bold text-gray-300 text-xl",
-              "",
-              true
-            )}>${
+        <div${getStyle(useTW, "flex flex-col items-center")}>
+            <h1${getStyle(useTW, "font-bold text-gray-300 text-xl")}>${
     initServer ? '{response() ?? "no data || yet"}' : "Hey there"
   }</h1>
-            <h1${getStyle(
-              useTW,
-              "font-bold text-gray-300 text-xl",
-              "",
-              true
-            )}>${
+            <h1${getStyle(useTW, "font-bold text-gray-300 text-xl")}>${
     initServer
       ? '{currentState().loading ? "loading..." : currentState().data ?? "no data"}'
       : "Hope you are doing well"

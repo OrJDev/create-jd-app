@@ -17,4 +17,4 @@ npm create jd-app@latest
 - SolidJS & Router
 - TailwindCSS
 
-![Preview](https://i.ibb.co/2vWqVwZ/Screenshot-1.png)
+![Preview](https://user-images.githubusercontent.com/91349014/190457447-3fa7dc08-cb5e-4e03-81d3-955133cae0ad.png)

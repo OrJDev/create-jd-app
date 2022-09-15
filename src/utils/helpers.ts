@@ -3,7 +3,7 @@ import { promisify } from "util";
 import fs from "fs-extra";
 import path from "path";
 import inquirer from "inquirer";
-import { IAppCtx, ICtx } from "~types/Context";
+import { IAppCtx, ICtx } from "~types";
 
 export const execa = promisify(exec);
 
@@ -76,9 +76,7 @@ export async function modifyJSON(
   userDir: string,
   cb: (json: any) => Promise<any>
 ) {
-  const json = JSON.parse(
-    await fs.readFile(path.join(userDir, "package.json"), "utf8")
-  );
+  const json = await fs.readJSON(path.join(userDir, "package.json"));
   const newJson = await cb({ ...json });
   await fs.writeFile(
     path.join(userDir, "package.json"),
