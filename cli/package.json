@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register cli",
-    "build": "rm -rf dist && tsc -p cli/tsconfig.json && tsc-alias -p cli/tsconfig.json",
+    "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
     "patch": "npm version patch --no-git-tag-version",
     "cp": "ts-node -r tsconfig-paths/register cli/scripts/copyFiles",
     "dev": "npm link && cd dist && npm link create-jd-app"
@@ -31,13 +31,12 @@
     "tsconfig-paths": "^4.1.0"
   },
   "types": "./dist/index.d.ts",
-  "description": "Create modern SolidJS / React Native & TRPC full stack TypeScript application within seconds.",
+  "description": "Create modern SolidJS & tRPC full stack TypeScript application within seconds.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OrJDev/create-jd-app.git"
   },
   "keywords": [
-    "expo",
     "jdev",
     "trpc",
     "typescript",
