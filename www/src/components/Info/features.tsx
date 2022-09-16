@@ -1,10 +1,9 @@
-const withStyles = (color: string) =>
-  `fill-[${color}] h-8 w-8 xs:w-10 h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer`;
-
 export default [
   <svg
     role="img"
-    class={withStyles("#06B6D4")}
+    class={
+      "fill-[#06B6D4] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -13,7 +12,9 @@ export default [
   </svg>,
   <svg
     role="img"
-    class={withStyles("#2596BE")}
+    class={
+      "fill-[#2596BE] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -22,7 +23,9 @@ export default [
   </svg>,
   <svg
     role="img"
-    class={withStyles("#2C4F7C")}
+    class={
+      "fill-[#2C4F7C] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -31,7 +34,9 @@ export default [
   </svg>,
   <svg
     role="img"
-    class={withStyles("#3178C6")}
+    class={
+      "fill-[#3178C6] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -40,7 +45,9 @@ export default [
   </svg>,
   <svg
     role="img"
-    class={withStyles("#2D3748")}
+    class={
+      "fill-[#2D3748] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -49,7 +56,9 @@ export default [
   </svg>,
   <svg
     role="img"
-    class={withStyles("#fff")}
+    class={
+      "fill-[#fff] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+    }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
