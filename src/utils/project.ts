@@ -93,7 +93,13 @@ export async function modifyProject(
   try {
     await SolidHelper(ctx);
     if (ctx.initServer) {
-      await fs.writeFile(path.join(ctx.userDir, ".env"), prismaEnv);
+      await Promise.all([
+        fs.writeFile(path.join(ctx.userDir, ".env"), prismaEnv),
+        fs.copy(
+          path.join(__dirname, "../..", "template", "config"),
+          path.join(ctx.userDir)
+        ),
+      ]);
     }
     const len = Object.keys(scripts).length;
     if (len || ctx.initServer) {
@@ -101,7 +107,10 @@ export async function modifyProject(
         json.name = ctx.appName;
         if (ctx.initServer) {
           json.prisna = { scheme: "../prisma/schema.prisma" };
+          json.scripts.vdev = "vercel dev --local-config ./vercel-dev.json";
+          const devCmd = json.scripts.dev;
           delete json.scripts.dev;
+          json.scripts.client = devCmd;
         }
         if (len) {
           json.scripts = { ...json.scripts, ...scripts };

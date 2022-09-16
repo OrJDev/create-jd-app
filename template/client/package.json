@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
-    "vdev": "vercel dev --local-config ./vercel-dev.json"
+    "serve": "vite preview"
   },
   "license": "MIT",
   "devDependencies": {
