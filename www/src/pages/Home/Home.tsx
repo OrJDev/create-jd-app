@@ -5,7 +5,7 @@ interface IHomeProps {}
 
 const Home: Component<IHomeProps> = ({}) => {
   return (
-    <div class="flex flex-col gap-3 sm:gap-24 pt-16 items-center justify-center sm:flex-row animate-fade-in">
+    <div class="flex flex-col gap-3 sm:gap-24 pt-28 items-center justify-center sm:flex-row animate-fade-in">
       <div class="flex flex-col items-center gap-3 ">
         <h1 class="font-bold text-3xl xs:text-5xl text-gray-400 text-center">
           Create{" "}
