@@ -67,17 +67,7 @@ export async function copyTemplate(appContext: IAppCtx) {
       path.join(appContext.userDir, ".gitignore")
     );
     if (appContext.initServer) {
-      const trpcTemplateDir = path.join(templateDir, "server");
-      const trpcFiles = await fs.readdir(trpcTemplateDir);
-      await Promise.all(
-        trpcFiles.map(
-          async (file) =>
-            await fs.copy(
-              path.join(trpcTemplateDir, file),
-              path.join(appContext.userDir, file)
-            )
-        )
-      );
+      await fs.copy(path.join(templateDir, "server"), appContext.userDir);
     }
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
