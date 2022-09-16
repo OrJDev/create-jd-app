@@ -17,6 +17,6 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "template"]
+  "include": ["cli"],
+  "exclude": ["node_modules", "template", "www"]
 }
