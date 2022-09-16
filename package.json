@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register cli",
-    "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p cli/tsconfig.json && tsc-alias -p cli/tsconfig.json",
     "patch": "npm version patch --no-git-tag-version",
     "cp": "ts-node -r tsconfig-paths/register cli/scripts/copyFiles",
     "dev": "npm link && cd dist && npm link create-jd-app"

@@ -14,9 +14,9 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "dist",
+    "outDir": "../dist",
     "sourceMap": true
   },
-  "include": ["cli"],
-  "exclude": ["node_modules", "template", "www"]
+  "include": ["src"],
+  "exclude": ["node_modules", "template"]
 }
