@@ -8,7 +8,6 @@ interface IBashProps {
 
 const Bash: Component<IBashProps> = ({ selectedVersion }) => {
   const newCMD = createMemo(() => `${CREATE_JD_APP_CMD}@${selectedVersion()}`);
-
   return (
     <code
       onClick={() =>

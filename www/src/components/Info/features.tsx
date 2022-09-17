@@ -2,7 +2,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#06B6D4] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#06B6D4] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#2596BE] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#2596BE] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#2C4F7C] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#2C4F7C] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#3178C6] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#3178C6] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#2D3748] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#2D3748] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ export default [
   <svg
     role="img"
     class={
-      "fill-[#fff] h-8 w-8 xs:w-10 xs:h-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
+      "fill-[#fff] h-6 w-6 xs:w-8 xs:h-8 sm:h-10 sm:w-10 hover:opacity-60 transition-all hover:scale-105 duration-200 cursor-pointer"
     }
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"

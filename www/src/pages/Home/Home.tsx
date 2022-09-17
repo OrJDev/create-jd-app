@@ -23,7 +23,7 @@ const Home: Component<IHomeProps> = ({}) => {
   });
 
   return (
-    <div class="flex flex-col items-center gap-3 animate-fade-in pt-16">
+    <div class="flex flex-col items-center gap-3 animate-fade-in pt-28">
       <VersionSelector
         selectedVersion={selectedVersion}
         versions={versions}

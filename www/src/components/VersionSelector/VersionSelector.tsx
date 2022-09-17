@@ -23,7 +23,7 @@ const Versionselector: Component<IVersionselectorProps> = ({
       <select
         value={selectedVersion()}
         onChange={(e) => setSelectedVersion(e.currentTarget.value)}
-        class="bg-zinc-800 focus:outline-none text-gray-400 text-sm rounded-lg xs:w-72 p-2.5 w-3/5"
+        class="bg-zinc-800 focus:outline-none text-gray-400 text-sm rounded-lg xs:w-72 p-3 sm:p-2.5 w-3/5"
       >
         <For each={newVersions()}>
           {(curr) => (
