@@ -2,7 +2,7 @@ import { ToastOptions } from "solid-toast";
 
 export const toastConfig: ToastOptions = {
   position: "top-center",
-  duration: 3000,
+  duration: 5000,
   style: {
     color: "#fff",
     "font-weight": "bold",
@@ -13,4 +13,4 @@ export const toastConfig: ToastOptions = {
   },
 };
 
-export const CREATE_JD_APP_CMD = "npm create jd-app@latest";
+export const CREATE_JD_APP_CMD = "npm create jd-app";

@@ -7,7 +7,7 @@ const Social: Component<ISocialProps> = ({}) => {
     <div class="w-52 my-5 rounded-lg flex justify-center bg-neutral-800 p-2 gap-2">
       <a href="https://www.npmjs.com/package/create-jd-app" target="_blank">
         <svg
-          class="fill-slate-100 w-8 h-8 hover:fill-slate-200 transition-transform hover:scale-105"
+          class="fill-slate-100 w-8 h-8 hover:opacity-50 transition-all hover:scale-105"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ const Social: Component<ISocialProps> = ({}) => {
       </a>
       <a href="https://github.com/OrJDev/create-jd-app" target="_blank">
         <svg
-          class="fill-slate-100 w-8 h-8 hover:fill-slate-200 transition-transform hover:scale-105"
+          class="fill-slate-100 w-8 h-8 hover:opacity-50 transition-all hover:scale-105"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

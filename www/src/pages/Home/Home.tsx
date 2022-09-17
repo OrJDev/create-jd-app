@@ -1,27 +1,38 @@
-import { Component } from "solid-js";
-import { Bash, Info, Social } from "~/components";
+import { Component, createSignal, onMount } from "solid-js";
+import toast from "solid-toast";
+import { Bash, Info, Social, VersionSelector } from "~/components";
+import { toastConfig } from "~/constants";
 
 interface IHomeProps {}
 
 const Home: Component<IHomeProps> = ({}) => {
+  const [selectedVersion, setSelectedVersion] = createSignal("latest");
+  const [versions, setVersions] = createSignal<string[] | null>(null);
+  const [latestVersion, setLatestVersion] = createSignal<string | null>(null);
+
+  onMount(async () => {
+    try {
+      const resp = await (
+        await fetch("https://registry.npmjs.org/create-jd-app")
+      ).json();
+      setLatestVersion(resp["dist-tags"].latest);
+      setVersions(Object.keys(resp["versions"]));
+    } catch {
+      toast.error("Something went wrong...", toastConfig);
+    }
+  });
+
   return (
-    <div class="flex flex-col gap-3 sm:gap-24 pt-28 items-center justify-center sm:flex-row animate-fade-in">
-      <div class="flex flex-col items-center gap-3 ">
-        <h1 class="font-bold text-3xl xs:text-5xl text-gray-400 text-center">
-          Create{" "}
-          <span class="text-blue-500 hover:text-blue-300 cursor-default">
-            JD
-          </span>{" "}
-          App
-        </h1>
-        <Bash />
-        <Info />
-        <Social />
-      </div>
-      <img
-        class="transition-transform hover:scale-105 cursor-pointer px-5"
-        src="https://user-images.githubusercontent.com/91349014/190457447-3fa7dc08-cb5e-4e03-81d3-955133cae0ad.png"
+    <div class="flex flex-col items-center gap-3 animate-fade-in pt-16">
+      <VersionSelector
+        selectedVersion={selectedVersion}
+        versions={versions}
+        setSelectedVersion={setSelectedVersion}
+        latestVersion={latestVersion}
       />
+      <Bash selectedVersion={selectedVersion} />
+      <Info />
+      <Social />
     </div>
   );
 };

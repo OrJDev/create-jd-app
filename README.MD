@@ -10,7 +10,7 @@ npm create jd-app@latest
 
 ## What's the Stack?
 
-- NextJS Handler + tRPC
+- Vercel API Handler + tRPC
 - Zod
 - Prisma
 - TypeScript

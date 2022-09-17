@@ -14,7 +14,7 @@ const Info: Component<IInfoProps> = ({}) => {
         new <ColoredText>SolidJS</ColoredText> {"& "}
         <ColoredText>tRPC</ColoredText> full-stack{" "}
         <ColoredText>TypeScript</ColoredText> application with a single command,
-        within seconds. Here are some of the features:
+        within seconds.
       </p>
       <div class="flex space-x-2 flex-wrap max-w-[30rem]">
         <For each={features}>
