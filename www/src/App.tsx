@@ -13,6 +13,7 @@ const App: Component<IAppProps> = ({}) => {
         <Route path="/" component={Home} />
         <Route path="*" component={() => <Navigate href="/" />} />
       </Routes>
+      <div class="h-16 w-full" />
     </Router>
   );
 };
