@@ -1,6 +1,6 @@
 # Create JD App
 
-Create modern SolidJS & tRPC full stack TypeScript application within seconds.
+Create modern SolidJS & tRPC Full-Stack TypeScript application within seconds.
 
 ## Getting Started
 
@@ -10,10 +10,11 @@ npm create jd-app@latest
 
 ## What's the Stack?
 
-- Vercel API Handler + tRPC
+- Serverless Vercel API + tRPC
 - Zod
 - Prisma
 - TypeScript
+- Solid Query
 - SolidJS & Router
 - TailwindCSS
 
