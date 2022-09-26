@@ -19,7 +19,7 @@ npm create jd-app@latest
 
 ### Learn more
 
-[My Blog]("https://portfolio-orjdev.vercel.app/blog/create-jd-app-1")
+[My Blog](https://portfolio-orjdev.vercel.app/blog/create-jd-app-1)
 
 #### Preview
 
