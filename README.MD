@@ -10,11 +10,10 @@ npm create jd-app@latest
 
 ## What's the Stack?
 
-- Serverless Vercel API + tRPC
+- Serverless Vercel API + tRPC (npm: solid-trpc)
 - Zod
 - Prisma
 - TypeScript
-- Solid Query
 - SolidJS & Router
 - TailwindCSS
 

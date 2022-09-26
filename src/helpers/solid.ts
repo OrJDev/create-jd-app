@@ -15,10 +15,7 @@ const helperFunc = async (ctx: ICtx) => {
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     });
   }
-  if (
-    ctx.installers.includes("Solid-Query") ||
-    ctx.installers.includes("Router")
-  ) {
+  if (ctx.initServer || ctx.installers.includes("Router")) {
     files.push({
       path: `${__dirname}/utils/getApp`,
       to: `${ctx.userDir}/src/App.tsx`,

@@ -3,12 +3,12 @@ import { resolveProviders } from "~utils/jsx";
 
 const getApp: IUtil = (ctx) => {
   const useRouter = ctx.installers.includes("Router");
-  const useQuery = ctx.installers.includes("Solid Query");
   const providers = useRouter ? ["Router", "Routes"] : [];
   const children = useRouter
     ? '<Route path="/" component={Home} />'
     : "<Home />";
-  useQuery && providers.unshift("QueryClientProvider client={queryClient}");
+  ctx.initServer &&
+    providers.unshift("TRPCProvider client={client} queryClient={queryClient}");
   const resolved = resolveProviders(providers, [children]);
 
   return `import { Component } from "solid-js";
@@ -17,13 +17,13 @@ import { Home } from "./pages";${
       ? '\nimport { Routes, Route, Router } from "@solidjs/router";'
       : ""
   }${
-    useQuery
-      ? '\nimport { QueryClientProvider, QueryClient } from "@tanstack/solid-query";'
+    ctx.initServer
+      ? '\nimport { QueryClient } from "@tanstack/solid-query";\nimport { TRPCProvider } from "solid-trpc";\nimport { client } from "./utils/trpc";'
       : ""
   }
 
 interface IAppProps {}${
-    useQuery ? "\n\nconst queryClient = new QueryClient();" : ""
+    ctx.initServer ? "\n\nconst queryClient = new QueryClient();" : ""
   }
 
 const App: Component<IAppProps> = ({}) => {

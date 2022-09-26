@@ -10,7 +10,7 @@
   "devDependencies": {
     "typescript": "^4.7.4",
     "vite": "^3.0.0",
-    "vite-plugin-solid": "^2.3.6",
+    "vite-plugin-solid": "^2.3.8",
     "vite-tsconfig-paths": "^3.5.0"
   },
   "dependencies": {

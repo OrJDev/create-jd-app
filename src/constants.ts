@@ -10,6 +10,8 @@ export const trpcPkg: IPkg = {
   "@trpc/next": {
     customVersion: "9.27.2",
   },
+  "solid-trpc": {},
+  "@tanstack/solid-query": {},
   // dep of @trpc/next
   "@types/react": {
     devMode: true,
