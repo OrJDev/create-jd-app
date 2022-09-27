@@ -1,4 +1,4 @@
-import { createRouter } from "../_utils";
+import { createRouter } from "../utils";
 import { z } from "zod";
 
 export default createRouter()

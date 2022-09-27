@@ -1,4 +1,4 @@
-import { IAppRouter } from "api/src/routers/_route";
+import { IAppRouter } from "@/routers";
 import { createSolidQueryHooks } from "solid-trpc";
 
 export const trpc = createSolidQueryHooks<IAppRouter>();

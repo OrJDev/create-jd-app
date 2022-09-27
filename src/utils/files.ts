@@ -20,9 +20,9 @@ export async function execFiles(files: IFile[], ctx: ICtx) {
         }
       } else {
         if (!file.path) {
-          throw new Error("this will never be called");
+          throw new Error("Missing path for a file with type copy");
         }
-        return fs.copy(file.path, file.to);
+        await fs.copy(file.path, file.to);
       }
     })
   );

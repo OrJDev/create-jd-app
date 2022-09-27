@@ -3,12 +3,13 @@ import fs from "fs-extra";
 import ora from "ora";
 import { existsOrCreate, overWriteFile } from "./files";
 import { execa, formatError, validateName, modifyJSON } from "./helpers";
-import { IAppCtx, ICtx } from "~types";
+import { IAppCtx, ICtx, IEnv } from "~types";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { installPkgs } from "~helpers/installer";
 import SolidHelper from "~helpers/solid";
 import { prismaEnv } from "~constants";
+import { resolveEnv, updateEnv } from "~helpers/env";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -77,17 +78,23 @@ export async function copyTemplate(appContext: IAppCtx) {
 }
 export async function modifyProject(
   ctx: ICtx,
-  scripts: Record<string, string>
+  scripts: Record<string, string>,
+  env: IEnv[][]
 ) {
   const spinner = ora("Modifying project").start();
   try {
     await SolidHelper(ctx);
     if (ctx.initServer) {
+      const modifiedENV = await resolveEnv(env);
       await Promise.all([
-        fs.writeFile(path.join(ctx.userDir, ".env"), prismaEnv),
+        updateEnv(ctx.userDir, modifiedENV),
         fs.copy(
           path.join(__dirname, "../..", "template", "config"),
           path.join(ctx.userDir)
+        ),
+        fs.copy(
+          path.join(__dirname, "../..", "template", "serverConfig.json"),
+          path.join(ctx.userDir, "tsconfig.json")
         ),
       ]);
     }
@@ -146,29 +153,26 @@ export async function installAddonsDependencies(
 }
 
 export async function runServerCommands(ctx: IAppCtx) {
-  let commands = [
-    async () =>
-      await execa("npx prisma generate", {
-        cwd: ctx.userDir,
-      }),
-  ];
-  const len = commands.length;
-  if (len) {
-    const end = len > 1 ? "s" : "";
-    const spinner = ora(`Running ${len} Queued Command${end}`).start();
-    try {
-      for (const command of commands) await command();
-      spinner.succeed(`Ran ${len} Queued Command${end}`);
-    } catch (e) {
-      spinner.fail(`Couldn't Run Queued Commands: ${formatError(e)}`);
-      process.exit(1);
-    }
+  const spinner = ora("Generating Prisma Types").start();
+  try {
+    await execa("npx prisma generate", {
+      cwd: ctx.userDir,
+    });
+    spinner.succeed("Generated Prisma Types");
+  } catch (e) {
+    spinner.fail(`Couldn't Generate Prisma Types: ${formatError(e)}`);
+    process.exit(1);
   }
 }
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  ctx.initServer && console.log(chalk.yellow("\tnpm run push"));
+  ctx.initServer &&
+    console.log(
+      `${chalk.yellow("\tnpm run push")}\t${chalk.gray(
+        "// Pushes db to Prisma"
+      )}`
+    );
   console.log(
     chalk.bold(chalk.blue(`\tnpm run ${ctx.initServer ? "vdev" : "dev"}`))
   );

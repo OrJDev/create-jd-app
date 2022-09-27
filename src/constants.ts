@@ -1,4 +1,4 @@
-import { IPkg } from "~types";
+import { IEnv, IPkg } from "~types";
 
 export const trpcPkg: IPkg = {
   "@trpc/client": {
@@ -34,4 +34,10 @@ export const prismaScripts: Record<string, string> = {
   generate: "prisma generate",
 };
 
-export const prismaEnv = [`DATABASE_URL=file:./db.sqlite`].join("\n");
+export const prismaEnv: IEnv[] = [
+  {
+    key: "DATABASE_URL",
+    type: "string()",
+    defaulValue: "file:./db.sqlite",
+  },
+];

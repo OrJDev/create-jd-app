@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "types": ["vite/client"]
   },
-  "includes": ["src"]
+  "includes": ["src", "trpc"]
 }

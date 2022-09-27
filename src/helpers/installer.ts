@@ -1,15 +1,16 @@
 import ora from "ora";
-import { IInstaller, IPkg, ICtx } from "~types";
+import { IInstaller, IPkg, ICtx, IEnv } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
-import { trpcPkg, prismaScripts, prismaPkgs } from "~constants";
+import { trpcPkg, prismaScripts, prismaPkgs, prismaEnv } from "~constants";
 
 export default async (
   ctx: ICtx
-): Promise<[Record<string, string>, [string[], string[]]]> => {
+): Promise<[Record<string, string>, [string[], string[]], IEnv[][]]> => {
   let normalDeps: string[] = [];
   let devModeDeps: string[] = [];
   let scripts: Record<string, string> = {};
+  let env: IEnv[][] = [];
 
   if (ctx.initServer) {
     const newDeps = sortToDevAndNormal({ ...trpcPkg, ...prismaPkgs });
@@ -19,6 +20,7 @@ export default async (
       ...scripts,
       ...prismaScripts,
     };
+    env.push(prismaEnv);
   }
 
   const resp = await Promise.all(
@@ -50,6 +52,9 @@ export default async (
           if (cfg.files?.length) {
             await execFiles(cfg.files, ctx);
           }
+          if (cfg.env?.length) {
+            env.push(cfg.env);
+          }
         })
       );
       spinner.succeed(`Initialized ${resp.length} installers`);
@@ -60,7 +65,7 @@ export default async (
   } else {
     spinner.succeed("No installers to initialize");
   }
-  return [scripts, [normalDeps, devModeDeps]];
+  return [scripts, [normalDeps, devModeDeps], env];
 };
 
 const sortToDevAndNormal = (pkgs: IPkg): [string[], string[]] => {

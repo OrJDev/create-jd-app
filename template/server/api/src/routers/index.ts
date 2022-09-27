@@ -1,5 +1,5 @@
-import { createRouter } from "../_utils";
-import exampleRouter from "./_example";
+import { createRouter } from "../utils";
+import exampleRouter from "./example";
 
 export const appRouter = createRouter().merge("example.", exampleRouter);
 
