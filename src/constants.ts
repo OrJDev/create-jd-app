@@ -41,3 +41,6 @@ export const prismaEnv: IEnv[] = [
     defaulValue: "file:./db.sqlite",
   },
 ];
+
+
+export const ServerStartCMD = "vercel dev --local-config ./vercel-dev.json";

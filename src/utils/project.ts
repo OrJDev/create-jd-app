@@ -1,14 +1,14 @@
 import path from "path";
 import fs from "fs-extra";
 import ora from "ora";
+import solidHelper from "~helpers/solid";
+import inquirer from "inquirer";
+import chalk from "chalk";
 import { existsOrCreate, overWriteFile } from "./files";
 import { execa, formatError, validateName, modifyJSON } from "./helpers";
 import { IAppCtx, ICtx, IEnv } from "~types";
-import inquirer from "inquirer";
-import chalk from "chalk";
 import { installPkgs } from "~helpers/installer";
-import SolidHelper from "~helpers/solid";
-import { prismaEnv } from "~constants";
+import { ServerStartCMD } from "~constants";
 import { resolveEnv, updateEnv } from "~helpers/env";
 
 export async function initApp(): Promise<IAppCtx> {
@@ -92,7 +92,7 @@ export async function modifyProject(
   try {
     if (ctx.initServer) {
       await Promise.all([
-        SolidHelper(ctx),
+        solidHelper(ctx),
         resolveEnv(env).then((modifiedENV) =>
           updateEnv(ctx.userDir, modifiedENV)
         ),
@@ -106,13 +106,12 @@ export async function modifyProject(
         ),
       ]);
     } else {
-      await SolidHelper(ctx);
+      await solidHelper(ctx);
     }
     await modifyJSON(ctx.userDir, (json) => {
       json.name = ctx.appName;
       if (ctx.initServer) {
-        json.prisna = { scheme: "../prisma/schema.prisma" };
-        json.scripts.dev = "vercel dev --local-config ./vercel-dev.json";
+        json.scripts.dev = ServerStartCMD;
       }
       json.scripts = { ...json.scripts, ...scripts };
       return json;
