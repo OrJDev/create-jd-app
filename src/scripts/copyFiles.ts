@@ -14,8 +14,6 @@ async function main() {
       const newPath = oldPath.replace("src", "dist");
       if (await fs.pathExists(oldPath)) {
         await fs.copy(oldPath, newPath);
-      } else {
-        console.log({ installer, oldPath });
       }
     }),
     fs.copy(baseHelpersPath, baseHelpersPath.replace("src", "dist")),

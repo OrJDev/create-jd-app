@@ -1,5 +1,8 @@
 import ora from "ora";
-import { IInstaller, IPkg, ICtx, IEnv } from "~types";
+import path from "path";
+import fs from "fs-extra";
+import inquirer from "inquirer";
+import { IInstaller, IPkg, ICtx, IEnv, IAppCtx } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError } from "~utils/helpers";
 import { trpcPkg, prismaScripts, prismaPkgs, prismaEnv } from "~constants";
@@ -95,3 +98,42 @@ export const installPkgs = async (cwd: string, deps: [string[], string[]]) => {
     });
   }
 };
+
+export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
+  let installers: string[] = [];
+  let pkgs: string[] = [];
+  try {
+    installers = (await fs.readdir(path.join(__dirname, "../installers"))).map(
+      (i) => i.split("-").join(" ")
+    );
+  } catch {}
+  if (installers.length) {
+    if (installers.length === 1) {
+      const inst = <string>installers.shift();
+      if (
+        (
+          await inquirer.prompt<{ install: boolean }>({
+            name: "install",
+            type: "confirm",
+            message: `Do you want to use ${inst}?`,
+          })
+        ).install
+      ) {
+        pkgs = [inst];
+      }
+    } else {
+      pkgs = (
+        await inquirer.prompt<{ pkgs: string[] }>({
+          name: "pkgs",
+          type: "checkbox",
+          message: "What should we use for this app?",
+          choices: installers,
+        })
+      ).pkgs;
+    }
+  }
+  return {
+    ...ctx,
+    installers: pkgs,
+  };
+}

@@ -59,17 +59,24 @@ export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   const templateDir = path.join(__dirname, "../..", "template");
   try {
-    await fs.copy(
-      path.join(templateDir, "client"),
-      path.join(appContext.userDir)
-    );
+    if (appContext.initServer) {
+      await Promise.all([
+        fs.copy(
+          path.join(templateDir, "client"),
+          path.join(appContext.userDir)
+        ),
+        fs.copy(path.join(templateDir, "server"), appContext.userDir),
+      ]);
+    } else {
+      await fs.copy(
+        path.join(templateDir, "client"),
+        path.join(appContext.userDir)
+      );
+    }
     await fs.rename(
       path.join(appContext.userDir, "_gitignore"),
       path.join(appContext.userDir, ".gitignore")
     );
-    if (appContext.initServer) {
-      await fs.copy(path.join(templateDir, "server"), appContext.userDir);
-    }
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);
@@ -83,11 +90,12 @@ export async function modifyProject(
 ) {
   const spinner = ora("Modifying project").start();
   try {
-    await SolidHelper(ctx);
     if (ctx.initServer) {
-      const modifiedENV = await resolveEnv(env);
       await Promise.all([
-        updateEnv(ctx.userDir, modifiedENV),
+        SolidHelper(ctx),
+        resolveEnv(env).then((modifiedENV) =>
+          updateEnv(ctx.userDir, modifiedENV)
+        ),
         fs.copy(
           path.join(__dirname, "../..", "template", "config"),
           path.join(ctx.userDir)
@@ -97,24 +105,18 @@ export async function modifyProject(
           path.join(ctx.userDir, "tsconfig.json")
         ),
       ]);
+    } else {
+      await SolidHelper(ctx);
     }
-    const len = Object.keys(scripts).length;
-    if (len || ctx.initServer) {
-      await modifyJSON(ctx.userDir, (json) => {
-        json.name = ctx.appName;
-        if (ctx.initServer) {
-          json.prisna = { scheme: "../prisma/schema.prisma" };
-          json.scripts.vdev = "vercel dev --local-config ./vercel-dev.json";
-          const devCmd = json.scripts.dev;
-          delete json.scripts.dev;
-          json.scripts.client = devCmd;
-        }
-        if (len) {
-          json.scripts = { ...json.scripts, ...scripts };
-        }
-        return json;
-      });
-    }
+    await modifyJSON(ctx.userDir, (json) => {
+      json.name = ctx.appName;
+      if (ctx.initServer) {
+        json.prisna = { scheme: "../prisma/schema.prisma" };
+        json.scripts.dev = "vercel dev --local-config ./vercel-dev.json";
+      }
+      json.scripts = { ...json.scripts, ...scripts };
+      return json;
+    });
     spinner.succeed("Modified project");
   } catch (e) {
     spinner.fail(`Couldn't modify project: ${formatError(e)}`);
@@ -122,12 +124,12 @@ export async function modifyProject(
   }
 }
 
-export async function installDeps(userDir: string) {
+export async function installDeps(userDir: string, len: boolean) {
   console.log();
   const spinner = ora("Installing template dependencies").start();
   try {
     await execa("npm install", { cwd: userDir });
-    spinner.succeed(`Installed template dependencies`);
+    spinner.succeed(`Installed${len ? " template" : ""} dependencies`);
   } catch (e) {
     spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
     process.exit(1);
@@ -139,7 +141,7 @@ export async function installAddonsDependencies(
   deps: [string[], string[]]
 ) {
   const spinner = ora("Installing addons dependencies").start();
-  if (Object.keys(deps).length) {
+  if (deps[0].length || deps[1].length) {
     try {
       await installPkgs(ctx.userDir, deps);
       spinner.succeed("Installed addons dependencies");
@@ -153,14 +155,14 @@ export async function installAddonsDependencies(
 }
 
 export async function runServerCommands(ctx: IAppCtx) {
-  const spinner = ora("Generating Prisma Types").start();
+  const spinner = ora("Generating prisma Types").start();
   try {
     await execa("npx prisma generate", {
       cwd: ctx.userDir,
     });
-    spinner.succeed("Generated Prisma Types");
+    spinner.succeed("Generated prisma types");
   } catch (e) {
-    spinner.fail(`Couldn't Generate Prisma Types: ${formatError(e)}`);
+    spinner.fail(`Couldn't generate prisma types: ${formatError(e)}`);
     process.exit(1);
   }
 }
@@ -170,12 +172,10 @@ export function finished(ctx: ICtx) {
   ctx.initServer &&
     console.log(
       `${chalk.yellow("\tnpm run push")}\t${chalk.gray(
-        "// Pushes db to Prisma"
+        "// pushes db to Prisma"
       )}`
     );
-  console.log(
-    chalk.bold(chalk.blue(`\tnpm run ${ctx.initServer ? "vdev" : "dev"}`))
-  );
+  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
   console.log();
   process.exit(0);
 }

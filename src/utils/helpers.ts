@@ -2,8 +2,6 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import fs from "fs-extra";
 import path from "path";
-import inquirer from "inquirer";
-import { IAppCtx, ICtx, IFile } from "~types";
 
 export const execa = promisify(exec);
 
@@ -34,45 +32,6 @@ export const validateName = (name: string) => {
     ? true
     : "This is not a valid name";
 };
-
-export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
-  let installers: string[] = [];
-  let pkgs: string[] = [];
-  try {
-    installers = (await fs.readdir(path.join(__dirname, "../installers"))).map(
-      (i) => i.split("-").join(" ")
-    );
-  } catch {}
-  if (installers.length) {
-    if (installers.length === 1) {
-      const inst = <string>installers.shift();
-      if (
-        (
-          await inquirer.prompt<{ install: boolean }>({
-            name: "install",
-            type: "confirm",
-            message: `Do you want to use ${inst}?`,
-          })
-        ).install
-      ) {
-        pkgs = [inst];
-      }
-    } else {
-      pkgs = (
-        await inquirer.prompt<{ pkgs: string[] }>({
-          name: "pkgs",
-          type: "checkbox",
-          message: "What should we use for this app?",
-          choices: installers,
-        })
-      ).pkgs;
-    }
-  }
-  return {
-    ...ctx,
-    installers: pkgs,
-  };
-}
 
 export async function modifyJSON(
   userDir: string,

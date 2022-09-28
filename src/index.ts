@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import * as project from "./utils/project";
-import { formatError, getCtxWithInstallers } from "./utils/helpers";
+import { formatError } from "./utils/helpers";
 import chalk from "chalk";
-import runInstallers from "./helpers/installer";
+import runInstallers, { getCtxWithInstallers } from "./helpers/installer";
 
 async function main() {
   const appCtx = await project.initApp();
@@ -11,7 +11,10 @@ async function main() {
   const ctx = await getCtxWithInstallers(appCtx);
   const [scripts, deps, env] = await runInstallers(ctx);
   await project.modifyProject(ctx, scripts, env);
-  await project.installDeps(ctx.userDir);
+  await project.installDeps(
+    ctx.userDir,
+    !!(ctx.initServer || ctx.installers.length)
+  );
   await project.installAddonsDependencies(ctx, deps);
   appCtx.initServer && (await project.runServerCommands(appCtx));
   project.finished(ctx);
