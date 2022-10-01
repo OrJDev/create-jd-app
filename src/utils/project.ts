@@ -9,7 +9,7 @@ import { execa, formatError, validateName, modifyJSON } from "./helpers";
 import { IAppCtx, ICtx, IEnv } from "~types";
 import { installPkgs } from "~helpers/installer";
 import { ServerStartCMD } from "~constants";
-import { resolveEnv, updateEnv } from "~helpers/env";
+import { updateEnv } from "~helpers/env";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -100,9 +100,7 @@ export async function modifyProject(
     if (ctx.trpc) {
       await Promise.all([
         solidHelper(ctx),
-        resolveEnv(env).then((modifiedENV) =>
-          updateEnv(ctx.userDir, modifiedENV)
-        ),
+        updateEnv(ctx.userDir, env),
         fs.copy(
           path.join(__dirname, "../..", "template", "config"),
           path.join(ctx.userDir)
@@ -162,7 +160,7 @@ export async function installAddonsDependencies(
 }
 
 export async function runServerCommands(ctx: IAppCtx) {
-  const spinner = ora("Generating prisma Types").start();
+  const spinner = ora("Generating prisma types").start();
   try {
     await execa("npx prisma generate", {
       cwd: ctx.userDir,

@@ -7,7 +7,8 @@ export type IResolveEnvResp = {
   newEnv: string;
 };
 
-export async function updateEnv(userDir: string, env: IResolveEnvResp) {
+export async function updateEnv(userDir: string, _env: IEnv[][]) {
+  const env = await resolveEnv(_env);
   const ENV_DIR = path.join(userDir, "api", "src", "env");
   let schema = path.join(ENV_DIR, "schema.ts");
   await fs.writeFile(

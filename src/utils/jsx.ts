@@ -31,9 +31,9 @@ export const actionToSyntax = (
   ...args: any[]
 ) => {
   if (syntax === "v9") {
-    return `trpc.create${action}(() => "${route ? `${route}.` : ""}${path}"${
+    return `trpc.create${action}(() => ${action === "Query" ? "[":""}"${route ? `${route}.` : ""}${path}"${
       args.length ? `, ${args.join(", ")}` : ""
-    });`;
+    }${action === "Query" ? "]":""});`;
   }
   return `trpc.${path}.use${action}(${args.join(", ")});`;
 };
