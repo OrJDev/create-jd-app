@@ -15,8 +15,11 @@ export default async (
   let scripts: Record<string, string> = {};
   let env: IEnv[][] = [];
 
-  if (ctx.initServer) {
-    const newDeps = sortToDevAndNormal({ ...trpcPkg, ...prismaPkgs });
+  if (ctx.trpc) {
+    const newDeps = sortToDevAndNormal({
+      ...trpcPkg(ctx.trpc.syntax),
+      ...prismaPkgs,
+    });
     normalDeps = [...normalDeps, ...newDeps[0]];
     devModeDeps = [...devModeDeps, ...newDeps[1]];
     scripts = {

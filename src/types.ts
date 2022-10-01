@@ -1,8 +1,12 @@
 export type IAppCtx = {
   userDir: string;
-  initServer: boolean;
+  trpc?: {
+    syntax: ISyntax;
+  };
   appName: string;
 };
+
+export type ISyntax = "v10" | "v9";
 
 export type INullAble<T> = T | null;
 

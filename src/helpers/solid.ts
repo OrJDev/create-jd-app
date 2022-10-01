@@ -9,13 +9,13 @@ const helperFunc = async (ctx: ICtx) => {
       to: `${ctx.userDir}/src/pages/Home/Home.tsx`,
     },
   ];
-  if (ctx.initServer) {
+  if (ctx.trpc) {
     files.push({
-      path: `${__dirname}/files/trpcUtil.txt`,
+      path: `${__dirname}/files/trpcUtil-${ctx.trpc.syntax}.txt`,
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     });
   }
-  if (ctx.initServer || ctx.installers.includes("Router")) {
+  if (ctx.trpc || ctx.installers.includes("Router")) {
     files.push({
       path: `${__dirname}/utils/getApp`,
       to: `${ctx.userDir}/src/App.tsx`,

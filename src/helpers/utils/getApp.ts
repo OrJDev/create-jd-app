@@ -7,7 +7,7 @@ const getApp: IUtil = (ctx) => {
   const children = useRouter
     ? '<Route path="/" component={Home} />'
     : "<Home />";
-  ctx.initServer &&
+  ctx.trpc &&
     providers.unshift("TRPCProvider client={client} queryClient={queryClient}");
   const resolved = resolveProviders(providers, [children]);
 
@@ -17,13 +17,13 @@ import { Home } from "./pages";${
       ? '\nimport { Routes, Route, Router } from "@solidjs/router";'
       : ""
   }${
-    ctx.initServer
+    ctx.trpc
       ? '\nimport { QueryClient } from "@tanstack/solid-query";\nimport { TRPCProvider } from "solid-trpc";\nimport { client } from "./utils/trpc";'
       : ""
   }
 
 interface IAppProps {}${
-    ctx.initServer ? "\n\nconst queryClient = new QueryClient();" : ""
+    ctx.trpc ? "\n\nconst queryClient = new QueryClient();" : ""
   }
 
 const App: Component<IAppProps> = ({}) => {

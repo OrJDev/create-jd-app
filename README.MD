@@ -8,6 +8,11 @@ Create modern SolidJS & tRPC Full-Stack TypeScript application within seconds.
 npm create jd-app@latest
 ```
 
+## tRPC
+
+- Supports V10 Syntax
+- Supports V9 Syntax
+
 ## What's the Stack?
 
 - TypeScript
@@ -24,4 +29,4 @@ npm create jd-app@latest
 
 #### Preview
 
-![Screenshot_1](https://user-images.githubusercontent.com/91349014/192525876-569b18b8-5975-4c26-b365-68f3311a0bfb.png)
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/193410782-a0483d0b-eeaf-484e-bbef-e71bd2b10fe9.png)

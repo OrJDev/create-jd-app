@@ -40,17 +40,20 @@ export async function initApp(): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  const initServer = (
-    await inquirer.prompt<{ initServer: boolean }>({
-      name: "initServer",
-      type: "confirm",
-      message: `Do you want to use tRPC?`,
+  const syntax = (
+    await inquirer.prompt<{
+      trpcVersion: "v9" | "v10" | "I Don't Want To Use tRPC";
+    }>({
+      name: "trpcVersion",
+      type: "list",
+      message: "Choose tRPC version",
+      choices: ["v9", "v10", "I Don't Want To Use tRPC"],
     })
-  ).initServer;
+  ).trpcVersion;
   return {
     appName,
     userDir,
-    initServer,
+    trpc: syntax === "I Don't Want To Use tRPC" ? undefined : { syntax },
   };
 }
 
@@ -59,13 +62,17 @@ export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   const templateDir = path.join(__dirname, "../..", "template");
   try {
-    if (appContext.initServer) {
+    if (appContext.trpc) {
       await Promise.all([
         fs.copy(
           path.join(templateDir, "client"),
           path.join(appContext.userDir)
         ),
         fs.copy(path.join(templateDir, "server"), appContext.userDir),
+        fs.copy(
+          path.join(templateDir, "trpc", appContext.trpc.syntax),
+          path.join(appContext.userDir, "api", "src")
+        ),
       ]);
     } else {
       await fs.copy(
@@ -90,7 +97,7 @@ export async function modifyProject(
 ) {
   const spinner = ora("Modifying project").start();
   try {
-    if (ctx.initServer) {
+    if (ctx.trpc) {
       await Promise.all([
         solidHelper(ctx),
         resolveEnv(env).then((modifiedENV) =>
@@ -110,8 +117,9 @@ export async function modifyProject(
     }
     await modifyJSON(ctx.userDir, (json) => {
       json.name = ctx.appName;
-      if (ctx.initServer) {
-        json.scripts.dev = ServerStartCMD;
+      if (ctx.trpc) {
+        delete json.scripts.dev;
+        json.scripts.vdev = ServerStartCMD;
       }
       json.scripts = { ...json.scripts, ...scripts };
       return json;
@@ -168,13 +176,13 @@ export async function runServerCommands(ctx: IAppCtx) {
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  ctx.initServer &&
+  ctx.trpc &&
     console.log(
       `${chalk.yellow("\tnpm run push")}\t${chalk.gray(
         "// pushes db to Prisma"
       )}`
     );
-  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
+  console.log(chalk.bold(chalk.blue(`\tnpm run ${ctx.trpc ? "vdev" : "dev"}`)));
   console.log();
   process.exit(0);
 }

@@ -2,6 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
+import { ISyntax } from "~types";
 
 export const execa = promisify(exec);
 
@@ -45,3 +46,6 @@ export async function modifyJSON(
   );
   return newJson;
 }
+
+export const getTRPCVersion = (syntax: ISyntax) =>
+  syntax === "v9" ? "9.27.2" : "next";

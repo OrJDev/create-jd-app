@@ -1,24 +1,28 @@
-import { IEnv, IPkg } from "~types";
+import { IEnv, IPkg, ISyntax } from "~types";
+import { getTRPCVersion } from "~utils/helpers";
 
-export const trpcPkg: IPkg = {
-  "@trpc/client": {
-    customVersion: "9.27.2",
-  },
-  "@trpc/server": {
-    customVersion: "9.27.2",
-  },
-  "@trpc/next": {
-    customVersion: "9.27.2",
-  },
-  "solid-trpc": {},
-  "@tanstack/solid-query": {},
-  // dep of @trpc/next
-  "@types/react": {
-    devMode: true,
-  },
-  "@types/react-dom": {
-    devMode: true,
-  },
+export const trpcPkg = (syntax: ISyntax): IPkg => {
+  const customVersion = getTRPCVersion(syntax);
+  return {
+    "@trpc/client": {
+      customVersion,
+    },
+    "@trpc/server": {
+      customVersion,
+    },
+    "@trpc/next": {
+      customVersion,
+    },
+    "solid-trpc": syntax === "v10" ? { customVersion: "next" } : {},
+    "@tanstack/solid-query": {},
+    // dep of @trpc/next
+    "@types/react": {
+      devMode: true,
+    },
+    "@types/react-dom": {
+      devMode: true,
+    },
+  };
 };
 
 export const prismaPkgs: IPkg = {
@@ -29,7 +33,7 @@ export const prismaPkgs: IPkg = {
 };
 
 export const prismaScripts: Record<string, string> = {
-  postinstall: "prisma generate",
+  // postinstall: "prisma generate",
   push: "prisma db push",
   generate: "prisma generate",
 };
@@ -41,6 +45,5 @@ export const prismaEnv: IEnv[] = [
     defaulValue: "file:./db.sqlite",
   },
 ];
-
 
 export const ServerStartCMD = "vercel dev --local-config ./vercel-dev.json";
