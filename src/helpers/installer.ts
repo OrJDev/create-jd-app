@@ -4,7 +4,7 @@ import fs from "fs-extra";
 import inquirer from "inquirer";
 import { IInstaller, IPkg, ICtx, IEnv, IAppCtx } from "~types";
 import { execFiles } from "~utils/files";
-import { execa, formatError } from "~utils/helpers";
+import { execa, formatError, getUserPackageManager } from "~utils/helpers";
 import { trpcPkg, prismaScripts, prismaPkgs, prismaEnv } from "~constants";
 
 export default async (
@@ -88,15 +88,20 @@ const sortToDevAndNormal = (pkgs: IPkg): [string[], string[]] => {
   return [normal, devs];
 };
 
-export const installPkgs = async (cwd: string, deps: [string[], string[]]) => {
+export const installPkgs = async (
+  pkgManager: ReturnType<typeof getUserPackageManager>,
+  cwd: string,
+  deps: [string[], string[]]
+) => {
   const [normal, devs] = deps;
+  const cmd = pkgManager === "yarn" ? "add" : "install";
   if (normal.length) {
-    await execa(`npm install ${normal.join(" ")}`, {
+    await execa(`${pkgManager} ${cmd} ${normal.join(" ")}`, {
       cwd,
     });
   }
   if (devs.length) {
-    await execa(`npm install ${devs.join(" ")} -D`, {
+    await execa(`${pkgManager} ${cmd} ${devs.join(" ")} -D`, {
       cwd,
     });
   }

@@ -49,3 +49,10 @@ export async function modifyJSON(
 
 export const getTRPCVersion = (syntax: ISyntax) =>
   syntax === "v9" ? "9.27.2" : "next";
+
+export const getUserPackageManager = () => {
+  const userAgent = process.env.npm_config_user_agent;
+  if (userAgent?.startsWith("yarn")) return "yarn";
+  if (userAgent?.startsWith("pnpm")) return "pnpm";
+  return "npm";
+};

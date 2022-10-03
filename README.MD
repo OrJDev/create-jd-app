@@ -29,4 +29,4 @@ npm create jd-app@latest
 
 #### Preview
 
-![Screenshot_1](https://user-images.githubusercontent.com/91349014/193410782-a0483d0b-eeaf-484e-bbef-e71bd2b10fe9.png)
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/193575494-7882cef6-a1f1-4f87-9406-45dd49cf0c92.png)

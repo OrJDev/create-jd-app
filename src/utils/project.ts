@@ -5,7 +5,13 @@ import solidHelper from "~helpers/solid";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { existsOrCreate, overWriteFile } from "./files";
-import { execa, formatError, validateName, modifyJSON } from "./helpers";
+import {
+  execa,
+  formatError,
+  validateName,
+  modifyJSON,
+  getUserPackageManager,
+} from "./helpers";
 import { IAppCtx, ICtx, IEnv } from "~types";
 import { installPkgs } from "~helpers/installer";
 import { ServerStartCMD } from "~constants";
@@ -129,11 +135,19 @@ export async function modifyProject(
   }
 }
 
-export async function installDeps(userDir: string, len: boolean) {
-  console.log();
+export async function installDeps(
+  pkgManager: ReturnType<typeof getUserPackageManager>,
+  userDir: string,
+  len: boolean
+) {
+  console.log(
+    `\n${chalk.blue("Using")} ${chalk.bold(
+      chalk.yellow(pkgManager.toUpperCase())
+    )} ${chalk.bold(chalk.blue("as package manager"))}`
+  );
   const spinner = ora("Installing template dependencies").start();
   try {
-    await execa("npm install", { cwd: userDir });
+    await execa(`${pkgManager} install`, { cwd: userDir });
     spinner.succeed(`Installed${len ? " template" : ""} dependencies`);
   } catch (e) {
     spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
@@ -142,13 +156,14 @@ export async function installDeps(userDir: string, len: boolean) {
 }
 
 export async function installAddonsDependencies(
+  pkgManager: ReturnType<typeof getUserPackageManager>,
   ctx: ICtx,
   deps: [string[], string[]]
 ) {
   const spinner = ora("Installing addons dependencies").start();
   if (deps[0].length || deps[1].length) {
     try {
-      await installPkgs(ctx.userDir, deps);
+      await installPkgs(pkgManager, ctx.userDir, deps);
       spinner.succeed("Installed addons dependencies");
     } catch (e) {
       spinner.fail(`Couldn't install addons dependencies: ${formatError(e)}`);
