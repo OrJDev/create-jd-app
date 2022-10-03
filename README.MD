@@ -5,7 +5,12 @@ Create modern SolidJS & tRPC Full-Stack TypeScript application within seconds.
 ## Getting Started
 
 ```bash
-npm create jd-app@latest
+# yarn
+yarn create jd-app
+# npm
+npm create jd-app
+# pnpm
+pnpm exec create-jd-app
 ```
 
 ## tRPC
