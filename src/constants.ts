@@ -33,7 +33,6 @@ export const prismaPkgs: IPkg = {
 };
 
 export const prismaScripts: Record<string, string> = {
-  // postinstall: "prisma generate",
   push: "prisma db push",
   generate: "prisma generate",
 };

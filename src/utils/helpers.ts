@@ -2,7 +2,8 @@ import fs from "fs-extra";
 import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { ISyntax } from "~types";
+import { ICtx, ISyntax } from "~types";
+import { ServerStartCMD } from "~constants";
 
 export const execa = promisify(exec);
 
@@ -55,4 +56,22 @@ export const getUserPackageManager = () => {
   if (userAgent?.startsWith("yarn")) return "yarn";
   if (userAgent?.startsWith("pnpm")) return "pnpm";
   return "npm";
+};
+
+export const solidUpdateJSON = async (
+  ctx: ICtx,
+  scripts: Record<string, string>
+) => {
+  await modifyJSON(ctx.userDir, (json) => {
+    json.name = ctx.appName;
+    if (ctx.trpc) {
+      delete json.scripts.dev;
+      json.scripts.vdev = ServerStartCMD;
+    }
+    if (ctx.installers.includes("MDX")) {
+      json.type = "module";
+    }
+    json.scripts = { ...json.scripts, ...scripts };
+    return json;
+  });
 };

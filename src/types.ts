@@ -18,7 +18,7 @@ export type ICtx = ICtxWith<{ installers: string[] }>;
 
 export type IConfig = {
   files?: Array<IFile>;
-  pkgs?: IPkg;
+  pkgs?: IPkg | string[];
   scripts?: Record<string, string>;
   env?: IEnv[];
 };
@@ -35,7 +35,7 @@ export type IPkg = Record<string, IPkgInfo>;
 export type IFile = {
   to: string;
   content?: string;
-  type?: "copy" | "exec" | "delete" | "write";
+  type?: "copy" | "exec" | "delete" | "write" | "append";
   path?: string;
 };
 

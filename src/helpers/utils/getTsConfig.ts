@@ -1,11 +1,14 @@
-{
+import { IUtil } from "~types";
+
+const getTsConfig: IUtil = (ctx) => {
+  const useMDX = ctx.installers.includes("MDX");
+  return `{
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"],
-      "@/*": ["./api/src/*"]
+      "~/*": ["./src/*"]${ctx.trpc ? ',\n      "@/*": ["./api/src/*"]' : ""}
     },
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -22,8 +25,13 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client"],
+    "types": ["vite/client"${useMDX ? `, "solid-jsx/types"` : ""}],
     "noEmit": true,
     "isolatedModules": true
-  }
+  },
+  "exclude": ["./scripts"]
 }
+`;
+};
+
+export default getTsConfig;

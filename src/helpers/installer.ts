@@ -48,9 +48,13 @@ export default async (
       await Promise.all(
         resp.map(async (cfg) => {
           if (cfg.pkgs) {
-            let newDeps = sortToDevAndNormal(cfg.pkgs);
-            normalDeps = [...normalDeps, ...newDeps[0]];
-            devModeDeps = [...devModeDeps, ...newDeps[1]];
+            if (Array.isArray(cfg.pkgs)) {
+              normalDeps = [...normalDeps, ...cfg.pkgs];
+            } else {
+              let newDeps = sortToDevAndNormal(cfg.pkgs);
+              normalDeps = [...normalDeps, ...newDeps[0]];
+              devModeDeps = [...devModeDeps, ...newDeps[1]];
+            }
           }
           if (cfg.scripts) {
             scripts = { ...scripts, ...cfg.scripts };

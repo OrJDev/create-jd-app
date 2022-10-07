@@ -18,7 +18,7 @@ pnpm exec create-jd-app
 - Supports V10 Syntax
 - Supports V9 Syntax
 
-## What's the Stack?
+## Stack / Optional Features
 
 - TypeScript
 - Serverless Vercel API + tRPC (solid-trpc)
@@ -27,6 +27,7 @@ pnpm exec create-jd-app
 - Prisma
 - Solid Router
 - TailwindCSS
+- MDX
 
 ### Learn more
 

@@ -17,6 +17,8 @@ export async function execFiles(files: IFile[], ctx: ICtx) {
           await fs.remove(file.to);
         } else if (file.type === "write") {
           await fs.outputFile(file.to, file.content);
+        } else if (file.type === "append") {
+          await fs.appendFile(file.to, file.content);
         }
       } else {
         if (!file.path) {

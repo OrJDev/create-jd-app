@@ -9,12 +9,11 @@ import {
   execa,
   formatError,
   validateName,
-  modifyJSON,
   getUserPackageManager,
+  solidUpdateJSON,
 } from "./helpers";
 import { IAppCtx, ICtx, IEnv } from "~types";
 import { installPkgs } from "~helpers/installer";
-import { ServerStartCMD } from "~constants";
 import { updateEnv } from "~helpers/env";
 
 export async function initApp(): Promise<IAppCtx> {
@@ -68,24 +67,16 @@ export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   const templateDir = path.join(__dirname, "../..", "template");
   try {
-    if (appContext.trpc) {
-      await Promise.all([
-        fs.copy(
-          path.join(templateDir, "client"),
-          path.join(appContext.userDir)
-        ),
+    await Promise.all([
+      fs.copy(path.join(templateDir, "client"), path.join(appContext.userDir)),
+      appContext.trpc &&
         fs.copy(path.join(templateDir, "server"), appContext.userDir),
+      appContext.trpc &&
         fs.copy(
           path.join(templateDir, "trpc", appContext.trpc.syntax),
           path.join(appContext.userDir, "api", "src")
         ),
-      ]);
-    } else {
-      await fs.copy(
-        path.join(templateDir, "client"),
-        path.join(appContext.userDir)
-      );
-    }
+    ]);
     await fs.rename(
       path.join(appContext.userDir, "_gitignore"),
       path.join(appContext.userDir, ".gitignore")
@@ -103,31 +94,16 @@ export async function modifyProject(
 ) {
   const spinner = ora("Modifying project").start();
   try {
-    if (ctx.trpc) {
-      await Promise.all([
-        solidHelper(ctx),
-        updateEnv(ctx.userDir, env),
+    await Promise.all([
+      solidHelper(ctx),
+      ctx.trpc && updateEnv(ctx.userDir, env),
+      ctx.trpc &&
         fs.copy(
           path.join(__dirname, "../..", "template", "config"),
           path.join(ctx.userDir)
         ),
-        fs.copy(
-          path.join(__dirname, "../..", "template", "serverConfig.json"),
-          path.join(ctx.userDir, "tsconfig.json")
-        ),
-      ]);
-    } else {
-      await solidHelper(ctx);
-    }
-    await modifyJSON(ctx.userDir, (json) => {
-      json.name = ctx.appName;
-      if (ctx.trpc) {
-        delete json.scripts.dev;
-        json.scripts.vdev = ServerStartCMD;
-      }
-      json.scripts = { ...json.scripts, ...scripts };
-      return json;
-    });
+      solidUpdateJSON(ctx, scripts),
+    ]);
     spinner.succeed("Modified project");
   } catch (e) {
     spinner.fail(`Couldn't modify project: ${formatError(e)}`);

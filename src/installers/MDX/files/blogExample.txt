@@ -1,0 +1,5 @@
+### Example
+
+```bash
+npm i example
+```

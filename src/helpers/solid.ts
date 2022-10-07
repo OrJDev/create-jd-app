@@ -8,6 +8,11 @@ const helperFunc = async (ctx: ICtx) => {
       type: "exec",
       to: `${ctx.userDir}/src/pages/Home/Home.tsx`,
     },
+    {
+      path: `${__dirname}/utils/getTsConfig`,
+      type: "exec",
+      to: `${ctx.userDir}/tsconfig.json`,
+    },
   ];
   if (ctx.trpc) {
     files.push({
