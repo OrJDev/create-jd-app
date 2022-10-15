@@ -4,7 +4,7 @@ const config: IInstaller = (ctx) => ({
   files: [
     {
       path: `${__dirname}/files/styles.txt`,
-      to: `${ctx.userDir}/src/index.css`,
+      to: `${ctx.userDir}/src/root.css`,
     },
     {
       path: `${__dirname}/files/postcss.config.txt`,

@@ -5,29 +5,23 @@ import inquirer from "inquirer";
 import { IInstaller, IPkg, ICtx, IEnv, IAppCtx } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
-import { trpcPkg, prismaScripts, prismaPkgs, prismaEnv } from "~constants";
 
 export default async (
   ctx: ICtx
-): Promise<[Record<string, string>, [string[], string[]], IEnv[][]]> => {
+): Promise<
+  [Record<string, string>, [string[], string[]], IEnv[], string[]]
+> => {
   let normalDeps: string[] = [];
   let devModeDeps: string[] = [];
   let scripts: Record<string, string> = {};
-  let env: IEnv[][] = [];
-
-  if (ctx.trpc) {
-    const newDeps = sortToDevAndNormal({
-      ...trpcPkg(ctx.trpc.syntax),
-      ...prismaPkgs,
-    });
-    normalDeps = [...normalDeps, ...newDeps[0]];
-    devModeDeps = [...devModeDeps, ...newDeps[1]];
-    scripts = {
-      ...scripts,
-      ...prismaScripts,
-    };
-    env.push(prismaEnv);
-  }
+  let env: IEnv[] = [
+    {
+      key: "NODE_ENV",
+      type: "enum(['development', 'production', 'test']).default('development')",
+      ignore: true,
+    },
+  ];
+  let commands: string[] = [];
 
   const resp = await Promise.all(
     ctx.installers.map((pkg) =>
@@ -62,8 +56,15 @@ export default async (
           if (cfg.files?.length) {
             await execFiles(cfg.files, ctx);
           }
+          if (cfg.commands) {
+            if (Array.isArray(cfg.commands)) {
+              commands = [...cfg.commands, ...commands];
+            } else {
+              commands.unshift(cfg.commands);
+            }
+          }
           if (cfg.env?.length) {
-            env.push(cfg.env);
+            env = [...env, ...cfg.env];
           }
         })
       );
@@ -75,7 +76,7 @@ export default async (
   } else {
     spinner.succeed("No installers to initialize");
   }
-  return [scripts, [normalDeps, devModeDeps], env];
+  return [scripts, [normalDeps, devModeDeps], env, commands];
 };
 
 const sortToDevAndNormal = (pkgs: IPkg): [string[], string[]] => {

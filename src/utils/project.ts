@@ -45,20 +45,10 @@ export async function initApp(): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  const syntax = (
-    await inquirer.prompt<{
-      trpcVersion: "v9" | "v10" | "I Don't Want To Use tRPC";
-    }>({
-      name: "trpcVersion",
-      type: "list",
-      message: "Choose tRPC version",
-      choices: ["v9", "v10", "I Don't Want To Use tRPC"],
-    })
-  ).trpcVersion;
   return {
     appName,
     userDir,
-    trpc: syntax === "I Don't Want To Use tRPC" ? undefined : { syntax },
+    templateDir: path.join(__dirname, "../../template"),
   };
 }
 
@@ -67,16 +57,10 @@ export async function copyTemplate(appContext: IAppCtx) {
   const spinner = ora("Copying template files").start();
   const templateDir = path.join(__dirname, "../..", "template");
   try {
-    await Promise.all([
-      fs.copy(path.join(templateDir, "client"), path.join(appContext.userDir)),
-      appContext.trpc &&
-        fs.copy(path.join(templateDir, "server"), appContext.userDir),
-      appContext.trpc &&
-        fs.copy(
-          path.join(templateDir, "trpc", appContext.trpc.syntax),
-          path.join(appContext.userDir, "api", "src")
-        ),
-    ]);
+    await fs.copy(
+      path.join(templateDir, "base"),
+      path.join(appContext.userDir)
+    );
     await fs.rename(
       path.join(appContext.userDir, "_gitignore"),
       path.join(appContext.userDir, ".gitignore")
@@ -90,18 +74,13 @@ export async function copyTemplate(appContext: IAppCtx) {
 export async function modifyProject(
   ctx: ICtx,
   scripts: Record<string, string>,
-  env: IEnv[][]
+  env: IEnv[]
 ) {
   const spinner = ora("Modifying project").start();
   try {
     await Promise.all([
       solidHelper(ctx),
-      ctx.trpc && updateEnv(ctx.userDir, env),
-      ctx.trpc &&
-        fs.copy(
-          path.join(__dirname, "../..", "template", "config"),
-          path.join(ctx.userDir)
-        ),
+      updateEnv(ctx.userDir, env),
       solidUpdateJSON(ctx, scripts),
     ]);
     spinner.succeed("Modified project");
@@ -150,28 +129,30 @@ export async function installAddonsDependencies(
   }
 }
 
-export async function runServerCommands(ctx: IAppCtx) {
-  const spinner = ora("Generating prisma types").start();
+export async function runCommands(ctx: IAppCtx, commands: string[]) {
+  const spinner = ora("Running queued commands").start();
   try {
-    await execa("npx prisma generate", {
-      cwd: ctx.userDir,
-    });
-    spinner.succeed("Generated prisma types");
+    for (const cmd of commands) {
+      await execa(cmd, {
+        cwd: ctx.userDir,
+      });
+    }
+    spinner.succeed("Ran queued commands");
   } catch (e) {
-    spinner.fail(`Couldn't generate prisma types: ${formatError(e)}`);
+    spinner.fail(`Couldn't run queued commands: ${formatError(e)}`);
     process.exit(1);
   }
 }
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
-  ctx.trpc &&
+  ctx.installers.includes("Prisma") &&
     console.log(
       `${chalk.yellow("\tnpm run push")}\t${chalk.gray(
         "// pushes db to Prisma"
       )}`
     );
-  console.log(chalk.bold(chalk.blue(`\tnpm run ${ctx.trpc ? "vdev" : "dev"}`)));
+  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
   console.log();
   process.exit(0);
 }

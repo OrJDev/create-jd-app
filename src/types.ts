@@ -1,12 +1,8 @@
 export type IAppCtx = {
   userDir: string;
-  trpc?: {
-    syntax: ISyntax;
-  };
   appName: string;
+  templateDir: string;
 };
-
-export type ISyntax = "v10" | "v9";
 
 export type INullAble<T> = T | null;
 
@@ -21,6 +17,7 @@ export type IConfig = {
   pkgs?: IPkg | string[];
   scripts?: Record<string, string>;
   env?: IEnv[];
+  commands?: string | string[];
 };
 
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;

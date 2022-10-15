@@ -10,15 +10,11 @@ async function main() {
   const appCtx = await project.initApp();
   await project.copyTemplate(appCtx);
   const ctx = await getCtxWithInstallers(appCtx);
-  const [scripts, deps, env] = await runInstallers(ctx);
+  const [scripts, deps, env, commands] = await runInstallers(ctx);
   await project.modifyProject(ctx, scripts, env);
-  await project.installDeps(
-    pkgManager,
-    ctx.userDir,
-    !!(ctx.trpc || ctx.installers.length)
-  );
+  await project.installDeps(pkgManager, ctx.userDir, ctx.installers.length > 0);
   await project.installAddonsDependencies(pkgManager, ctx, deps);
-  appCtx.trpc && (await project.runServerCommands(appCtx));
+  await project.runCommands(appCtx, commands);
   project.finished(ctx);
 }
 

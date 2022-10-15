@@ -2,8 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { ICtx, ISyntax } from "~types";
-import { ServerStartCMD } from "~constants";
+import { ICtx } from "~types";
 
 export const execa = promisify(exec);
 
@@ -48,9 +47,6 @@ export async function modifyJSON(
   return newJson;
 }
 
-export const getTRPCVersion = (syntax: ISyntax) =>
-  syntax === "v9" ? "9.27.2" : "next";
-
 export const getUserPackageManager = () => {
   const userAgent = process.env.npm_config_user_agent;
   if (userAgent?.startsWith("yarn")) return "yarn";
@@ -64,13 +60,6 @@ export const solidUpdateJSON = async (
 ) => {
   await modifyJSON(ctx.userDir, (json) => {
     json.name = ctx.appName;
-    if (ctx.trpc) {
-      delete json.scripts.dev;
-      json.scripts.vdev = ServerStartCMD;
-    }
-    if (ctx.installers.includes("MDX")) {
-      json.type = "module";
-    }
     json.scripts = { ...json.scripts, ...scripts };
     return json;
   });

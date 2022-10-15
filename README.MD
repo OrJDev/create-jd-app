@@ -1,6 +1,6 @@
 # Create JD App
 
-Create modern SolidJS & tRPC Full-Stack TypeScript application within seconds.
+Create modern SolidStart & tRPC Full-Stack TypeScript application within seconds. (t3 for Solid)
 
 ## Getting Started
 
@@ -13,26 +13,27 @@ npm create jd-app
 pnpm exec create-jd-app
 ```
 
-## tRPC
+## Base Template
 
-- Supports V10 Syntax
-- Supports V9 Syntax
-
-## Stack / Optional Features
-
+- Solid Start
 - TypeScript
-- Serverless Vercel API + tRPC (solid-trpc)
 - Zod
-- SolidJS
+
+## Addons
+
 - Prisma
-- Solid Router
+- tRPC
 - TailwindCSS
-- MDX
 
-### Learn more
+### T3 Related
 
-[My Blog](https://portfolio-orjdev.vercel.app/blog/create-jd-app-1)
+I really like t3, yet i prefer using solid more than react, therefore i created 2 useful packages:
+
+- Solid tRPC - tRPC adapter for Solid Client using TanStack/Solid Query (solid-trpc on npm)
+- Solid Start tRPC - Simple API Handler For Solid Start (solid-start-trpc on npm)
+
+It is as fast as t3 (or even faster) (:
 
 #### Preview
 
-![Screenshot_1](https://user-images.githubusercontent.com/91349014/193575494-7882cef6-a1f1-4f87-9406-45dd49cf0c92.png)
+![Screenshot_1](https://user-images.githubusercontent.com/91349014/195987761-af700645-2dce-49e8-928d-137eb30efdfe.png)
