@@ -1,17 +1,19 @@
 import { inferAsyncReturnType } from "@trpc/server";
 import { APIEvent } from "solid-start";
+import { createSolidAPIHandlerContext } from "solid-start-trpc";
 import { prisma } from "~/server/db/client";
 
-type ICreateContextOptions = Record<string, never>;
-
-export const createContextInner = async (opts: ICreateContextOptions) => {
+export const createContextInner = async (
+  opts: createSolidAPIHandlerContext
+) => {
   return {
     prisma,
+    ...opts,
   };
 };
 
-export const createContext = async (opts: APIEvent) => {
-  return await createContextInner({});
+export const createContext = async (opts: createSolidAPIHandlerContext) => {
+  return await createContextInner(opts);
 };
 
 export type IContext = inferAsyncReturnType<typeof createContext>;

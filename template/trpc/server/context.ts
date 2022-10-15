@@ -1,14 +1,17 @@
 import { inferAsyncReturnType } from "@trpc/server";
 import { APIEvent } from "solid-start";
+import { createSolidAPIHandlerContext } from "solid-start-trpc";
 
-type ICreateContextOptions = Record<string, never>;
-
-export const createContextInner = async (opts: ICreateContextOptions) => {
-  return {};
+export const createContextInner = async (
+  opts: createSolidAPIHandlerContext
+) => {
+  return {
+    ...opts,
+  };
 };
 
-export const createContext = async (opts: APIEvent) => {
-  return await createContextInner({});
+export const createContext = async (opts: createSolidAPIHandlerContext) => {
+  return await createContextInner(opts);
 };
 
 export type IContext = inferAsyncReturnType<typeof createContext>;
