@@ -34,6 +34,11 @@ I really like t3, yet i prefer using solid more than react, therefore i created 
 
 It is as fast as t3 (or even faster) (:
 
+### Examples
+
+- [Code Example](https://github.com/OrJDev/solid-start-trpc-hello-world/)
+- [Try It Yourself](https://trpc-start.vercel.app)
+
 #### Preview
 
 ![Screenshot_1](https://user-images.githubusercontent.com/91349014/195987761-af700645-2dce-49e8-928d-137eb30efdfe.png)
