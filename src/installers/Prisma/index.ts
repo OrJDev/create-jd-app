@@ -14,6 +14,8 @@ const config: IInstaller = (ctx) => ({
   scripts: {
     push: "prisma db push",
     generate: "prisma generate",
+    postbuild:
+      "cp node_modules/@prisma/engines/*query* .vercel/output/functions/render.func/ && cp prisma/schema.prisma .vercel/output/functions/render.func/",
   },
   env: [
     {
