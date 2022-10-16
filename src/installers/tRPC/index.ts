@@ -3,7 +3,7 @@ import { IInstaller } from "~types";
 const config: IInstaller = (ctx) => ({
   files: [
     {
-      path: `${__dirname}/files/utils.txt`,
+      path: `${__dirname}/files/utils-${ctx.trpcVersion}.txt`,
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     },
     {
@@ -11,7 +11,7 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/root.tsx`,
     },
     {
-      path: `${ctx.templateDir}/trpc/server${
+      path: `${ctx.templateDir}/trpc/${ctx.trpcVersion}/server${
         ctx.installers.includes("Prisma") ? "-prisma" : ""
       }`,
       to: `${ctx.userDir}/src/server/trpc`,
@@ -22,13 +22,16 @@ const config: IInstaller = (ctx) => ({
     },
   ],
   pkgs: {
+    // i don't want to use @next because its not an offical trpc package and i need to update it manually every realase
     "@trpc/client": {
-      customVersion: "9.27.2",
+      customVersion:
+        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-proxy-beta.21",
     },
     "@trpc/server": {
-      customVersion: "9.27.2",
+      customVersion:
+        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-proxy-beta.21",
     },
-    "solid-trpc": {},
+    "solid-trpc": ctx.trpcVersion === "V9" ? {} : { customVersion: "next" },
     "solid-start-trpc": {},
     "@tanstack/solid-query": {},
   },

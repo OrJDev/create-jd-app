@@ -19,7 +19,9 @@ export default z.object({\n${env.newSchema}
 });
 `
   );
-  await fs.outputFile(path.join(userDir, ".env"), env.newEnv);
+  if (env.newEnv.trim().length) {
+    await fs.outputFile(path.join(userDir, ".env"), env.newEnv);
+  }
 }
 
 export const resolveEnv = (env: IEnv[]): Promise<IResolveEnvResp> => {

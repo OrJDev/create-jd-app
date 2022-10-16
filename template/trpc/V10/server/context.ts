@@ -1,13 +1,10 @@
 import { inferAsyncReturnType } from "@trpc/server";
-import { APIEvent } from "solid-start";
 import { createSolidAPIHandlerContext } from "solid-start-trpc";
-import { prisma } from "~/server/db/client";
 
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext
 ) => {
   return {
-    prisma,
     ...opts,
   };
 };

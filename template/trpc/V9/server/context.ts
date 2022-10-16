@@ -1,5 +1,4 @@
 import { inferAsyncReturnType } from "@trpc/server";
-import { APIEvent } from "solid-start";
 import { createSolidAPIHandlerContext } from "solid-start-trpc";
 
 export const createContextInner = async (

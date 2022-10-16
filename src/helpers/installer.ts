@@ -2,7 +2,7 @@ import ora from "ora";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
-import { IInstaller, IPkg, ICtx, IEnv, IAppCtx } from "~types";
+import { IInstaller, IPkg, ICtx, IEnv, IAppCtx, ITRPCVersion } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
 
@@ -144,6 +144,21 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
         })
       ).pkgs;
     }
+  }
+  if (installers.includes("tRPC")) {
+    const { trpcVersion } = await inquirer.prompt<{
+      trpcVersion: ITRPCVersion;
+    }>({
+      name: "trpcVersion",
+      message: "Please select a version of tRPC",
+      type: "list",
+      choices: ["V10", "V9"],
+    });
+    return {
+      ...ctx,
+      installers: pkgs,
+      trpcVersion,
+    };
   }
   return {
     ...ctx,

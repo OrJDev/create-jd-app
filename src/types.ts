@@ -10,7 +10,12 @@ export type IPromiseOrType<T> = Promise<T> | T;
 
 export type ICtxWith<T> = IAppCtx & T;
 
-export type ICtx = ICtxWith<{ installers: string[] }>;
+export type ITRPCVersion = "V10" | "V9";
+
+export type ICtx = ICtxWith<{
+  installers: string[];
+  trpcVersion?: ITRPCVersion;
+}>;
 
 export type IConfig = {
   files?: Array<IFile>;
