@@ -43,8 +43,15 @@ It is as fast as t3 (or even faster) (:
 
 ### Examples
 
+#### Hello World
+
 - [Code Example](https://github.com/OrJDev/solid-start-trpc-hello-world/)
 - [Try It Yourself](https://trpc-start.vercel.app)
+
+#### JWT Authentication
+
+- [Code Example](https://github.com/OrJDev/solid-trpc-authentication)
+- [Try It Yourself](https://authentication-liard.vercel.app/)
 
 #### Preview
 
