@@ -30,7 +30,7 @@ pnpm exec create-jd-app
 Create JD App Supports Both V10 & V9 Syntax, Here Is An Example:
 V9 | V10
 :-------------------------:|:-------------------------:
-!![Screenshot_2](https://user-images.githubusercontent.com/91349014/196059310-43d3783a-1d76-4aa1-bcb6-93f2533a8301.png) | ![Screenshot_1](https://user-images.githubusercontent.com/91349014/196059234-20864c82-1534-4b94-baba-964bac194924.png)
+![Screenshot_2](https://user-images.githubusercontent.com/91349014/196059310-43d3783a-1d76-4aa1-bcb6-93f2533a8301.png) | ![Screenshot_1](https://user-images.githubusercontent.com/91349014/196059234-20864c82-1534-4b94-baba-964bac194924.png)
 
 ### T3 Related
 
