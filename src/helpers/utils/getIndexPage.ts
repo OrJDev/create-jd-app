@@ -13,8 +13,9 @@ const getIndexPage: IUtil = (ctx) => {
       ? `trpc.random.useMutation();`
       : `trpc.createMutation(() => ["example.random"]);`;
 
-  return `import { onMount } from "solid-js";
-import { trpc } from "~/utils/trpc";
+  return `import { onMount } from "solid-js";${
+    useTRPC ? '\nimport { trpc } from "~/utils/trpc";' : ""
+  }
 
 export default function Home() {
 ${

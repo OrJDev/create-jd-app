@@ -145,7 +145,7 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
       ).pkgs;
     }
   }
-  if (installers.includes("tRPC")) {
+  if (pkgs.includes("tRPC")) {
     const { trpcVersion } = await inquirer.prompt<{
       trpcVersion: ITRPCVersion;
     }>({
