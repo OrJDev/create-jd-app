@@ -25,7 +25,7 @@ export default async (
 
   const resp = await Promise.all(
     ctx.installers.map((pkg) =>
-      import(`../installers/${pkg.split(" ").join("-")}/index`).then(
+      import(`../installers/${pkg}/index`).then(
         (installer: { default: IInstaller }) =>
           typeof installer.default === "function"
             ? installer.default(ctx)
@@ -116,9 +116,7 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: string[] = [];
   try {
-    installers = (await fs.readdir(path.join(__dirname, "../installers"))).map(
-      (i) => i.split("-").join(" ")
-    );
+    installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
     if (installers.length === 1) {
@@ -141,27 +139,32 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
           type: "checkbox",
           message: "What should we use for this app?",
           choices: installers,
+          validate: (pkgs) => {
+            if (pkgs.includes("TailwindCSS") && pkgs.includes("Solid-Styled")) {
+              return "You can't use TailwindCSS and Solid-Styled at the same time";
+            }
+            return true;
+          },
         })
       ).pkgs;
     }
   }
+  let trpcVersion: ITRPCVersion | undefined;
   if (pkgs.includes("tRPC")) {
-    const { trpcVersion } = await inquirer.prompt<{
-      trpcVersion: ITRPCVersion;
-    }>({
-      name: "trpcVersion",
-      message: "Please select a version of tRPC",
-      type: "list",
-      choices: ["V10", "V9"],
-    });
-    return {
-      ...ctx,
-      installers: pkgs,
-      trpcVersion,
-    };
+    trpcVersion = (
+      await inquirer.prompt<{
+        trpcVersion: ITRPCVersion;
+      }>({
+        name: "trpcVersion",
+        message: "Please select a version of tRPC",
+        type: "list",
+        choices: ["V10", "V9"],
+      })
+    ).trpcVersion;
   }
   return {
     ...ctx,
     installers: pkgs,
+    trpcVersion,
   };
 }

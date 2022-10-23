@@ -23,6 +23,7 @@ export type IConfig = {
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];
+  reject?: string; // @TODO: make this actually useful
 };
 
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;

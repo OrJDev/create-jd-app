@@ -1,7 +1,0 @@
-import { IAppRouter } from "@/routers";
-import { createSolidQueryHooks } from "solid-trpc";
-
-export const trpc = createSolidQueryHooks<IAppRouter>();
-export const client = trpc.createClient({
-  url: "/api/trpc",
-});

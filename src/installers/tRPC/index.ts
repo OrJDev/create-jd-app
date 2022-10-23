@@ -7,10 +7,6 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     },
     {
-      path: `${__dirname}/files/root.txt`,
-      to: `${ctx.userDir}/src/root.tsx`,
-    },
-    {
       path: `${ctx.templateDir}/trpc/${ctx.trpcVersion}/server${
         ctx.installers.includes("Prisma") ? "-prisma" : ""
       }`,

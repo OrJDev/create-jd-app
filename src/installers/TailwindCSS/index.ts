@@ -20,6 +20,7 @@ const config: IInstaller = (ctx) => ({
     postcss: { devMode: true },
     autoprefixer: { devMode: true },
   },
+  reject: "Solid-Styled",
 });
 
 export default config;

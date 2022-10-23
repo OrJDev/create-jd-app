@@ -16,7 +16,7 @@ async function main() {
         await fs.copy(oldPath, newPath);
       }
     }),
-    fs.copy(baseHelpersPath, baseHelpersPath.replace("src", "dist")),
+    // fs.copy(baseHelpersPath, baseHelpersPath.replace("src", "dist")),
     fs.copy(
       path.join(__dirname, "../../README.MD"),
       path.join(__dirname, "../../dist/README.MD")

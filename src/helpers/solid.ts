@@ -8,6 +8,11 @@ const helperFunc = async (ctx: ICtx) => {
       type: "exec",
       to: `${ctx.userDir}/src/routes/index.tsx`,
     },
+    {
+      path: `${__dirname}/utils/getRootPage`,
+      type: "exec",
+      to: `${ctx.userDir}/src/root.tsx`,
+    },
   ];
   await execFiles(files, ctx);
 };

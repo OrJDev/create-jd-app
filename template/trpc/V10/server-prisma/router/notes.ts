@@ -8,7 +8,7 @@ export default router({
       return await ctx.prisma.notes.create({ data: input });
     }),
   get: procedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
       return await ctx.prisma.notes.findUnique({ where: { id: input.id } });
     }),
