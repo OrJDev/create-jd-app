@@ -1,6 +1,6 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register src",

@@ -24,7 +24,6 @@ pnpm exec create-jd-app
 - [Prisma](https://github.com/prisma/prisma)
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
-- [Solid-Styled](https://github.com/lxsmnsyc/solid-styled)
 
 ## tRPC Versions
 
