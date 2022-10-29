@@ -21,6 +21,13 @@ export default async (
       key: "NODE_ENV",
       type: "enum(['development', 'production', 'test']).default('development')",
       ignore: true,
+      kind: "server",
+    },
+    {
+      key: "MODE",
+      type: "enum(['development', 'production', 'test']).default('development')",
+      ignore: true,
+      kind: "client",
     },
   ];
   if (ctx.vercel) {

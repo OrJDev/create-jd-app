@@ -3,7 +3,8 @@ import fs from "fs-extra";
 import { IEnv } from "~types";
 
 export type IResolveEnvResp = {
-  newSchema: string;
+  newServerScheme: string;
+  newClientScheme: string;
   newEnv: string;
 };
 
@@ -15,7 +16,10 @@ export async function updateEnv(userDir: string, _env: IEnv[]) {
     schema,
     `import { z } from "zod";
 
-export default z.object({\n${env.newSchema}
+export const serverScheme = z.object({\n${env.newServerScheme}
+});
+
+export const clientScheme = z.object({\n${env.newClientScheme}
 });
 `
   );
@@ -27,17 +31,28 @@ export default z.object({\n${env.newSchema}
 export const resolveEnv = (env: IEnv[]): Promise<IResolveEnvResp> => {
   return new Promise((resolve) => {
     let newEnv = "";
-    let newSchema = "";
+    let newClientScheme = "";
+    let newServerScheme = "";
 
-    for (const [idx, element] of env.entries()) {
-      let value = `${idx === 0 ? "" : "\n"}  ${element.key}: z.${
+    let serverWasIn = false;
+    let clientWasIn = false;
+    for (const element of env) {
+      const shouldAddNewLine =
+        element.kind === "server" ? serverWasIn : clientWasIn;
+      let value = `${shouldAddNewLine ? "\n" : ""}  ${element.key}: z.${
         element.type
       },`;
-      newSchema += value;
+      if (element.kind === "server") {
+        serverWasIn = true;
+        newServerScheme += value;
+      } else {
+        clientWasIn = true;
+        newClientScheme += value;
+      }
       if (!element.ignore) {
         newEnv += `${element.key}=${element.defaulValue ?? ""}\n`;
       }
     }
-    return resolve({ newEnv, newSchema });
+    return resolve({ newEnv, newClientScheme, newServerScheme });
   });
 };

@@ -22,6 +22,7 @@ const config: IInstaller = (ctx) => ({
       key: "DATABASE_URL",
       type: "string()",
       defaulValue: "file:./db.sqlite",
+      kind: "server",
     },
   ],
   pkgs: {

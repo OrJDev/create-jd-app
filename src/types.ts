@@ -2,7 +2,7 @@ export type IAppCtx = {
   userDir: string;
   appName: string;
   templateDir: string;
-  vercel:boolean;
+  vercel: boolean;
 };
 
 export type INullAble<T> = T | null;
@@ -48,6 +48,7 @@ export type IEnv = {
   key: string;
   defaulValue?: any;
   ignore?: boolean;
+  kind: "server" | "client";
 };
 
 export type IUtil = (ctx: ICtx) => string;
