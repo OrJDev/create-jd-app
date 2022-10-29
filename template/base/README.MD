@@ -9,12 +9,10 @@ This project was created using [Create JD App](https://github.com/OrJDev/create-
 #### Installing
 
 ```bash
-npm install  solid-start-vercel
+npm install -D solid-start-vercel@latest
 ```
 
 #### Adding to vite config
-
-Without Solid Styled
 
 ```ts
 import solid from "solid-start/vite";
@@ -24,28 +22,6 @@ import vercel from "solid-start-vercel";
 
 export default defineConfig({
   plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
-});
-```
-
-With Solid Styled
-
-```ts
-import solid from "solid-start/vite";
-import { defineConfig } from "vite";
-import solidStyled from "solid-styled/babel";
-// @ts-ignore
-import vercel from "solid-start-vercel";
-
-export default defineConfig({
-  plugins: [
-    solid({
-      ssr: false,
-      adapter: vercel({ edge: false }),
-      babel: (_source: string, id: string) => ({
-        plugins: [[solidStyled, { source: id }]],
-      }),
-    }),
-  ],
 });
 ```
 
