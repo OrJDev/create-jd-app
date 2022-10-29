@@ -15,6 +15,7 @@ import {
 import { IAppCtx, ICtx, IEnv } from "~types";
 import { installPkgs } from "~helpers/installer";
 import { updateEnv } from "~helpers/env";
+import { config } from "~vercel";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -45,9 +46,15 @@ export async function initApp(): Promise<IAppCtx> {
       process.exit(1);
     }
   }
+  const { vercel } = await inquirer.prompt<{ vercel: boolean }>({
+    name: "vercel",
+    type: "confirm",
+    message: "Will you deploy this project to vercel?",
+  });
   return {
     appName,
     userDir,
+    vercel,
     templateDir: path.join(__dirname, "../../template"),
   };
 }
@@ -61,10 +68,14 @@ export async function copyTemplate(appContext: IAppCtx) {
       path.join(templateDir, "base"),
       path.join(appContext.userDir)
     );
-    await fs.rename(
-      path.join(appContext.userDir, "_gitignore"),
-      path.join(appContext.userDir, ".gitignore")
-    );
+    await Promise.all([
+      appContext.vercel &&
+        fs.writeFile(path.join(appContext.userDir, "vite.config.ts"), config),
+      fs.rename(
+        path.join(appContext.userDir, "_gitignore"),
+        path.join(appContext.userDir, ".gitignore")
+      ),
+    ]);
     spinner.succeed(`Copied template files to ${appContext.userDir}`);
   } catch (e) {
     spinner.fail(`Couldn't copy template files: ${formatError(e)}`);

@@ -2,6 +2,7 @@ export type IAppCtx = {
   userDir: string;
   appName: string;
   templateDir: string;
+  vercel:boolean;
 };
 
 export type INullAble<T> = T | null;

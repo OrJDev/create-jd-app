@@ -5,6 +5,8 @@ import inquirer from "inquirer";
 import { IInstaller, IPkg, ICtx, IEnv, IAppCtx, ITRPCVersion } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
+import { packages, vercelEnv } from "~vercel";
+import chalk from "chalk";
 
 export default async (
   ctx: ICtx
@@ -21,6 +23,12 @@ export default async (
       ignore: true,
     },
   ];
+  if (ctx.vercel) {
+    const vercelPkgs = sortToDevAndNormal(packages);
+    normalDeps = [...normalDeps, ...vercelPkgs[0]];
+    devModeDeps = [...devModeDeps, ...vercelPkgs[1]];
+    env = [...env, ...vercelEnv];
+  }
   let commands: string[] = [];
 
   const resp = await Promise.all(
@@ -139,15 +147,16 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
           type: "checkbox",
           message: "What should we use for this app?",
           choices: installers,
-          validate: (pkgs) => {
-            if (pkgs.includes("TailwindCSS") && pkgs.includes("Solid-Styled")) {
-              return "You can't use TailwindCSS and Solid-Styled at the same time";
-            }
-            return true;
-          },
         })
       ).pkgs;
     }
+  }
+  if (pkgs.includes("Prisma") && !ctx.vercel) {
+    console.log(
+      `${chalk.red("Make sure to update the")} ${chalk.blue(
+        "postbuild"
+      )} ${chalk.red("script")}`
+    );
   }
   let trpcVersion: ITRPCVersion | undefined;
   if (pkgs.includes("tRPC")) {
