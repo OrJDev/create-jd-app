@@ -25,11 +25,11 @@ const config: IInstaller = (ctx) => ({
     // i don't want to use @next because its not an offical trpc package and i need to update it manually every realase
     "@trpc/client": {
       customVersion:
-        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-proxy-beta.21",
+        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-rc.2",
     },
     "@trpc/server": {
       customVersion:
-        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-proxy-beta.21",
+        ctx.trpcVersion === "V9" ? "9.27.2" : "10.0.0-rc.2",
     },
     "solid-trpc": ctx.trpcVersion === "V9" ? {} : { customVersion: "next" },
     "solid-start-trpc": {},
