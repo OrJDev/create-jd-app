@@ -24,7 +24,10 @@ export const clientScheme = z.object({\n${env.newClientScheme}
 `
   );
   if (env.newEnv.trim().length) {
-    await fs.outputFile(path.join(userDir, ".env"), env.newEnv);
+    await Promise.all([
+      fs.outputFile(path.join(userDir, ".env"), env.newEnv),
+      fs.outputFile(path.join(userDir, ".env.example"), env.newEnv),
+    ]);
   }
 }
 

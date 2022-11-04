@@ -1,8 +1,5 @@
 import { serverScheme } from "./schema";
 import { ZodFormattedError } from "zod";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export const formatErrors = (
   errors: ZodFormattedError<Map<string, string>, string>

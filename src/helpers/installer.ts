@@ -2,7 +2,15 @@ import ora from "ora";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
-import { IInstaller, IPkg, ICtx, IEnv, IAppCtx, ITRPCVersion } from "~types";
+import {
+  IInstaller,
+  IPkg,
+  ICtx,
+  IEnv,
+  IAppCtx,
+  ITRPCVersion,
+  IConfig,
+} from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
 import { packages, vercelEnv } from "~vercel";
@@ -38,51 +46,63 @@ export default async (
   }
   let commands: string[] = [];
 
-  const resp = await Promise.all(
-    ctx.installers.map((pkg) =>
-      import(`../installers/${pkg}/index`).then(
-        (installer: { default: IInstaller }) =>
-          typeof installer.default === "function"
-            ? installer.default(ctx)
-            : installer.default
+  const execInstaller = async (cfg: IConfig) => {
+    if (cfg.pkgs) {
+      if (Array.isArray(cfg.pkgs)) {
+        normalDeps = [...normalDeps, ...cfg.pkgs];
+      } else {
+        let newDeps = sortToDevAndNormal(cfg.pkgs);
+        normalDeps = [...normalDeps, ...newDeps[0]];
+        devModeDeps = [...devModeDeps, ...newDeps[1]];
+      }
+    }
+    if (cfg.scripts) {
+      scripts = { ...scripts, ...cfg.scripts };
+    }
+    if (cfg.files?.length) {
+      await execFiles(cfg.files, ctx);
+    }
+    if (cfg.commands) {
+      if (Array.isArray(cfg.commands)) {
+        commands = [...cfg.commands, ...commands];
+      } else {
+        commands.unshift(cfg.commands);
+      }
+    }
+    if (cfg.env?.length) {
+      env = [...env, ...cfg.env];
+    }
+  };
+  const resp = (
+    await Promise.all(
+      ctx.installers.map((pkg) =>
+        import(`../installers/${pkg}/index`).then(
+          (installer: { default: IInstaller }) =>
+            typeof installer.default === "function"
+              ? installer.default(ctx)
+              : installer.default
+        )
       )
     )
-  );
+  ).sort((a, b) => {
+    if (a.after === b.name) return 1;
+    if (b.after === a.name) return -1;
+    return 0;
+  });
 
   console.log();
   const spinner = ora("Initializing installers").start();
 
   if (resp.length) {
     try {
-      await Promise.all(
-        resp.map(async (cfg) => {
-          if (cfg.pkgs) {
-            if (Array.isArray(cfg.pkgs)) {
-              normalDeps = [...normalDeps, ...cfg.pkgs];
-            } else {
-              let newDeps = sortToDevAndNormal(cfg.pkgs);
-              normalDeps = [...normalDeps, ...newDeps[0]];
-              devModeDeps = [...devModeDeps, ...newDeps[1]];
-            }
-          }
-          if (cfg.scripts) {
-            scripts = { ...scripts, ...cfg.scripts };
-          }
-          if (cfg.files?.length) {
-            await execFiles(cfg.files, ctx);
-          }
-          if (cfg.commands) {
-            if (Array.isArray(cfg.commands)) {
-              commands = [...cfg.commands, ...commands];
-            } else {
-              commands.unshift(cfg.commands);
-            }
-          }
-          if (cfg.env?.length) {
-            env = [...env, ...cfg.env];
-          }
-        })
-      );
+      // await Promise.all(
+      //   resp.map(async (cfg) => {
+      //     await execInstaller(cfg);
+      //   })
+      // );
+      for (const installer of resp) {
+        await execInstaller(installer);
+      }
       spinner.succeed(`Initialized ${resp.length} installers`);
     } catch (e) {
       spinner.fail(`Couldn't initialize installers: ${formatError(e)}`);
@@ -154,6 +174,12 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
           type: "checkbox",
           message: "What should we use for this app?",
           choices: installers,
+          validate: (ans) => {
+            if (ans.includes("Upstash Ratelimit") && !ans.includes("tRPC")) {
+              return "You need to use tRPC to use Upstash Ratelimit";
+            }
+            return true;
+          },
         })
       ).pkgs;
     }

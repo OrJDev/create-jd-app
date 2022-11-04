@@ -1,6 +1,7 @@
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
+  name: "Prisma",
   files: [
     {
       path: `${ctx.templateDir}/prisma`,

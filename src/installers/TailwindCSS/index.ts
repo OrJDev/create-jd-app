@@ -1,6 +1,7 @@
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
+  name: "TailwindCSS",
   files: [
     {
       path: `${__dirname}/files/styles.txt`,
@@ -20,7 +21,6 @@ const config: IInstaller = (ctx) => ({
     postcss: { devMode: true },
     autoprefixer: { devMode: true },
   },
-  reject: "Solid-Styled",
 });
 
 export default config;

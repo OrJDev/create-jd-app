@@ -3,8 +3,7 @@ import { getStyle } from "~utils/jsx";
 
 const getIndexPage: IUtil = (ctx) => {
   const useTRPC = ctx.installers.includes("tRPC");
-  const useStyled = ctx.installers.includes("Solid-Styled");
-  const useTW = ctx.installers.includes("TailwindCSS") && !useStyled;
+  const useTW = ctx.installers.includes("TailwindCSS");
   const res =
     ctx.trpcVersion === "V10"
       ? `trpc.hello.useQuery({ name: "from tRPC" });`
@@ -16,28 +15,16 @@ const getIndexPage: IUtil = (ctx) => {
 
   return `import { onMount } from "solid-js";${
     useTRPC ? '\nimport { trpc } from "~/utils/trpc";' : ""
-  }${useStyled ? '\nimport { css } from "solid-styled";' : ""}
+  }
 
-export default function Home() {
-${
-  useTRPC
-    ? `  const res = ${res}
+export default function Home() {${
+    useTRPC
+      ? `\n  const res = ${res}
   const mutExample = ${mutExample}
 
   onMount(() => {
     mutExample.mutateAsync({ num: 5 }).then(console.log);
   });
-`
-    : ""
-}${
-    useStyled
-      ? `\n  css\`
-    div {
-      font-family: system-ui;
-      font-weight: bold;
-      color: darkgray;
-    }
-  \`;
 `
       : ""
   }
