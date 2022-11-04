@@ -4,7 +4,7 @@ This project was created using [Create JD App](https://github.com/OrJDev/create-
 
 # Deploying
 
-### Vercel Adapter (or any other adapter that solid-start supports)
+### Vercel Adapter (or any other adapter)
 
 #### Installing
 
@@ -19,9 +19,13 @@ import solid from "solid-start/vite";
 import { defineConfig } from "vite";
 // @ts-ignore
 import vercel from "solid-start-vercel";
+import dotenv from "dotenv";
 
-export default defineConfig({
-  plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
+export default defineConfig(() => {
+  dotenv.config();
+  return {
+    plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
+  };
 });
 ```
 

@@ -24,6 +24,7 @@ pnpm exec create-jd-app
 - [Prisma](https://github.com/prisma/prisma)
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
+- [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 ## tRPC Versions
 
@@ -31,16 +32,6 @@ Create JD App Supports Both V10 & V9 Syntax, Here Is An Example:
 V9 | V10
 :-------------------------:|:-------------------------:
 ![Screenshot_2](https://user-images.githubusercontent.com/91349014/196059310-43d3783a-1d76-4aa1-bcb6-93f2533a8301.png) | ![Screenshot_1](https://user-images.githubusercontent.com/91349014/196059234-20864c82-1534-4b94-baba-964bac194924.png)
-
-### Why Did I Make This
-
-I really like t3, yet i prefer using Solid more than React ([SolidStart] More Than [NextJS]),
-therefore i created 2 useful packages:
-
-- [Solid tRPC](https://github.com/OrJDev/solid-trpc) - tRPC adapter for Solid Client using TanStack/Solid Query
-- [Solid Start tRPC](https://github.com/OrJDev/solid-start-trpc) - Simple API Handler For Solid Start
-
-It is as fast as t3 (or even faster) (:
 
 ### Examples
 
@@ -52,7 +43,7 @@ It is as fast as t3 (or even faster) (:
 #### JWT Authentication
 
 - [Code Example](https://github.com/OrJDev/solid-trpc-authentication)
-- [Try It Yourself](https://authentication-liard.vercel.app/)
+- [Try It Yourself](https://solid-trpc-authentication.vercel.app/)
 
 #### Preview
 

@@ -28,5 +28,3 @@ export const vercelEnv: IEnv[] = [
     kind: "server",
   },
 ];
-
-//   MODE: z.enum(["development", "production", "test"]).default("development"),
