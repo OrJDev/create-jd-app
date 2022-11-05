@@ -6,7 +6,7 @@ const getIndexPage: IUtil = (ctx) => {
   const useTW = ctx.installers.includes("TailwindCSS");
   const res =
     ctx.trpcVersion === "V10"
-      ? `trpc.hello.useQuery({ name: "from tRPC" });`
+      ? `trpc.hello.useQuery(() => ({ name: "from tRPC" }));`
       : `trpc.createQuery(() => ["example.hello", { name: "from tRPC" }]);`;
   const mutExample =
     ctx.trpcVersion === "V10"
