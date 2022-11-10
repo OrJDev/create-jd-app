@@ -154,35 +154,20 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
-    if (installers.length === 1) {
-      const inst = <string>installers.shift();
-      if (
-        (
-          await inquirer.prompt<{ install: boolean }>({
-            name: "install",
-            type: "confirm",
-            message: `Do you want to use ${inst}?`,
-          })
-        ).install
-      ) {
-        pkgs = [inst];
-      }
-    } else {
-      pkgs = (
-        await inquirer.prompt<{ pkgs: string[] }>({
-          name: "pkgs",
-          type: "checkbox",
-          message: "What should we use for this app?",
-          choices: installers,
-          validate: (ans) => {
-            if (ans.includes("Upstash Ratelimit") && !ans.includes("tRPC")) {
-              return "You need to use tRPC to use Upstash Ratelimit";
-            }
-            return true;
-          },
-        })
-      ).pkgs;
-    }
+    pkgs = (
+      await inquirer.prompt<{ pkgs: string[] }>({
+        name: "pkgs",
+        type: "checkbox",
+        message: "What should we use for this app?",
+        choices: installers,
+        // validate: (ans) => {
+        //   if (ans.includes("Upstash Ratelimit") && !ans.includes("tRPC")) {
+        //     return "You need to use tRPC to use Upstash Ratelimit";
+        //   }
+        //   return true;
+        // },
+      })
+    ).pkgs;
   }
   if (pkgs.includes("Prisma") && !ctx.vercel) {
     console.log(

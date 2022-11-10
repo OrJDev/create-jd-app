@@ -15,11 +15,15 @@ const config: IInstaller = (ctx) => ({
     },
   ],
   files: [
-    {
-      path: `${__dirname}/files/${ctx.trpcVersion}.txt`,
-      to: `${ctx.userDir}/src/server/trpc/utils.ts`,
-      after: "trpc",
-    },
+    ctx.installers.includes("tRPC")
+      ? {
+          path: `${__dirname}/files/${ctx.trpcVersion}.txt`,
+          to: `${ctx.userDir}/src/server/trpc/utils.ts`,
+        }
+      : {
+          path: `${__dirname}/files/api.txt`,
+          to: `${ctx.userDir}/src/routes/api/limit.ts`,
+        },
   ],
   pkgs: {
     "@upstash/ratelimit": {},

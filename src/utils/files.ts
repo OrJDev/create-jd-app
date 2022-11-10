@@ -15,7 +15,7 @@ async function execFile(file: IFile, ctx: ICtx) {
   if (file.type && file.type !== "copy") {
     if (file.type === "exec") {
       if (!file.path) {
-        throw new Error("Missing path for a file with type exec");
+        return;
       }
       const method = await import(file.path);
       await fs.outputFile(file.to, method.default(ctx));
@@ -28,7 +28,7 @@ async function execFile(file: IFile, ctx: ICtx) {
     }
   } else {
     if (!file.path) {
-      throw new Error("Missing path for a file with type copy");
+      return;
     }
     await fs.copy(file.path, file.to);
   }

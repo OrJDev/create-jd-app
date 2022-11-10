@@ -1,0 +1,19 @@
+import { prisma } from "~/server/db/client";
+import { APIEvent } from "solid-start";
+
+export async function GET() {
+  return new Response(JSON.stringify(await prisma.notes.findMany()));
+}
+
+export async function POST(event: APIEvent) {
+  const { text } = await event.request.json();
+  new Response(
+    JSON.stringify(
+      await prisma.notes.create({
+        data: {
+          text,
+        },
+      })
+    )
+  );
+}
