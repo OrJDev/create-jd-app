@@ -1,10 +1,11 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.67",
+  "version": "1.0.68",
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register src",
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
+    "postbuild": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
     "cp": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
     "dev": "npm link && cd dist && npm link create-jd-app"
@@ -31,7 +32,7 @@
     "tsconfig-paths": "^4.1.0"
   },
   "types": "./dist/index.d.ts",
-  "description": "Create modern SolidJS & tRPC full stack TypeScript application within seconds.",
+  "description": "Create modern type safed Solid web application within seconds",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OrJDev/create-jd-app.git"

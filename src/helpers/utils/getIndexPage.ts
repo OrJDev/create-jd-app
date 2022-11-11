@@ -13,11 +13,11 @@ const getIndexPage: IUtil = (ctx) => {
       ? `trpc.random.useMutation();`
       : `trpc.createMutation(() => ["example.random"]);`;
 
-  return `import { onMount } from "solid-js";${
-    useTRPC ? '\nimport { trpc } from "~/utils/trpc";' : ""
-  }
-
-export default function Home() {${
+  return `${
+    useTRPC
+      ? 'import { onMount } from "solid-js";\nimport { trpc } from "~/utils/trpc";\n\n'
+      : ""
+  }export default function Home() {${
     useTRPC
       ? `\n  const res = ${res}
   const mutExample = ${mutExample}

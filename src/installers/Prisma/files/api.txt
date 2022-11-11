@@ -7,7 +7,7 @@ export async function GET() {
 
 export async function POST(event: APIEvent) {
   const { text } = await event.request.json();
-  new Response(
+  return new Response(
     JSON.stringify(
       await prisma.notes.create({
         data: {

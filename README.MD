@@ -1,16 +1,11 @@
 # Create JD App
 
-Create modern SolidStart & tRPC Full-Stack TypeScript application within seconds. (t3 for Solid)
+Create modern type safed Solid web application within seconds.
 
 ## Getting Started
 
 ```bash
-# yarn
-yarn create jd-app
-# npm
-npm create jd-app
-# pnpm
-pnpm exec create-jd-app
+npm create jd-app@latest
 ```
 
 ## Base Template
@@ -25,13 +20,6 @@ pnpm exec create-jd-app
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
-
-## tRPC Versions
-
-Create JD App Supports Both V10 & V9 Syntax, Here Is An Example:
-V9 | V10
-:-------------------------:|:-------------------------:
-![Screenshot_2](https://user-images.githubusercontent.com/91349014/196059310-43d3783a-1d76-4aa1-bcb6-93f2533a8301.png) | ![Screenshot_1](https://user-images.githubusercontent.com/91349014/196059234-20864c82-1534-4b94-baba-964bac194924.png)
 
 ### Examples
 
