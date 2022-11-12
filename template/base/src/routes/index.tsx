@@ -1,9 +1,17 @@
-import { Component } from "solid-js";
+import { ParentComponent } from "solid-js";
+import { Title } from "solid-start";
 
 interface IHomeProps {}
 
-const Home: Component<IHomeProps> = ({}) => {
-  return <div>Hello From JD</div>;
+const Home: ParentComponent<IHomeProps> = ({}) => {
+  return (
+    <>
+      <Title>Home</Title>
+      <div>
+        <h1>Hey There Pal</h1>
+      </div>
+    </>
+  );
 };
 
 export default Home;
