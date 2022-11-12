@@ -1,10 +1,10 @@
 import { IPkg, IEnv } from "~types";
 
 export const config = `import solid from "solid-start/vite";
-import { defineConfig } from "vite";
-// @ts-ignore
-import vercel from "solid-start-vercel";
 import dotenv from "dotenv";
+import { defineConfig } from "vite";
+// @ts-expect-error no typing
+import vercel from "solid-start-vercel";
 
 export default defineConfig(() => {
   dotenv.config();

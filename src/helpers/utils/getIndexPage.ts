@@ -8,16 +8,14 @@ const getIndexPage: IUtil = (ctx) => {
   const withStyles = getStyle(uswTW, "font-bold text-2xl text-gray-500");
   const innerRes = getRes(ctx, shouldUsePrisma, useTRPC);
   const innerContent = getContent(withStyles, shouldUsePrisma, useTRPC);
-  return `import { ParentComponent${
+  return `import { type ParentComponent${
     useTRPC || shouldUsePrisma ? ", Switch, Match" : ""
   }${shouldUsePrisma ? ", createResource" : ""} } from "solid-js";
 import { Title } from "solid-start";${
     useTRPC ? '\nimport { trpc } from "~/utils/trpc"' : ""
   }
 
-interface IHomeProps {}
-
-const Home: ParentComponent<IHomeProps> = ({}) => {${innerRes}
+const Home: ParentComponent = () => {${innerRes}
   return (
     <>
       <Title>Home</Title>

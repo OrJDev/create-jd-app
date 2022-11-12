@@ -3,13 +3,18 @@
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
-    "start": "solid-start start"
+    "start": "solid-start start",
+    "lint": "eslint --fix \"**/*.{ts,tsx,js,jsx}\""
   },
   "type": "module",
   "devDependencies": {
     "solid-start-node": "^0.2.1",
     "typescript": "^4.8.3",
-    "vite": "^3.1.0"
+    "vite": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-plugin-solid": "^0.8.0"
   },
   "dependencies": {
     "@solidjs/meta": "^0.28.0",
