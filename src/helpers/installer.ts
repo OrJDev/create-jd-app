@@ -95,11 +95,6 @@ export default async (
 
   if (resp.length) {
     try {
-      // await Promise.all(
-      //   resp.map(async (cfg) => {
-      //     await execInstaller(cfg);
-      //   })
-      // );
       for (const installer of resp) {
         await execInstaller(installer);
       }
@@ -160,12 +155,6 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
         type: "checkbox",
         message: "What should we use for this app?",
         choices: installers,
-        // validate: (ans) => {
-        //   if (ans.includes("Upstash Ratelimit") && !ans.includes("tRPC")) {
-        //     return "You need to use tRPC to use Upstash Ratelimit";
-        //   }
-        //   return true;
-        // },
       })
     ).pkgs;
   }
