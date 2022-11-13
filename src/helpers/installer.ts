@@ -13,7 +13,7 @@ import {
 } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
-import { packages, vercelEnv } from "~vercel";
+import { vercelPackages, vercelEnv } from "~vercel";
 import chalk from "chalk";
 
 export default async (
@@ -39,7 +39,7 @@ export default async (
     },
   ];
   if (ctx.vercel) {
-    const vercelPkgs = sortToDevAndNormal(packages);
+    const vercelPkgs = sortToDevAndNormal(vercelPackages);
     normalDeps = [...normalDeps, ...vercelPkgs[0]];
     devModeDeps = [...devModeDeps, ...vercelPkgs[1]];
     env = [...env, ...vercelEnv];
@@ -144,17 +144,23 @@ export const installPkgs = async (
 
 export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
-  let pkgs: string[] = [];
+  let pkgs: TInstaller[] = [];
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
     pkgs = (
-      await inquirer.prompt<{ pkgs: string[] }>({
+      await inquirer.prompt<{ pkgs: TInstaller[] }>({
         name: "pkgs",
         type: "checkbox",
         message: "What should we use for this app?",
         choices: installers,
+        validate: (ans:TInstaller[]) => {
+          if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
+            return "You can't use both TailwindCSS and UnoCSS at the same time";
+          }
+          return true;
+        },
       })
     ).pkgs;
   }
