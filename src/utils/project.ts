@@ -17,17 +17,26 @@ import { installPkgs } from "~helpers/installer";
 import { updateEnv } from "~helpers/env";
 import { modifyConfigIfNeeded } from "~helpers/vite";
 
-export async function initApp(): Promise<IAppCtx> {
+export async function initApp(args: string[]): Promise<IAppCtx> {
   console.log();
-  const appName = (
-    await inquirer.prompt<{ appName: string }>({
-      name: "appName",
-      type: "input",
-      message: "What is the name of the app?",
-      validate: validateName,
-      default: "my-app",
-    })
-  ).appName;
+  let pName = args
+    .find((o) => o.startsWith("pname="))
+    ?.split("pname=")
+    .pop();
+  if (pName && !validateName(pName)) {
+    pName = undefined;
+  }
+  const appName =
+    pName ||
+    (
+      await inquirer.prompt<{ appName: string }>({
+        name: "appName",
+        type: "input",
+        message: "What is the name of the app?",
+        validate: validateName,
+        default: "my-app",
+      })
+    ).appName;
   const userDir = path.resolve(process.cwd(), appName);
   let exists = await existsOrCreate(userDir);
   if (exists) {
@@ -46,11 +55,15 @@ export async function initApp(): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  const { vercel } = await inquirer.prompt<{ vercel: boolean }>({
-    name: "vercel",
-    type: "confirm",
-    message: "Will you deploy this project to vercel?",
-  });
+  let vercel =
+    args.includes("vercel") ||
+    (
+      await inquirer.prompt<{ vercel: boolean }>({
+        name: "vercel",
+        type: "confirm",
+        message: "Will you deploy this project to vercel?",
+      })
+    ).vercel;
   return {
     appName,
     userDir,

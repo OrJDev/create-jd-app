@@ -142,13 +142,13 @@ export const installPkgs = async (
   }
 };
 
-export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
+export async function getCtxWithInstallers(
+  ctx: IAppCtx,
+  curr: string[]
+): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: string[] = [];
-  const curr = process.argv
-    .slice(2)
-    .filter((arg) => arg.startsWith("--"))
-    .map((arg) => arg.slice(2));
+  const skip = curr.includes("skip");
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
@@ -163,30 +163,34 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
           .join(", ")}`
       );
     }
-    let optInstallers = installers.filter(
-      (pkg) => !validInstallers.includes(pkg)
-    );
-    const opts = ["TailwindCSS", "UnoCSS"];
-    for (const opt of opts) {
-      if (validInstallers.includes(opt)) {
-        optInstallers = optInstallers.filter((pkg) => !opts.includes(pkg));
+    if (!skip) {
+      let optInstallers = installers.filter(
+        (pkg) => !validInstallers.includes(pkg)
+      );
+      const opts = ["TailwindCSS", "UnoCSS"];
+      for (const opt of opts) {
+        if (validInstallers.includes(opt)) {
+          optInstallers = optInstallers.filter((pkg) => !opts.includes(pkg));
+        }
       }
+      const newPkgs = (
+        await inquirer.prompt<{ pkgs: string[] }>({
+          name: "pkgs",
+          type: "checkbox",
+          message: "What should we use for this app?",
+          choices: optInstallers,
+          validate: (ans: string[]) => {
+            if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
+              return "You can't use both TailwindCSS and UnoCSS at the same time";
+            }
+            return true;
+          },
+        })
+      ).pkgs;
+      pkgs = [...validInstallers, ...newPkgs];
+    } else {
+      pkgs = validInstallers;
     }
-    const newPkgs = (
-      await inquirer.prompt<{ pkgs: string[] }>({
-        name: "pkgs",
-        type: "checkbox",
-        message: "What should we use for this app?",
-        choices: optInstallers,
-        validate: (ans: string[]) => {
-          if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
-            return "You can't use both TailwindCSS and UnoCSS at the same time";
-          }
-          return true;
-        },
-      })
-    ).pkgs;
-    pkgs = [...validInstallers, ...newPkgs];
   }
   if (pkgs.includes("Prisma") && !ctx.vercel) {
     console.log(

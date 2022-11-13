@@ -6,10 +6,14 @@ import chalk from "chalk";
 import runInstallers, { getCtxWithInstallers } from "./helpers/installer";
 
 async function main() {
+  const args = process.argv
+    .slice(2)
+    .filter((arg) => arg.startsWith("--"))
+    .map((arg) => arg.slice(2).toLowerCase());
   const pkgManager = getUserPackageManager();
-  const appCtx = await project.initApp();
+  const appCtx = await project.initApp(args);
   await project.copyTemplate(appCtx);
-  const ctx = await getCtxWithInstallers(appCtx);
+  const ctx = await getCtxWithInstallers(appCtx, args);
   const [scripts, deps, env, commands] = await runInstallers(ctx);
   await project.modifyProject(ctx, scripts, env);
   await project.installDeps(pkgManager, ctx.userDir, ctx.installers.length > 0);
