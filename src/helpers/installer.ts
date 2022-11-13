@@ -145,16 +145,39 @@ export const installPkgs = async (
 export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: string[] = [];
+  const curr = process.argv
+    .slice(2)
+    .filter((arg) => arg.startsWith("--"))
+    .map((arg) => arg.slice(2));
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
-    pkgs = (
+    const validInstallers = curr.length
+      ? installers.filter((i) => curr.some((c) => c === i.toLowerCase()))
+      : [];
+    if (validInstallers.length) {
+      console.log(
+        `${chalk.green("√")} Using installers: ${validInstallers
+          .map((installer) => chalk.blue(installer))
+          .join(", ")}`
+      );
+    }
+    let optInstallers = installers.filter(
+      (pkg) => !validInstallers.includes(pkg)
+    );
+    const opts = ["TailwindCSS", "UnoCSS"];
+    for (const opt of opts) {
+      if (validInstallers.includes(opt)) {
+        optInstallers = optInstallers.filter((pkg) => !opts.includes(pkg));
+      }
+    }
+    const newPkgs = (
       await inquirer.prompt<{ pkgs: string[] }>({
         name: "pkgs",
         type: "checkbox",
         message: "What should we use for this app?",
-        choices: installers,
+        choices: optInstallers,
         validate: (ans: string[]) => {
           if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
             return "You can't use both TailwindCSS and UnoCSS at the same time";
@@ -163,6 +186,7 @@ export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
         },
       })
     ).pkgs;
+    pkgs = [...validInstallers, ...newPkgs];
   }
   if (pkgs.includes("Prisma") && !ctx.vercel) {
     console.log(
