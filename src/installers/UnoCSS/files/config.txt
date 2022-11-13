@@ -1,5 +1,4 @@
-import { defineConfig } from "unocss";
-import transformerVariantGroup from "@unocss/transformer-variant-group";
+import { defineConfig, transformerVariantGroup  } from "unocss";
 
 export default defineConfig({
   transformers: [transformerVariantGroup()],
