@@ -1,6 +1,6 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { APIEvent } from "solid-start";
+import type { APIEvent } from "solid-start";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
