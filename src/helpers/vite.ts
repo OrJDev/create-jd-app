@@ -15,9 +15,7 @@ export const getViteConfig: IUtil = (ctx) => {
       : `[solid({ ssr: false, adapter: vercel({ edge: false }) })]`;
   return `import solid from "solid-start/vite";
 import dotenv from "dotenv";${
-    useUno
-      ? `\nimport UnoCSS from "unocss/vite";
-      : ""
+    useUno ? `\nimport UnoCSS from "unocss/vite";` : ""
   }
 import { defineConfig } from "vite";${
     ctx.vercel
