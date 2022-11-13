@@ -14,7 +14,7 @@ export type ICtxWith<T> = IAppCtx & T;
 export type ITRPCVersion = "V10" | "V9";
 
 export type ICtx = ICtxWith<{
-  installers: TInstaller[];
+  installers: string[];
   trpcVersion?: ITRPCVersion;
 }>;
 

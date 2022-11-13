@@ -144,18 +144,18 @@ export const installPkgs = async (
 
 export async function getCtxWithInstallers(ctx: IAppCtx): Promise<ICtx> {
   let installers: string[] = [];
-  let pkgs: TInstaller[] = [];
+  let pkgs: string[] = [];
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
   } catch {}
   if (installers.length) {
     pkgs = (
-      await inquirer.prompt<{ pkgs: TInstaller[] }>({
+      await inquirer.prompt<{ pkgs: string[] }>({
         name: "pkgs",
         type: "checkbox",
         message: "What should we use for this app?",
         choices: installers,
-        validate: (ans:TInstaller[]) => {
+        validate: (ans: string[]) => {
           if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
             return "You can't use both TailwindCSS and UnoCSS at the same time";
           }
