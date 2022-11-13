@@ -1,6 +1,6 @@
 import { createSolidQueryHooks } from "solid-trpc";
 import { QueryClient } from "@tanstack/solid-query";
-import { IAppRouter } from "~/server/trpc/router/_app";
+import type { IAppRouter } from "~/server/trpc/router/_app";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return "";

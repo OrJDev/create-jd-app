@@ -1,4 +1,4 @@
-import { ZodFormattedError } from "zod";
+import type { ZodFormattedError } from "zod";
 import { clientScheme } from "./schema";
 
 export const formatErrors = (

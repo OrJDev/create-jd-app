@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/solid-query";
-import { IAppRouter } from "~/server/trpc/router/_app";
+import type { IAppRouter } from "~/server/trpc/router/_app";
 import { createTRPCSolid } from "solid-trpc";
 import { httpBatchLink } from "@trpc/client";
 
