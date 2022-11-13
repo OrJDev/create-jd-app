@@ -19,6 +19,7 @@ npm create jd-app@latest
 - [Prisma](https://github.com/prisma/prisma)
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
+- [UnoCSS](https://github.com/unocss/unocss)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 ### Examples

@@ -15,7 +15,7 @@ import {
 import { IAppCtx, ICtx, IEnv } from "~types";
 import { installPkgs } from "~helpers/installer";
 import { updateEnv } from "~helpers/env";
-import { config } from "~vercel";
+import { modifyConfigIfNeeded } from "~helpers/vite";
 
 export async function initApp(): Promise<IAppCtx> {
   console.log();
@@ -69,8 +69,6 @@ export async function copyTemplate(appContext: IAppCtx) {
       path.join(appContext.userDir)
     );
     await Promise.all([
-      appContext.vercel &&
-        fs.writeFile(path.join(appContext.userDir, "vite.config.ts"), config),
       fs.rename(
         path.join(appContext.userDir, "_gitignore"),
         path.join(appContext.userDir, ".gitignore")
@@ -93,6 +91,7 @@ export async function modifyProject(
       solidHelper(ctx),
       updateEnv(ctx.userDir, env),
       solidUpdateJSON(ctx, scripts),
+      modifyConfigIfNeeded(ctx),
     ]);
     spinner.succeed("Modified project");
   } catch (e) {

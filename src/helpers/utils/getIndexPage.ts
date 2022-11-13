@@ -2,10 +2,15 @@ import { ICtx, IUtil } from "~types";
 import { getStyle } from "~utils/jsx";
 
 const getIndexPage: IUtil = (ctx) => {
+  const useUno = ctx.installers.includes("UnoCSS");
   const uswTW = ctx.installers.includes("TailwindCSS");
+  const useStyles = useUno || uswTW;
   const useTRPC = ctx.installers.includes("tRPC");
   const shouldUsePrisma = ctx.installers.includes("Prisma") && !useTRPC;
-  const withStyles = getStyle(uswTW, "font-bold text-2xl text-gray-500");
+  const withStyles = getStyle(
+    useStyles,
+    `font-bold text-2xl ${useUno ? "text-gray" : "text-gray-500"}`
+  );
   const innerRes = getRes(ctx, shouldUsePrisma, useTRPC);
   const innerContent = getContent(withStyles, shouldUsePrisma, useTRPC);
   return `import { type ParentComponent${

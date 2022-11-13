@@ -1,3 +1,4 @@
+import { getViteConfig } from "~helpers/vite";
 import { IUtil } from "~types";
 import { getUserPackageManager } from "~utils/helpers";
 
@@ -19,18 +20,7 @@ ${pkg} ${pkg === "yarn" ? "add" : "install"} solid-start-vercel@latest -D
 ### Adding to vite config
 
 \`\`\`ts
-import solid from "solid-start/vite";
-import { defineConfig } from "vite";
-import dotenv from "dotenv";
-// @ts-expect-error no typing
-import vercel from "solid-start-vercel";
-
-export default defineConfig(() => {
-  dotenv.config();
-  return {
-    plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
-  };
-});
+${getViteConfig({ ...ctx, vercel: true })}
 \`\`\`
 
 ### Enviroment Variables

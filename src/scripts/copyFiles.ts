@@ -3,7 +3,6 @@ import path from "path";
 import { formatError } from "~utils/helpers";
 
 const basePath = path.join(__dirname, "../installers");
-const baseHelpersPath = path.join(__dirname, "../helpers", "files");
 
 async function main() {
   await Promise.all([
@@ -16,7 +15,6 @@ async function main() {
         await fs.copy(oldPath, newPath);
       }
     }),
-    // fs.copy(baseHelpersPath, baseHelpersPath.replace("src", "dist")),
     fs.copy(
       path.join(__dirname, "../../README.MD"),
       path.join(__dirname, "../../dist/README.MD")
