@@ -55,15 +55,20 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  let vercel =
-    args.includes("vercel") ||
-    (
-      await inquirer.prompt<{ vercel: boolean }>({
-        name: "vercel",
-        type: "confirm",
-        message: "Will you deploy this project to vercel?",
-      })
-    ).vercel;
+  let vercel = false;
+  if (args.includes("skip")) {
+    vercel = args.includes("vercel");
+  } else {
+    vercel =
+      args.includes("vercel") ||
+      (
+        await inquirer.prompt<{ vercel: boolean }>({
+          name: "vercel",
+          type: "confirm",
+          message: "Will you deploy this project to vercel?",
+        })
+      ).vercel;
+  }
   return {
     appName,
     userDir,
