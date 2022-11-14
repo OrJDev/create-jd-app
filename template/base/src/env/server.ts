@@ -21,11 +21,4 @@ if (env.success === false) {
   throw new Error("Invalid environment variables");
 }
 
-for (let key of Object.keys(env.data)) {
-  if (key.startsWith("VITE_")) {
-    console.warn("❌ You are exposing a server-side env-variable:", key);
-    throw new Error("You are exposing a server-side env-variable");
-  }
-}
-
-export default env.data;
+export const serverEnv = env.data;

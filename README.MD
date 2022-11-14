@@ -31,3 +31,20 @@ npm create jd-app@latest
 #### Preview
 
 ![Screenshot_1](https://user-images.githubusercontent.com/91349014/201010596-4578b981-4183-4197-be43-6e01ed582954.png)
+
+### Folders And Why
+
+#### /env
+
+The env file isn't being used in any addon currently, might be used in the future. It adds nice type safety check and zod validation to your env, so it is recommended to use it in your code (can be used to store JWT secrets, etc).
+
+- /env/client - Client side env - `imort.meta.env`
+- /env/server - Server side env - `process.env`
+- /env/schema - Schema for env - `Zod Client Schema & Zod Server Schema`
+
+#### /server
+
+The server folder is where you put all of your server side code (anything that will not be imported by client), you may seem this folder when you use `tRPC` or `Prisma`.
+
+- /server/trpc - tRPC server side code: routers, context, utils, etc.
+- /server/db - `client.ts` = Where the prisma client is being created.

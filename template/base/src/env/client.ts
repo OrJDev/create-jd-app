@@ -21,4 +21,4 @@ if (env.success === false) {
   throw new Error("Invalid environment variables");
 }
 
-export default env.data;
+export const clientEnv = env.data;
