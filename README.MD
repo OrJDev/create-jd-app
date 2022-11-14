@@ -44,7 +44,7 @@ The env file isn't being used in any addon currently, might be used in the futur
 
 #### /server
 
-The server folder is where you put all of your server side code (anything that will not be imported by client), you may seem this folder when you use `tRPC` or `Prisma`.
+The server folder is where you put all of your server side code (anything that will not be imported by client), you may see this folder when you use `tRPC` or `Prisma`.
 
 - /server/trpc - tRPC server side code: routers, context, utils, etc.
 - /server/db - `client.ts` = Where the prisma client is being created.
