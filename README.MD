@@ -10,9 +10,9 @@ npm create jd-app@latest
 
 ## Base Template
 
-- Solid Start
-- TypeScript
-- Zod
+- [Solid Start](https://github.com/solidjs/solid-start)
+- [TypeScript](https://github.com/microsoft/TypeScript)
+- [Zod](https://github.com/colinhacks/zod)
 
 ## Addons
 
