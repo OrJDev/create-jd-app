@@ -36,7 +36,7 @@ npm create jd-app@latest
 
 #### /env
 
-The env file isn't being used in any addon currently, might be used in the future. It adds nice type safety check and zod validation to your env, so it is recommended to use it in your code (can be used to store JWT secrets, etc).
+It adds nice type safety check and zod validation to your env (both client and server), so it is recommended to use it in your code (can be used to store JWT secrets, etc).
 
 - /env/client - Client side env - `imort.meta.env`
 - /env/server - Server side env - `process.env`
