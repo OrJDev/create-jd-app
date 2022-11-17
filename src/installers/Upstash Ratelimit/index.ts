@@ -17,7 +17,7 @@ const config: IInstaller = (ctx) => ({
   files: [
     ctx.installers.includes("tRPC")
       ? {
-          path: `${__dirname}/files/${ctx.trpcVersion}.txt`,
+          path: `${__dirname}/files/trpcUtils.txt`,
           to: `${ctx.userDir}/src/server/trpc/utils.ts`,
         }
       : {
