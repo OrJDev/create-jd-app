@@ -48,3 +48,7 @@ The server folder is where you put all of your server side code (anything that w
 
 - /server/trpc - tRPC server side code: routers, context, utils, etc.
 - /server/db - `client.ts` = Where the prisma client is being created.
+
+### T3 Relation
+
+I really like the T3 stack, however I prefer using Solid more than React, now that Solid Start is in beta I thought it would be a great idea to integrate some of the t3 features into create-jd-app.

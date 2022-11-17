@@ -38,10 +38,7 @@ export default Home;
 export default getIndexPage;
 
 const getRes = (ctx: ICtx, shouldUsePrisma: boolean, useTRPC: boolean) => {
-  const res =
-    ctx.trpcVersion === "V10"
-      ? `trpc.hello.useQuery(() => ({ name: "from tRPC" }));`
-      : `trpc.createQuery(() => ["example.hello", { name: "from tRPC" }]);`;
+  const res = `trpc.hello.useQuery(() => ({ name: "from tRPC" }));`;
   return shouldUsePrisma
     ? `\n  const [res] = createResource(() =>
     fetch("/api/notes").then((res) => res.json())

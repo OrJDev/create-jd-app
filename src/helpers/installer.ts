@@ -2,15 +2,7 @@ import ora from "ora";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
-import {
-  IInstaller,
-  IPkg,
-  ICtx,
-  IEnv,
-  IAppCtx,
-  ITRPCVersion,
-  IConfig,
-} from "~types";
+import { IInstaller, IPkg, ICtx, IEnv, IAppCtx, IConfig } from "~types";
 import { execFiles } from "~utils/files";
 import { execa, formatError, getUserPackageManager } from "~utils/helpers";
 import { vercelPackages, vercelEnv } from "~vercel";
@@ -199,22 +191,8 @@ export async function getCtxWithInstallers(
       )} ${chalk.red("script")}`
     );
   }
-  let trpcVersion: ITRPCVersion | undefined;
-  if (pkgs.includes("tRPC")) {
-    trpcVersion = (
-      await inquirer.prompt<{
-        trpcVersion: ITRPCVersion;
-      }>({
-        name: "trpcVersion",
-        message: "Please select a version of tRPC",
-        type: "list",
-        choices: ["V10", "V9"],
-      })
-    ).trpcVersion;
-  }
   return {
     ...ctx,
     installers: pkgs,
-    trpcVersion,
   };
 }
