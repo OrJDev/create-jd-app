@@ -25,6 +25,7 @@ export default defineConfig(() => {
   dotenv.config();
   return {
     plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
+    envDir: __dirname,
   };
 });
 ```

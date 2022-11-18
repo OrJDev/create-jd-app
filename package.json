@@ -1,5 +1,5 @@
 {
-  "name": "create-aidanaden-jd-app",
+  "name": "create-jd-app",
   "version": "1.0.83",
   "main": "dist/index.js",
   "scripts": {
@@ -8,10 +8,10 @@
     "postbuild": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
     "cp": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
-    "dev": "npm link && cd dist && npm link create-aidanaden-jd-app"
+    "dev": "npm link && cd dist && npm link create-jd-app"
   },
   "bin": {
-    "create-aidanaden-jd-app": "dist/index.js"
+    "create-jd-app": "dist/index.js"
   },
   "engines": {
     "node": ">=14.16"
@@ -35,7 +35,7 @@
   "description": "Create modern type safed Solid web application within seconds",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aidanaden/create-jd-app.git"
+    "url": "git+https://github.com/OrJDev/create-jd-app.git"
   },
   "keywords": [
     "jdev",
@@ -44,9 +44,9 @@
     "tailwind",
     "solidjs"
   ],
-  "author": "aidanaden",
+  "author": "OrJDev",
   "bugs": {
-    "url": "https://github.com/aidanaden/create-jd-app/issues"
+    "url": "https://github.com/OrJDev/create-jd-app/issues"
   },
-  "homepage": "https://github.com/aidanaden/create-jd-app#readme"
+  "homepage": "https://github.com/OrJDev/create-jd-app#readme"
 }

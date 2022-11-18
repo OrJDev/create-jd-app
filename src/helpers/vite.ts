@@ -27,6 +27,7 @@ import vercel from "solid-start-vercel";`
 export default defineConfig(() => {
   return {
     plugins: ${plugins},
+    envDir: __dirname,
   };
 });
   `;
