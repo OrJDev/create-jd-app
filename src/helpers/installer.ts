@@ -77,8 +77,15 @@ export default async (
       )
     )
   ).sort((a, b) => {
-    if (a.after === b.name) return 1;
-    if (b.after === a.name) return -1;
+    // useful incase an addon is modifying the same file as other addon
+    // @example - tRPC copies the utils files by default, but solid auth adds additional utils
+    const onTop = ["SolidAuth"];
+    if (onTop.includes(a.name)) {
+      return 1;
+    }
+    if (onTop.includes(b.name)) {
+      return -1;
+    }
     return 0;
   });
 

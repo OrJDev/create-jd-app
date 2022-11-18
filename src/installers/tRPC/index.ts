@@ -13,7 +13,10 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${ctx.templateDir}/trpc/inner/server${
-        ctx.installers.includes("Prisma") ? "-prisma" : ""
+        ctx.installers.includes("Prisma") &&
+        !ctx.installers.includes("SolidAuth")
+          ? "-prisma"
+          : ""
       }`,
       to: `${ctx.userDir}/src/server/trpc`,
     },
@@ -23,7 +26,6 @@ const config: IInstaller = (ctx) => ({
     },
   ],
   pkgs: {
-    // i don't want to use @next because its not an offical trpc package and i need to update it manually every realase
     "@trpc/client": {
       customVersion: "10.0.0-rc.2",
     },

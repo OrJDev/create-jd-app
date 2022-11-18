@@ -21,7 +21,6 @@ export type IConfig = {
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];
-  after?: string;
   name: string;
 };
 

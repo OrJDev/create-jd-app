@@ -1,0 +1,33 @@
+import { Authenticator, DiscordStrategy } from "solidjs-auth";
+import { serverEnv } from "~/env/server";
+import { sessionStorage } from "~/utils/auth";
+
+type User = {
+  id: string;
+  displayName: string;
+  avatar?: string;
+};
+
+const users: User[] = [];
+
+export const authenticator = new Authenticator<User>(sessionStorage).use(
+  new DiscordStrategy(
+    {
+      clientID: serverEnv.DISCORD_CLIENT_ID,
+      clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
+      callbackURL: serverEnv.SITE_URL + "/auth/discord/callback",
+    },
+    async ({ profile }) => {
+      let user = users.find((u) => u.id === profile.id);
+      if (!user) {
+        user = {
+          id: profile.id,
+          displayName: profile.username,
+          avatar: profile.avatar,
+        };
+        users.push(user);
+      }
+      return user;
+    }
+  )
+);

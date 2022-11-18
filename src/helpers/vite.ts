@@ -17,7 +17,8 @@ export const getViteConfig: IUtil = (ctx) => {
   return `import solid from "solid-start/vite";${
     useUno ? `\nimport UnoCSS from "unocss/vite";` : ""
   }
-import { defineConfig } from "vite";${
+import { defineConfig } from "vite";
+import dotenv from "dotenv";${
     ctx.vercel
       ? `\n// @ts-expect-error no typing
 import vercel from "solid-start-vercel";`
@@ -25,16 +26,20 @@ import vercel from "solid-start-vercel";`
   }
   
 export default defineConfig(() => {
+  dotenv.config();
   return {
     plugins: ${plugins},
-    envDir: __dirname,
   };
 });
   `;
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
-  if (ctx.vercel || ctx.installers.includes("UnoCSS")) {
+  if (
+    ctx.vercel ||
+    ctx.installers.includes("UnoCSS") ||
+    ctx.installers.includes("tRPC")
+  ) {
     await fs.writeFile(
       path.join(ctx.userDir, "vite.config.ts"),
       getViteConfig(ctx)

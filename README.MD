@@ -20,7 +20,7 @@ npm create jd-app@latest
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
-- [Upstash Ratelimit](https://github.com/upstash/ratelimit)
+- [Solid Auth](https://github.com/orjdev/solid-auth)
 
 ### Examples
 
