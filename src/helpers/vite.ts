@@ -18,8 +18,7 @@ export const getViteConfig: IUtil = (ctx) => {
 import dotenv from "dotenv";${
     useUno ? `\nimport UnoCSS from "unocss/vite";` : ""
   }
-import { defineConfig } from "vite";
-import dotenv from "dotenv";${
+import { defineConfig } from "vite";${
     ctx.vercel
       ? `\n// @ts-expect-error no typing
 import vercel from "solid-start-vercel";`
