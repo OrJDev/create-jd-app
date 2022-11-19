@@ -109,7 +109,7 @@ const getContent = (
         >
           <Match when={res() !== undefined}>
             <pre class="font-bold text-2xl text-gray-500">
-              {JSON.stringify(res())}
+              {JSON.stringify(res(), null, 2)}
             </pre>
           </Match>
         </Switch>
@@ -153,7 +153,7 @@ const getContent = (
       withStyles.length ? "\n          " : ""
     }fallback={${withStyles.length ? "\n            " : ""}<pre${withStyles}>${
       withStyles.length ? "\n              " : ""
-    }{JSON.stringify(res${shouldUsePrisma ? "()" : ".data"})}${
+    }{JSON.stringify(res${shouldUsePrisma ? "()" : ".data"}, null, 2)}${
       withStyles.length ? "\n            " : ""
     }</pre>${withStyles.length ? "\n          " : ""}}${
       withStyles.length ? "\n        " : ""
