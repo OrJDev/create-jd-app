@@ -23,7 +23,7 @@ export const authenticator = new Authenticator<User>(sessionStorage).use(
         user = {
           id: profile.id,
           displayName: profile.username,
-          avatar: profile.avatar,
+          avatar: profile.photos[0].value,
         };
         users.push(user);
       }
