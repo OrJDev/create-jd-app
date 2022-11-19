@@ -13,7 +13,7 @@ export const getViteConfig: IUtil = (ctx) => {
     ]`
       : useUno
       ? `[solid({ ssr: ${shouldUseSSR} }), UnoCSS()]`
-      : `[solid({ ssr: ${shouldUseSSR}, adapter: vercel({ edge: false }) })]`;
+      : `[solid({ ssr: ${shouldUseSSR} })]`;
   return `import solid from "solid-start/vite";
 import dotenv from "dotenv";${
     useUno ? `\nimport UnoCSS from "unocss/vite";` : ""
