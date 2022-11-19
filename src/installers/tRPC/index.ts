@@ -13,8 +13,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${ctx.templateDir}/trpc/inner/server${
-        ctx.installers.includes("Prisma") &&
-        !ctx.installers.includes("SolidAuth")
+        ctx.installers.includes("Prisma") 
           ? "-prisma"
           : ""
       }`,
