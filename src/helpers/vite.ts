@@ -5,12 +5,12 @@ import { ICtx, IUtil } from "~types";
 export const getViteConfig: IUtil = (ctx) => {
   const useUno = ctx.installers.includes("UnoCSS");
   const shouldUseSSR = !ctx.installers.includes("tRPC");
-  const plugins = (() => {
+  const getPlugins = () => {
     if (useUno && ctx.vercel) {
       return `[
-        solid({ ssr: ${shouldUseSSR}, adapter: vercel({ edge: false }) }),
-        UnoCSS(),
-      ]`;
+          solid({ ssr: ${shouldUseSSR}, adapter: vercel({ edge: false }) }),
+          UnoCSS(),
+        ]`;
     } else if (useUno) {
       return `[solid({ ssr: ${shouldUseSSR} }), UnoCSS()]`;
     } else if (ctx.vercel) {
@@ -18,7 +18,8 @@ export const getViteConfig: IUtil = (ctx) => {
     } else {
       return `[solid({ ssr: ${shouldUseSSR} })]`;
     }
-  })();
+  };
+  const plugins = getPlugins();
   return `import solid from "solid-start/vite";
 import dotenv from "dotenv";${
     useUno ? `\nimport UnoCSS from "unocss/vite";` : ""
