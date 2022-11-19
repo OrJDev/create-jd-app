@@ -22,12 +22,6 @@ npm create jd-app@latest
 - [UnoCSS](https://github.com/unocss/unocss)
 - [Solid Auth](https://github.com/orjdev/solid-auth)
 
-### Examples
-
-- [Hello World](https://github.com/OrJDev/solid-start-trpc-hello-world/)
-- [JWT Authentication](https://github.com/OrJDev/solid-trpc-authentication)
-- [Upstash RateLimit](https://github.com/OrJDev/solid-trpc-redis-example)
-
 #### Preview
 
 ![Screenshot_1](https://user-images.githubusercontent.com/91349014/201010596-4578b981-4183-4197-be43-6e01ed582954.png)
@@ -36,7 +30,7 @@ npm create jd-app@latest
 
 #### /env
 
-It adds nice type safety check and zod validation to your env (both client and server), so it is recommended to use it in your code (can be used to store JWT secrets, etc).
+It adds nice type safety check and zod validation to your env (both client and server), so it is recommended to use it in your code (can be used to store JWT secret, etc).
 
 - /env/client - Client side env - `imort.meta.env`
 - /env/server - Server side env - `process.env`
@@ -49,6 +43,4 @@ The server folder is where you put all of your server side code (anything that w
 - /server/trpc - tRPC server side code: routers, context, utils, etc.
 - /server/db - `client.ts` = Where the prisma client is being created.
 
-### T3 Relation
-
-I really like the T3 stack, however I prefer using Solid more than React, now that Solid Start is in beta I thought it would be a great idea to integrate some of the t3 features into create-jd-app.
+This project was inspired by [create t3 app](https://github.com/t3-oss/create-t3-app) and was created in order to make it easier to create a solid app. (and replace `npm init solid`)
