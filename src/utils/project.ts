@@ -172,15 +172,15 @@ export async function runCommands(ctx: IAppCtx, commands: string[]) {
   }
 }
 
-export function finished(ctx: ICtx) {
+export function finished(pkgManager: ReturnType<typeof getUserPackageManager>, ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   ctx.installers.includes("Prisma") &&
     console.log(
-      `${chalk.yellow("\tnpm run push")}\t${chalk.gray(
+      `${chalk.yellow(`\t${pkgManager} run push`)}\t${chalk.gray(
         "// pushes db to Prisma"
       )}`
     );
-  console.log(chalk.bold(chalk.blue("\tnpm run dev")));
+  console.log(chalk.bold(chalk.blue(`\t${pkgManager} run dev`)));
   console.log();
   process.exit(0);
 }
