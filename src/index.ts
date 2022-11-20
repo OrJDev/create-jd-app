@@ -19,7 +19,7 @@ async function main() {
   await project.installDeps(pkgManager, ctx.userDir, ctx.installers.length > 0);
   await project.installAddonsDependencies(pkgManager, ctx, deps);
   await project.runCommands(appCtx, commands);
-  project.finished(ctx);
+  project.finished(pkgManager, ctx);
 }
 
 main().catch((e) => {
