@@ -172,7 +172,10 @@ export async function runCommands(ctx: IAppCtx, commands: string[]) {
   }
 }
 
-export function finished(pkgManager: ReturnType<typeof getUserPackageManager>, ctx: ICtx) {
+export function finished(
+  pkgManager: ReturnType<typeof getUserPackageManager>,
+  ctx: ICtx
+) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   ctx.installers.includes("Prisma") &&
     console.log(

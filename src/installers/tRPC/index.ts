@@ -13,9 +13,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${ctx.templateDir}/trpc/inner/server${
-        ctx.installers.includes("Prisma") 
-          ? "-prisma"
-          : ""
+        ctx.installers.includes("Prisma") ? "-prisma" : ""
       }`,
       to: `${ctx.userDir}/src/server/trpc`,
     },
@@ -26,10 +24,10 @@ const config: IInstaller = (ctx) => ({
   ],
   pkgs: {
     "@trpc/client": {
-      customVersion: "10.0.0-rc.2",
+      customVersion: "latest",
     },
     "@trpc/server": {
-      customVersion: "10.0.0-rc.2",
+      customVersion: "latest",
     },
     "solid-trpc": { customVersion: "next" },
     "solid-start-trpc": {},
