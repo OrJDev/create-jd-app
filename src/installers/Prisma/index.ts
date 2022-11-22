@@ -29,7 +29,7 @@ const config: IInstaller = (ctx) => ({
     } .vercel/output/functions/render.func/ && cp prisma/schema.prisma .vercel/output/functions/render.func/`,
     build:
       ctx.pkgManager === "pnpm"
-        ? "solid-start build && pnpm postbuild"
+        ? "solid-start build && pnpm run postbuild"
         : "solid-start build",
   },
   env: [
