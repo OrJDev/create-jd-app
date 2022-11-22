@@ -1,8 +1,11 @@
+import { getUserPackageManager } from "~utils/helpers";
+
 export type IAppCtx = {
   userDir: string;
   appName: string;
   templateDir: string;
   vercel: boolean;
+  pkgManager: ReturnType<typeof getUserPackageManager>;
 };
 
 export type INullAble<T> = T | null;

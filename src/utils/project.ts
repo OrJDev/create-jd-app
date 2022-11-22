@@ -69,10 +69,12 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
         })
       ).vercel;
   }
+  const pkgManager = getUserPackageManager();
   return {
     appName,
     userDir,
     vercel,
+    pkgManager,
     templateDir: path.join(__dirname, "../../template"),
   };
 }
@@ -118,19 +120,15 @@ export async function modifyProject(
   }
 }
 
-export async function installDeps(
-  pkgManager: ReturnType<typeof getUserPackageManager>,
-  userDir: string,
-  len: boolean
-) {
+export async function installDeps(ctx: ICtx, len: boolean) {
   console.log(
     `\n${chalk.blue("Using")} ${chalk.bold(
-      chalk.yellow(pkgManager.toUpperCase())
+      chalk.yellow(ctx.pkgManager.toUpperCase())
     )} ${chalk.bold(chalk.blue("as package manager"))}`
   );
   const spinner = ora("Installing template dependencies").start();
   try {
-    await execa(`${pkgManager} install`, { cwd: userDir });
+    await execa(`${ctx.pkgManager} install`, { cwd: ctx.userDir });
     spinner.succeed(`Installed${len ? " template" : ""} dependencies`);
   } catch (e) {
     spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
@@ -139,14 +137,13 @@ export async function installDeps(
 }
 
 export async function installAddonsDependencies(
-  pkgManager: ReturnType<typeof getUserPackageManager>,
   ctx: ICtx,
   deps: [string[], string[]]
 ) {
   const spinner = ora("Installing addons dependencies").start();
   if (deps[0].length || deps[1].length) {
     try {
-      await installPkgs(pkgManager, ctx.userDir, deps);
+      await installPkgs(ctx.pkgManager, ctx.userDir, deps);
       spinner.succeed("Installed addons dependencies");
     } catch (e) {
       spinner.fail(`Couldn't install addons dependencies: ${formatError(e)}`);
@@ -172,18 +169,15 @@ export async function runCommands(ctx: IAppCtx, commands: string[]) {
   }
 }
 
-export function finished(
-  pkgManager: ReturnType<typeof getUserPackageManager>,
-  ctx: ICtx
-) {
+export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   ctx.installers.includes("Prisma") &&
     console.log(
-      `${chalk.yellow(`\t${pkgManager} run push`)}\t${chalk.gray(
+      `${chalk.yellow(`\t${ctx.pkgManager} run push`)}\t${chalk.gray(
         "// pushes db to Prisma"
       )}`
     );
-  console.log(chalk.bold(chalk.blue(`\t${pkgManager} run dev`)));
+  console.log(chalk.bold(chalk.blue(`\t${ctx.pkgManager} run dev`)));
   console.log();
   process.exit(0);
 }
