@@ -27,6 +27,10 @@ const config: IInstaller = (ctx) => ({
         ? "node_modules/.pnpm/**/@prisma/engines/*query*"
         : "node_modules/@prisma/engines/*query*"
     } .vercel/output/functions/render.func/ && cp prisma/schema.prisma .vercel/output/functions/render.func/`,
+    build:
+      ctx.pkgManager === "pnpm"
+        ? "solid-start build && pnpm postbuild"
+        : "solid-start build",
   },
   env: [
     {
