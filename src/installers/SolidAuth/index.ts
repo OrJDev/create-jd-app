@@ -44,7 +44,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       key: "SITE_URL",
-      type: "preprocess((str) => process.env.VERCEL_URL ?? str, process.env.VERCEL ? z.string() : z.string().url())",
+      type: "string()",
       kind: "server",
       defaulValue: "http://localhost:3000",
     },
