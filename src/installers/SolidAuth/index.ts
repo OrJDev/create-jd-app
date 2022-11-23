@@ -17,7 +17,9 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/utils/auth.ts`,
     },
     {
-      path: `${__dirname}/files/handler.txt`,
+      path: `${__dirname}/files/${
+        ctx.installers.includes("Prisma") ? "prisma-handler" : "handler"
+      }.txt`,
       to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
     },
     ...(ctx.installers.includes("tRPC")
