@@ -17,6 +17,16 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/utils/auth.ts`,
     },
     {
+      path: `${ctx.templateDir}/layouts/${
+        ctx.installers.includes("Prisma") ? "auth-prisma" : "auth"
+      }`,
+      to: `${ctx.userDir}/src/layouts`,
+    },
+    {
+      path: `${__dirname}/files/protected.txt`,
+      to: `${ctx.userDir}/src/routes/protected.tsx`,
+    },
+    {
       path: `${__dirname}/files/${
         ctx.installers.includes("Prisma") ? "prisma-handler" : "handler"
       }.txt`,
