@@ -3,11 +3,11 @@
   "version": "1.0.89",
   "main": "dist/index.js",
   "scripts": {
-    "test": "ts-node -r tsconfig-paths/register src",
+    "test": "tsx -r tsconfig-paths/register src",
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
-    "postbuild": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
+    "postbuild": "tsx -r tsconfig-paths/register src/scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
-    "cp": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
+    "cp": "tsx -r tsconfig-paths/register src/scripts/copyFiles",
     "dev": "npm link && cd dist && npm link create-jd-app"
   },
   "bin": {
@@ -29,7 +29,8 @@
     "@types/node": "^18.6.4",
     "@types/ora": "^3.2.0",
     "tsc-alias": "^1.7.0",
-    "tsconfig-paths": "^4.1.0"
+    "tsconfig-paths": "^4.1.0",
+    "tsx": "^3.12.1"
   },
   "types": "./dist/index.d.ts",
   "description": "Create modern type safed Solid web application within seconds",
