@@ -1,7 +1,15 @@
-import { Match, Switch, type Component } from "solid-js";
+import { IUtil } from "~types";
+
+const getProtectedLayout: IUtil = (ctx) => {
+  const usePrisma = ctx.installers.includes("Prisma");
+  return `import { Match, Switch, type Component } from "solid-js";
 import { useRouteData } from "solid-start";
 import { createServerData$, redirect } from "solid-start/server";
-import { authenticator, type User } from "~/server/auth";
+import { authenticator${
+    usePrisma ? "" : ", type User"
+  } } from "~/server/auth";${
+    usePrisma ? `\nimport { type User } from "@prisma/client";` : ""
+  }
 
 export const withProtected = (Component: ProtectedRouter) => {
   const routeData = () => {
@@ -29,3 +37,7 @@ export const withProtected = (Component: ProtectedRouter) => {
 };
 
 export type ProtectedRouter = Component<User>;
+`;
+};
+
+export default getProtectedLayout;

@@ -65,29 +65,16 @@ export default async (
       env = [...env, ...cfg.env];
     }
   };
-  const resp = (
-    await Promise.all(
-      ctx.installers.map((pkg) =>
-        import(`../installers/${pkg}/index`).then(
-          (installer: { default: IInstaller }) =>
-            typeof installer.default === "function"
-              ? installer.default(ctx)
-              : installer.default
-        )
+  const resp = await Promise.all(
+    ctx.installers.map((pkg) =>
+      import(`../installers/${pkg}/index`).then(
+        (installer: { default: IInstaller }) =>
+          typeof installer.default === "function"
+            ? installer.default(ctx)
+            : installer.default
       )
     )
-  ).sort((a, b) => {
-    // useful incase an addon is modifying the same file as other addon
-    // @example - tRPC copies the utils files by default, but solid auth adds additional utils
-    const onTop = ["SolidAuth"];
-    if (onTop.includes(a.name)) {
-      return 1;
-    }
-    if (onTop.includes(b.name)) {
-      return -1;
-    }
-    return 0;
-  });
+  );
 
   console.log();
   const spinner = ora("Initializing installers").start();

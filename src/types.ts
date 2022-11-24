@@ -19,12 +19,11 @@ export type ICtx = ICtxWith<{
 }>;
 
 export type IConfig = {
-  files?: Array<IFile>;
+  files?: Array<IFile | undefined>;
   pkgs?: IPkg | string[];
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];
-  name: string;
 };
 
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;
@@ -41,6 +40,7 @@ export type IFile = {
   content?: string;
   type?: "copy" | "exec" | "delete" | "write" | "append";
   path?: string;
+  sep?: boolean;
 };
 
 export type IEnv = {

@@ -3,11 +3,18 @@ import ora from "ora";
 import { ICtx, IFile } from "~types";
 import { formatError } from "./helpers";
 
-export async function execFiles(files: IFile[], ctx: ICtx) {
+export async function execFiles(files: (IFile | undefined)[], ctx: ICtx) {
+  const actualFiles = files.filter((f) => f !== undefined) as IFile[];
+  // `sep` files are parent files, so they should be executed first ro resolve conflicts
+  for (const file of actualFiles.filter((e) => e.sep)) {
+    await execFile(file, ctx);
+  }
   await Promise.all(
-    files.map(async (file) => {
-      await execFile(file, ctx);
-    })
+    actualFiles
+      .filter((e) => !e.sep)
+      .map(async (file) => {
+        await execFile(file, ctx);
+      })
   );
 }
 

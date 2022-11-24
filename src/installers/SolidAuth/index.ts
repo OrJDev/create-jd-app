@@ -1,7 +1,6 @@
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  name: "SolidAuth",
   pkgs: {
     "solidjs-auth": {},
   },
@@ -17,33 +16,19 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/utils/auth.ts`,
     },
     {
-      path: `${ctx.templateDir}/layouts/${
-        ctx.installers.includes("Prisma") ? "auth-prisma" : "auth"
-      }`,
-      to: `${ctx.userDir}/src/layouts`,
+      path: `${__dirname}/utils/getProtectedLayout`,
+      to: `${ctx.userDir}/src/layouts/Protected.tsx`,
+      type: "exec",
+    },
+    {
+      path: `${__dirname}/utils/getHandler`,
+      to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
+      type: "exec",
     },
     {
       path: `${__dirname}/files/protected.txt`,
       to: `${ctx.userDir}/src/routes/protected.tsx`,
     },
-    {
-      path: `${__dirname}/files/${
-        ctx.installers.includes("Prisma") ? "prisma-handler" : "handler"
-      }.txt`,
-      to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
-    },
-    ...(ctx.installers.includes("tRPC")
-      ? [
-          {
-            path: `${__dirname}/files/trpc-utils.txt`,
-            to: `${ctx.userDir}/src/server/trpc/utils.ts`,
-          },
-          {
-            path: `${__dirname}/files/trpc-router.txt`,
-            to: `${ctx.userDir}/src/server/trpc/router/example.ts`,
-          },
-        ]
-      : []),
   ],
   env: [
     {

@@ -13,11 +13,12 @@ const config: IInstaller = (ctx) => ({
       path: `${__dirname}/files/client.txt`,
       to: `${ctx.userDir}/src/server/db/client.ts`,
     },
-    !ctx.installers.includes("tRPC") &&
-      !ctx.installers.includes("SolidAuth") && {
-        path: `${__dirname}/files/api.txt`,
-        to: `${ctx.userDir}/src/routes/api/notes.ts`,
-      },
+    !ctx.installers.includes("tRPC") && !ctx.installers.includes("SolidAuth")
+      ? {
+          path: `${__dirname}/files/api.txt`,
+          to: `${ctx.userDir}/src/routes/api/notes.ts`,
+        }
+      : undefined,
   ],
   scripts: {
     push: "prisma db push",
