@@ -34,9 +34,9 @@ export function withPackages(optIn: { [K in keyof IPkgs]?: KeyOrKeyArray<K> }) {
   const normals: { [K in keyof IPkgs["normal"]]?: string } = {};
   for (const keyType in optIn) {
     type OptIn = keyof typeof optIn;
-    const _curr = optIn[keyType as OptIn];
-    const setInOpt = (curr: typeof _curr) => {
-      if (!curr) return;
+    const __curr = optIn[keyType as OptIn];
+    const arrOptIn = Array.isArray(__curr) ? __curr : [__curr];
+    for (const curr of arrOptIn) {
       if (keyType === "dev") {
         devs[curr as keyof typeof devs] =
           packages.dev[curr as keyof typeof packages.dev];
@@ -44,13 +44,6 @@ export function withPackages(optIn: { [K in keyof IPkgs]?: KeyOrKeyArray<K> }) {
         normals[curr as keyof typeof normals] =
           packages.normal[curr as keyof typeof packages.normal];
       }
-    };
-    if (Array.isArray(_curr)) {
-      for (const ele in _curr) {
-        setInOpt(_curr[ele]);
-      }
-    } else {
-      setInOpt(_curr);
     }
   }
   return [normals, devs];

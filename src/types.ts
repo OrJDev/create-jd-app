@@ -30,12 +30,6 @@ export type IConfig = {
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;
 export type IInstaller = IConfig | IInstallerCB;
 
-export type IPkgInfo = {
-  customVersion?: string;
-  devMode?: boolean;
-};
-export type IPkg = Record<string, IPkgInfo>;
-
 export type IFile = {
   to: string;
   content?: string;
