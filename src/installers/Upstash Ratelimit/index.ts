@@ -17,7 +17,11 @@ const config: IInstaller = (ctx) => ({
   files: [
     ctx.installers.includes("tRPC")
       ? {
-          path: `${__dirname}/files/trpcUtils.txt`,
+          path: `${__dirname}/files/${
+            ctx.installers.includes("SolidAuth")
+              ? "trpc-auth-utils.txt"
+              : "trpc-utils.txt"
+          }`,
           to: `${ctx.userDir}/src/server/trpc/utils.ts`,
         }
       : {

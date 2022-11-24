@@ -78,8 +78,14 @@ export default async (
     )
   ).sort((a, b) => {
     // useful incase an addon is modifying the same file as other addon
-    // @example - tRPC copies the utils files by default, but solid auth adds additional utils
-    const onTop = ["SolidAuth"];
+    // @example - tRPC copies the utils files by default, but solid auth/upstash ratelimit adds additional utils
+    const onTop = ["SolidAuth", "Upstash Ratelimit"];
+    if (a.name === "SolidAuth" && b.name === "Upstash Ratelimit") {
+      return -1;
+    }
+    if (a.name === "Upstash Ratelimit" && b.name !== "SolidAuth") {
+      return 1;
+    }
     if (onTop.includes(a.name)) {
       return 1;
     }
