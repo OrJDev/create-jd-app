@@ -1,3 +1,4 @@
+import { IExpectedPackages } from "~helpers/packages";
 import { getUserPackageManager } from "~utils/helpers";
 
 export type IAppCtx = {
@@ -20,7 +21,7 @@ export type ICtx = ICtxWith<{
 
 export type IConfig = {
   files?: Array<IFile | undefined>;
-  pkgs?: IPkg | string[];
+  pkgs?: IExpectedPackages;
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];

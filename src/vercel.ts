@@ -1,10 +1,9 @@
-import { IPkg, IEnv } from "~types";
+import { withPackages } from "~helpers/packages";
+import { IEnv } from "~types";
 
-export const vercelPackages: IPkg = {
-  "solid-start-vercel": {
-    devMode: true,
-  },
-};
+export const vercelPackages = withPackages({
+  dev: "solid-start-vercel",
+});
 
 export const vercelEnv: IEnv[] = [
   {

@@ -1,7 +1,7 @@
+import { withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  name: "tRPC",
   files: [
     {
       path: `${ctx.templateDir}/trpc/server`,
@@ -36,17 +36,15 @@ const config: IInstaller = (ctx) => ({
       type: "exec",
     },
   ],
-  pkgs: {
-    "@trpc/client": {
-      customVersion: "latest",
-    },
-    "@trpc/server": {
-      customVersion: "latest",
-    },
-    "solid-trpc": { customVersion: "next" },
-    "solid-start-trpc": {},
-    "@tanstack/solid-query": {},
-  },
+  pkgs: withPackages({
+    normal: [
+      "solid-trpc",
+      "solid-start-trpc",
+      "@trpc/client",
+      "@trpc/server",
+      "@tanstack/solid-query",
+    ],
+  }),
 });
 
 export default config;

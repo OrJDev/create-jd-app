@@ -1,7 +1,7 @@
+import { withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  name: "TailwindCSS",
   files: [
     {
       path: `${__dirname}/files/styles.txt`,
@@ -16,11 +16,9 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/tailwind.config.cjs`,
     },
   ],
-  pkgs: {
-    tailwindcss: { devMode: true },
-    postcss: { devMode: true },
-    autoprefixer: { devMode: true },
-  },
+  pkgs: withPackages({
+    dev: ["tailwindcss", "postcss", "autoprefixer"],
+  }),
 });
 
 export default config;

@@ -14,9 +14,8 @@ async function main() {
   await project.copyTemplate(appCtx);
   const ctx = await getCtxWithInstallers(appCtx, args);
   const [scripts, deps, env, commands] = await runInstallers(ctx);
-  await project.modifyProject(ctx, scripts, env);
-  await project.installDeps(ctx, ctx.installers.length > 0);
-  await project.installAddonsDependencies(ctx, deps);
+  await project.modifyProject(ctx, deps, scripts, env);
+  await project.installDeps(ctx);
   await project.runCommands(appCtx, commands);
   project.finished(ctx);
 }

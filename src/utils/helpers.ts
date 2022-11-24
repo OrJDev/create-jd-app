@@ -3,6 +3,7 @@ import path from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { ICtx } from "~types";
+import { IExpectedPackages } from "~helpers/packages";
 
 export const execa = promisify(exec);
 
@@ -56,11 +57,15 @@ export const getUserPackageManager = () => {
 
 export const solidUpdateJSON = async (
   ctx: ICtx,
-  scripts: Record<string, string>
+  scripts: Record<string, string>,
+  pkgs: IExpectedPackages
 ) => {
+  const [normalDeps, devModeDeps] = pkgs;
   await modifyJSON(ctx.userDir, (json) => {
     json.name = ctx.appName;
     json.scripts = { ...json.scripts, ...scripts };
+    json.dependencies = { ...json.dependencies, ...normalDeps };
+    json.devDependencies = { ...json.devDependencies, ...devModeDeps };
     return json;
   });
 };

@@ -1,12 +1,10 @@
+import { withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  pkgs: {
-    unocss: {
-      devMode: true,
-    },
-  },
-  name: "UnoCSS",
+  pkgs: withPackages({
+    dev: "unocss",
+  }),
   files: [
     {
       path: `${__dirname}/files/root.txt`,

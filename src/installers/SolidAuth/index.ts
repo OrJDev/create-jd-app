@@ -1,9 +1,10 @@
+import { withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  pkgs: {
-    "solidjs-auth": {},
-  },
+  pkgs: withPackages({
+    normal: "solidjs-auth",
+  }),
   files: [
     {
       path: `${__dirname}/files/${

@@ -2,19 +2,18 @@ import ora from "ora";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
-import { IInstaller, IPkg, ICtx, IEnv, IAppCtx, IConfig } from "~types";
+import { IInstaller, ICtx, IEnv, IAppCtx, IConfig } from "~types";
 import { execFiles } from "~utils/files";
-import { execa, formatError, getUserPackageManager } from "~utils/helpers";
+import { formatError } from "~utils/helpers";
 import { vercelPackages, vercelEnv } from "~vercel";
 import chalk from "chalk";
+import { IExpectedPackages } from "./packages";
 
 export default async (
   ctx: ICtx
-): Promise<
-  [Record<string, string>, [string[], string[]], IEnv[], string[]]
-> => {
-  let normalDeps: string[] = [];
-  let devModeDeps: string[] = [];
+): Promise<[Record<string, string>, IExpectedPackages, IEnv[], string[]]> => {
+  let normalDeps: IExpectedPackages[0] = {};
+  let devModeDeps: IExpectedPackages[1] = {};
   let scripts: Record<string, string> = {};
   let env: IEnv[] = [
     {
@@ -31,22 +30,16 @@ export default async (
     },
   ];
   if (ctx.vercel) {
-    const vercelPkgs = sortToDevAndNormal(vercelPackages);
-    normalDeps = [...normalDeps, ...vercelPkgs[0]];
-    devModeDeps = [...devModeDeps, ...vercelPkgs[1]];
+    normalDeps = { ...normalDeps, ...vercelPackages[0] };
+    devModeDeps = { ...devModeDeps, ...vercelPackages[1] };
     env = [...env, ...vercelEnv];
   }
   let commands: string[] = [];
 
   const execInstaller = async (cfg: IConfig) => {
     if (cfg.pkgs) {
-      if (Array.isArray(cfg.pkgs)) {
-        normalDeps = [...normalDeps, ...cfg.pkgs];
-      } else {
-        let newDeps = sortToDevAndNormal(cfg.pkgs);
-        normalDeps = [...normalDeps, ...newDeps[0]];
-        devModeDeps = [...devModeDeps, ...newDeps[1]];
-      }
+      normalDeps = { ...normalDeps, ...cfg.pkgs[0] };
+      devModeDeps = { ...devModeDeps, ...cfg.pkgs[1] };
     }
     if (cfg.scripts) {
       scripts = { ...scripts, ...cfg.scripts };
@@ -93,39 +86,6 @@ export default async (
     spinner.succeed("No installers to initialize");
   }
   return [scripts, [normalDeps, devModeDeps], env, commands];
-};
-
-const sortToDevAndNormal = (pkgs: IPkg): [string[], string[]] => {
-  const normal: string[] = [];
-  const devs: string[] = [];
-  Object.entries(pkgs).forEach(([key, value]) => {
-    const newKey = value.customVersion ? `${key}@${value.customVersion}` : key;
-    if (value.devMode) {
-      devs.push(newKey);
-    } else {
-      normal.push(newKey);
-    }
-  });
-  return [normal, devs];
-};
-
-export const installPkgs = async (
-  pkgManager: ReturnType<typeof getUserPackageManager>,
-  cwd: string,
-  deps: [string[], string[]]
-) => {
-  const [normal, devs] = deps;
-  const cmd = pkgManager === "yarn" ? "add" : "install";
-  if (normal.length) {
-    await execa(`${pkgManager} ${cmd} ${normal.join(" ")}`, {
-      cwd,
-    });
-  }
-  if (devs.length) {
-    await execa(`${pkgManager} ${cmd} ${devs.join(" ")} -D`, {
-      cwd,
-    });
-  }
 };
 
 export async function getCtxWithInstallers(

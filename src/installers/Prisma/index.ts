@@ -1,7 +1,7 @@
+import { withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
-  name: "Prisma",
   files: [
     {
       path: `${__dirname}/files/${
@@ -22,7 +22,7 @@ const config: IInstaller = (ctx) => ({
   ],
   scripts: {
     push: "prisma db push",
-    generate: "prisma generate",
+    postinstall: "prisma generate",
     postbuild: `cp ${
       ctx.pkgManager === "pnpm"
         ? "node_modules/.pnpm/**/@prisma/engines/*query*"
@@ -41,12 +41,10 @@ const config: IInstaller = (ctx) => ({
       kind: "server",
     },
   ],
-  pkgs: {
-    prisma: {
-      devMode: true,
-    },
-    "@prisma/client": {},
-  },
+  pkgs: withPackages({
+    dev: "prisma",
+    normal: "@prisma/client",
+  }),
   commands: "npx prisma db push",
 });
 

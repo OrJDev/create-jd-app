@@ -13,9 +13,9 @@ import {
   solidUpdateJSON,
 } from "./helpers";
 import { IAppCtx, ICtx, IEnv } from "~types";
-import { installPkgs } from "~helpers/installer";
 import { updateEnv } from "~helpers/env";
 import { modifyConfigIfNeeded } from "~helpers/vite";
+import { IExpectedPackages } from "~helpers/packages";
 
 export async function initApp(args: string[]): Promise<IAppCtx> {
   console.log();
@@ -102,6 +102,7 @@ export async function copyTemplate(appContext: IAppCtx) {
 }
 export async function modifyProject(
   ctx: ICtx,
+  pkgs: IExpectedPackages,
   scripts: Record<string, string>,
   env: IEnv[]
 ) {
@@ -110,7 +111,7 @@ export async function modifyProject(
     await Promise.all([
       solidHelper(ctx),
       updateEnv(ctx.userDir, env),
-      solidUpdateJSON(ctx, scripts),
+      solidUpdateJSON(ctx, scripts, pkgs),
       modifyConfigIfNeeded(ctx),
     ]);
     spinner.succeed("Modified project");
@@ -120,37 +121,19 @@ export async function modifyProject(
   }
 }
 
-export async function installDeps(ctx: ICtx, len: boolean) {
+export async function installDeps(ctx: ICtx) {
   console.log(
     `\n${chalk.blue("Using")} ${chalk.bold(
       chalk.yellow(ctx.pkgManager.toUpperCase())
     )} ${chalk.bold(chalk.blue("as package manager"))}`
   );
-  const spinner = ora("Installing template dependencies").start();
+  const spinner = ora("Installing dependencies").start();
   try {
     await execa(`${ctx.pkgManager} install`, { cwd: ctx.userDir });
-    spinner.succeed(`Installed${len ? " template" : ""} dependencies`);
+    spinner.succeed("Installed dependencies");
   } catch (e) {
     spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
     process.exit(1);
-  }
-}
-
-export async function installAddonsDependencies(
-  ctx: ICtx,
-  deps: [string[], string[]]
-) {
-  const spinner = ora("Installing addons dependencies").start();
-  if (deps[0].length || deps[1].length) {
-    try {
-      await installPkgs(ctx.pkgManager, ctx.userDir, deps);
-      spinner.succeed("Installed addons dependencies");
-    } catch (e) {
-      spinner.fail(`Couldn't install addons dependencies: ${formatError(e)}`);
-      process.exit(1);
-    }
-  } else {
-    spinner.succeed("No addons to install");
   }
 }
 
