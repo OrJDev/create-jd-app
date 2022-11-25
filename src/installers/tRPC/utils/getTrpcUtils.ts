@@ -18,21 +18,6 @@ import { Redis } from "@upstash/redis";`
 export const t = initTRPC.context<IContext>().create();
 
 export const router = t.router;${
-    useAuth
-      ? `\nexport const protectedProcedure = t.procedure.use(
-  t.middleware(async ({ ctx, next }) => {
-    const user = await authenticator.isAuthenticated(ctx.req);
-    if (!user) {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "You are not authorized to access this resource",
-      });
-    }
-    return next({ ctx: { ...ctx, user } });
-  })
-);`
-      : ""
-  }${
     useUpstash
       ? `\nconst ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -62,6 +47,23 @@ const withRateLimit = t.middleware(async ({ ctx, next }) => {
 
 export const procedure = t.procedure.use(withRateLimit);`
       : "\nexport const procedure = t.procedure;"
+  }${
+    useAuth
+      ? `\nexport const protectedProcedure = t.procedure${
+          useUpstash ? ".use(withRateLimit)" : ""
+        }.use(
+  t.middleware(async ({ ctx, next }) => {
+    const user = await authenticator.isAuthenticated(ctx.req);
+    if (!user) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You are not authorized to access this resource",
+      });
+    }
+    return next({ ctx: { ...ctx, user } });
+  })
+);`
+      : ""
   }
 `;
 };
