@@ -2,7 +2,7 @@ import { IUtil } from "~types";
 
 const getTrpcUtils: IUtil = (ctx) => {
   const useAuth = ctx.installers.includes("SolidAuth");
-  return `import { initTRPC } from "@trpc/server";
+  return `import { initTRPC${useAuth ? ", TRPCError":""} } from "@trpc/server";
 import type { IContext } from "./context";${
     useAuth ? `\nimport { authenticator } from "../auth";` : ""
   }
