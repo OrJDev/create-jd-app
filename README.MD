@@ -21,6 +21,7 @@ npm create jd-app@latest
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
 - [SolidAuth](https://github.com/orjdev/solid-auth)
+- [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 #### Preview
 
