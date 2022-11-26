@@ -6,6 +6,7 @@ const getTrpcUtils: IUtil = (ctx) => {
   return `import { initTRPC${
     useAuth ? ", TRPCError" : ""
   } } from "@trpc/server";
+import superjson from "superjson";
 import type { IContext } from "./context";${
     useAuth ? `\nimport { authenticator } from "../auth";` : ""
   }${
@@ -15,7 +16,9 @@ import { Redis } from "@upstash/redis";`
       : ""
   }
 
-export const t = initTRPC.context<IContext>().create();
+export const t = initTRPC.context<IContext>().create({
+  transformer: superjson,
+});
 
 export const router = t.router;
 export const procedure = t.procedure;${

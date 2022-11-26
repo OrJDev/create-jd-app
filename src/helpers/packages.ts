@@ -20,6 +20,7 @@ const packages = {
     "@trpc/server": "^10.1.0",
     "solid-start-trpc": "^0.0.13",
     "solid-trpc": "^0.0.11-rc.2",
+    superjson: "^1.11.0",
     // solid auth
     "solidjs-auth": "^0.0.8",
     // upstash ratelimit

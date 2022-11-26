@@ -43,6 +43,7 @@ const config: IInstaller = (ctx) => ({
       "@trpc/client",
       "@trpc/server",
       "@tanstack/solid-query",
+      "superjson",
     ],
   }),
 });
