@@ -4,7 +4,7 @@ const getTrpcUtils: IUtil = (ctx) => {
   const useAuth = ctx.installers.includes("SolidAuth");
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
   return `import { initTRPC${
-    useAuth ? ", TRPCError" : ""
+    useAuth || useUpstash ? ", TRPCError" : ""
   } } from "@trpc/server";
 import superjson from "superjson";
 import type { IContext } from "./context";${
@@ -20,23 +20,7 @@ export const t = initTRPC.context<IContext>().create({
   transformer: superjson,
 });
 
-export const router = t.router;
-export const procedure = t.procedure;${
-    useAuth
-      ? `\nexport const protectedProcedure = t.procedure.use(
-  t.middleware(async ({ ctx, next }) => {
-    const user = await authenticator.isAuthenticated(ctx.req);
-    if (!user) {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "You are not authorized to access this resource",
-      });
-    }
-    return next({ ctx: { ...ctx, user } });
-  })
-);`
-      : ""
-  }${
+export const router = t.router;${
     useUpstash
       ? `\nconst ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -64,7 +48,24 @@ const withRateLimit = t.middleware(async ({ ctx, next }) => {
   return next({ ctx });
 });
 
-export const limitedProcedure = t.procedure.use(withRateLimit);`
+export const procedure = t.procedure.use(withRateLimit);`
+      : "\nexport const procedure = t.procedure;"
+  }${
+    useAuth
+      ? `\nexport const protectedProcedure = t.procedure${
+          useUpstash ? ".use(withRateLimit)" : ""
+        }.use(
+  t.middleware(async ({ ctx, next }) => {
+    const user = await authenticator.isAuthenticated(ctx.req);
+    if (!user) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You are not authorized to access this resource",
+      });
+    }
+    return next({ ctx: { ...ctx, user } });
+  })
+);`
       : ""
   }
 `;
