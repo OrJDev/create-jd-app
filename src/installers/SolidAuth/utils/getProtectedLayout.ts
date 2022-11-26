@@ -16,7 +16,7 @@ export const withProtected = (Component: ProtectedRouter) => {
     return createServerData$(async (_, { request }) => {
       const user = await authenticator.isAuthenticated(request);
       if (!user) {
-        throw redirect("/account");
+        throw redirect("/");
       }
       return user;
     });
@@ -28,7 +28,7 @@ export const withProtected = (Component: ProtectedRouter) => {
       return (
         <Switch fallback={<Component {...(current() as User)} />}>
           <Match when={current.loading || current() instanceof Response}>
-            <Spinner />
+            <h1>Loading...</h1>
           </Match>
         </Switch>
       );
