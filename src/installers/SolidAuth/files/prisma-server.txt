@@ -1,5 +1,5 @@
 import { type User } from "@prisma/client";
-import { Authenticator, DiscordStrategy } from "solidjs-auth";
+import { Authenticator, DiscordStrategy } from "solid-auth";
 import { serverEnv } from "~/env/server";
 import { sessionStorage } from "~/utils/auth";
 import { prisma } from "./db/client";

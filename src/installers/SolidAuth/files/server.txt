@@ -1,4 +1,4 @@
-import { Authenticator, DiscordStrategy } from "solidjs-auth";
+import { Authenticator, DiscordStrategy } from "solid-auth";
 import { serverEnv } from "~/env/server";
 import { sessionStorage } from "~/utils/auth";
 

@@ -5,7 +5,7 @@ const getHandler: IUtil = (ctx) => {
   return `import { authenticator${
     usePrisma ? "" : ", type User"
   } } from "~/server/auth";
-import { createSolidAuthHandler } from "solidjs-auth";${
+import { createSolidAuthHandler } from "solid-auth";${
     usePrisma ? `\nimport { type User } from "@prisma/client";` : ""
   }
 
