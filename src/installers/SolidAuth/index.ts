@@ -3,7 +3,7 @@ import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
   pkgs: withPackages({
-    normal: "solidjs-auth",
+    normal: "solid-auth",
   }),
   files: [
     {
