@@ -17,8 +17,9 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/entry-client.tsx`,
     },
     {
-      path: `${ctx.templateDir}/trpc/api`,
-      to: `${ctx.userDir}/src/routes/api`,
+      path: `${__dirname}/utils/getTrpcApi`,
+      to: `${ctx.userDir}/src/routes/api/trpc/[trpc].ts`,
+      type: "exec",
     },
     {
       path: `${__dirname}/utils/getTrpcUtils`,

@@ -16,8 +16,8 @@ const packages = {
     "@prisma/client": "^4.6.1",
     // trpc
     "@tanstack/solid-query": "^4.15.1",
-    "@trpc/client": "^10.1.0",
-    "@trpc/server": "^10.1.0",
+    "@trpc/client": "^10.4.1",
+    "@trpc/server": "^10.4.1",
     "solid-start-trpc": "^0.0.13",
     "solid-trpc": "^0.0.11-rc.2",
     superjson: "^1.11.0",
