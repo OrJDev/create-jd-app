@@ -18,7 +18,7 @@ const packages = {
     "@tanstack/solid-query": "^4.15.1",
     "@trpc/client": "^10.1.0",
     "@trpc/server": "^10.1.0",
-    "solid-start-trpc": "^0.0.13",
+    "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
     // solid auth
     "solid-auth": "^0.0.1",
