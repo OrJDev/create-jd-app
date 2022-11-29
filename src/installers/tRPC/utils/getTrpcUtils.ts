@@ -53,14 +53,13 @@ export const procedure = t.procedure.use(withRateLimit);`
           useUpstash ? ".use(withRateLimit)" : ""
         }.use(
   t.middleware(async ({ ctx, next }) => {
-    const user = await authenticator.isAuthenticated(ctx.req);
-    if (!user) {
+    if (!ctx.user) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "You are not authorized to access this resource",
       });
     }
-    return next({ ctx: { ...ctx, user } });
+    return next({ ctx: { ...ctx, user: ctx.user } });
   })
 );`
       : ""

@@ -21,7 +21,8 @@ const packages = {
     "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
     // solid auth
-    "solid-auth": "^0.0.1",
+    "@solid-auth/core": "^0.0.1",
+    "@solid-auth/socials": "^0.0.2",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.1.5",
     "@upstash/redis": "^1.18.0",
