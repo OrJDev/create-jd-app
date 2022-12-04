@@ -44,4 +44,8 @@ The server folder is where you put all of your server side code (anything that w
 - /server/trpc - tRPC server side code: routers, context, utils, etc.
 - /server/db - `client.ts` = Where the prisma client is being created.
 
+### Using Vanila SolidJS
+
+If you want to use SolidJS instead of SolidStart, check out the [vanila create jd app](https://github.com/OrJDev/create-jd-app/tree/vanila)
+
 This project was inspired by [create t3 app](https://github.com/t3-oss/create-t3-app) and was created in order to make it easier to create a solid app. (and replace `npm init solid`)
