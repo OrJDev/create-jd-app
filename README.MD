@@ -16,11 +16,14 @@ npm create jd-app@latest
 
 ## Addons
 
+All addons are optional, you may select some, you may select all and you may select none.
+
 - [Prisma](https://github.com/prisma/prisma)
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
 - [SolidAuth](https://github.com/orjdev/solid-auth)
+- [Next Auth](https://github.com/orjdev/auth-solid)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 #### Preview

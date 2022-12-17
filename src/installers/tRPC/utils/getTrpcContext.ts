@@ -2,21 +2,30 @@ import { IUtil } from "~types";
 
 const getTrpcContext: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const useAuth = ctx.installers.includes("SolidAuth");
+  const useSolidAuth = ctx.installers.includes("SolidAuth");
+  const useNextAuth = ctx.installers.includes("NextAuth");
   return `import type { inferAsyncReturnType } from "@trpc/server";
 import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db/client";` : ""
-  }${useAuth ? `\nimport { authenticator } from "../auth";` : ""}
+  }${useSolidAuth ? `\nimport { authenticator } from "../auth";` : ""}${
+    useNextAuth
+      ? `\nimport { getSession } from "@solid-auth/next/session";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
+      : ""
+  }
 
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext
 ) => {${
-    useAuth
+    useSolidAuth
       ? `\n  const user = await authenticator.isAuthenticated(opts.req);`
+      : useNextAuth
+      ? `\n  const session = await getSession(opts.req, authOpts);`
       : ""
   }
   return {
-    ...opts,${usePrisma ? `\n    prisma,` : ""}${useAuth ? `\n    user,` : ""}
+    ...opts,${usePrisma ? `\n    prisma,` : ""}${
+    useSolidAuth ? `\n    user,` : ""
+  }${useNextAuth ? `\n    session,` : ""}
   };
 };
 

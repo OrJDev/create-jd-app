@@ -6,7 +6,9 @@ const getIndexPage: IUtil = (ctx) => {
   const uswTW = ctx.installers.includes("TailwindCSS");
   const useStyles = useUno || uswTW;
   const useTRPC = ctx.installers.includes("tRPC");
-  const useAuth = ctx.installers.includes("SolidAuth");
+  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useSolidAuth = ctx.installers.includes("SolidAuth");
+  const useAuth = useNextAuth || useSolidAuth;
   const shouldUsePrisma =
     ctx.installers.includes("Prisma") && !useTRPC && !useAuth;
   const withStyles = getStyle(
@@ -20,38 +22,49 @@ const getIndexPage: IUtil = (ctx) => {
     } mx-3 my-3 rounded-lg w-56 p-2.5 text-white font-bold flex items-center justify-center`
   );
 
-  const innerRes = getRes(useAuth, shouldUsePrisma, useTRPC);
+  const loginKey = useSolidAuth ? "discord" : "github";
+  const innerRes = getRes(useNextAuth, useSolidAuth, shouldUsePrisma, useTRPC);
   const innerContent = getContent(
     withStyles,
-    useAuth,
+    useSolidAuth,
+    useNextAuth,
     shouldUsePrisma,
+    loginKey,
     useTRPC,
     withButtonStyles
   );
-  return `import { type ParentComponent${
+  return `import { type VoidComponent${
     useTRPC || shouldUsePrisma || useAuth ? ", Switch, Match" : ""
   }${shouldUsePrisma ? ", createResource" : ""} } from "solid-js";
 import { Title${useAuth ? ", useRouteData" : ""} } from "solid-start";${
     useTRPC ? '\nimport { trpc } from "~/utils/trpc";' : ""
   }${
-    useAuth
-      ? `\nimport { createServerData$ } from "solid-start/server";
-import { authenticator } from "~/server/auth";
+    useAuth ? `\nimport { createServerData$ } from "solid-start/server";` : ""
+  }${
+    useSolidAuth
+      ? `\nimport { authenticator } from "~/server/auth";
 import { authClient } from "~/utils/auth";`
+      : ""
+  }${
+    useNextAuth
+      ? `\nimport { getSession } from "@solid-auth/next/session";\nimport { authOpts } from "./api/auth/[...solidauth]";\nimport { signIn, signOut } from "@solid-auth/next/utils";`
       : ""
   }
 ${
   useAuth
     ? `\nexport const routeData = () => {
   return createServerData$(async (_, { request }) => {
-    const user = await authenticator.isAuthenticated(request);
-    return user;
+    return await ${
+      useSolidAuth
+        ? "authenticator.isAuthenticated(request)"
+        : "getSession(request, authOpts)"
+    };
   });
 };
 `
     : ""
 }
-const Home: ParentComponent = () => {${innerRes}
+const Home: VoidComponent = () => {${innerRes}
   return (
     <>
       <Title>Home</Title>
@@ -69,20 +82,23 @@ export default Home;
 export default getIndexPage;
 
 const getRes = (
-  useAuth: boolean,
+  useNextAuth: boolean,
+  useSolidAuth: boolean,
   shouldUsePrisma: boolean,
   useTRPC: boolean
 ) => {
-  if (useAuth && useTRPC) {
-    return `\n  const user = useRouteData<typeof routeData>();
+  if ((useNextAuth || useSolidAuth) && useTRPC) {
+    return `\n  const ${
+      useSolidAuth ? "user" : "session"
+    } = useRouteData<typeof routeData>();
   const res = trpc.secret.useQuery(undefined, {
     get enabled() {
-      return !!user();
+      return ${useSolidAuth ? "!!user()" : "!!session()?.user"};
     },
   });
 `;
   }
-  if (useAuth) {
+  if (useNextAuth || useSolidAuth) {
     return `\n  const res = useRouteData<typeof routeData>();\n`;
   }
   return shouldUsePrisma
@@ -96,11 +112,15 @@ const getRes = (
 
 const getContent = (
   withStyles: string,
-  useAuth: boolean,
+  useSolidAuth: boolean,
+  useNextAuth: boolean,
   shouldUsePrisma: boolean,
+  loginKey: string,
   useTRPC: boolean,
   withButtonStyles: string
 ) => {
+  const useAuth = useNextAuth || useSolidAuth;
+  const key = useSolidAuth ? "user" : "session";
   if (useAuth && !useTRPC) {
     return `        <Switch
           fallback={
@@ -116,32 +136,32 @@ const getContent = (
         <Switch
           fallback={
             <button
-              onClick={() =>
-                authClient.login("discord", {
+              onClick={() => ${
+                useSolidAuth
+                  ? `authClient.login("${loginKey}", {
                   successRedirect: "/",
                   failureRedirect: "/",
-                })
-              }${
-                withButtonStyles.length
-                  ? `\n             ${withButtonStyles}`
-                  : ""
-              }
+                })`
+                  : `signIn("${loginKey}")`
+              }}${
+      withButtonStyles.length ? `\n             ${withButtonStyles}` : ""
+    }
             >
-              Login with discord
+              Login with ${loginKey}
             </button>
           }
         >
           <Match when={res()}>
             <button
-              onClick={() =>
-                authClient.logout({
+              onClick={() => ${
+                useSolidAuth
+                  ? `authClient.logout({
                   redirectTo: "/",
-                })
-              }${
-                withButtonStyles.length
-                  ? `\n             ${withButtonStyles}`
-                  : ""
-              }
+                })`
+                  : "signOut()"
+              }}${
+      withButtonStyles.length ? `\n             ${withButtonStyles}` : ""
+    }
             >
               Logout
             </button>
@@ -174,30 +194,34 @@ const getContent = (
             ? `\n        <Switch
           fallback={
             <button
-              onClick={() =>
-                authClient.login("discord", {
+              onClick={() => ${
+                useSolidAuth
+                  ? `authClient.login("${loginKey}", {
                   successRedirect: "/",
                   failureRedirect: "/",
-                })
+                })}`
+                  : `signIn("${loginKey}")}`
               }${
                 withButtonStyles.length
                   ? `\n             ${withButtonStyles}`
                   : ""
               }
             >
-              Login with discord
+              Login with ${loginKey}
             </button>
           }
         >
-          <Match when={user.loading}>
-            <h1>Loading user</h1>
+          <Match when={${key}.loading}>
+            <h1>Loading ${key}</h1>
           </Match>
-          <Match when={user()}>
+          <Match when={${key}()}>
             <button
-              onClick={() =>
-                authClient.logout({
+              onClick={() => ${
+                useSolidAuth
+                  ? `authClient.logout({
                   redirectTo: "/",
-                })
+                })}`
+                  : "signOut()}"
               }${
                 withButtonStyles.length
                   ? `\n             ${withButtonStyles}`

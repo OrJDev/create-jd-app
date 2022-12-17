@@ -7,6 +7,7 @@ export type IAppCtx = {
   templateDir: string;
   vercel: boolean;
   pkgManager: ReturnType<typeof getUserPackageManager>;
+  ssr: boolean;
 };
 
 export type INullAble<T> = T | null;

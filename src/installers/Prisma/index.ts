@@ -4,9 +4,8 @@ import { IInstaller } from "~types";
 const config: IInstaller = (ctx) => ({
   files: [
     {
-      path: `${__dirname}/files/${
-        ctx.installers.includes("SolidAuth") ? "auth-schema" : "schema"
-      }.txt`,
+      path: `${__dirname}/utils/getSchema`,
+      type: "exec",
       to: `${ctx.userDir}/prisma/schema.prisma`,
     },
     {

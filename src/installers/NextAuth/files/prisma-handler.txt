@@ -1,0 +1,29 @@
+import {
+  SolidAuth,
+  type ISolidAuthHandlerOpts,
+} from "@solid-auth/next/handler";
+import Github from "@auth/core/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { serverEnv } from "~/env/server";
+import { type APIEvent } from "solid-start";
+import { prisma } from "~/server/db/client";
+
+export const authOpts: ISolidAuthHandlerOpts = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GitHub({
+      clientId: serverEnv.GITHUB_ID,
+      clientSecret: serverEnv.GITHUB_SECRET,
+    }),
+  ],
+  debug: false,
+};
+
+const handler = SolidAuth(authOpts);
+
+export async function GET(event: APIEvent) {
+  return await handler(event);
+}
+export async function POST(event: APIEvent) {
+  return await handler(event);
+}

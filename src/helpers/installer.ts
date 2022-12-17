@@ -113,10 +113,15 @@ export async function getCtxWithInstallers(
       let optInstallers = installers.filter(
         (pkg) => !validInstallers.includes(pkg)
       );
-      const opts = ["TailwindCSS", "UnoCSS"];
+      const opts = [
+        ["TailwindCSS", "UnoCSS"],
+        ["SolidAuth", "NextAuth"],
+      ];
       for (const opt of opts) {
-        if (validInstallers.includes(opt)) {
-          optInstallers = optInstallers.filter((pkg) => !opts.includes(pkg));
+        for (const op of opt) {
+          if (validInstallers.includes(op)) {
+            optInstallers = optInstallers.filter((pkg) => !opt.includes(pkg));
+          }
         }
       }
       const newPkgs = (
@@ -126,8 +131,12 @@ export async function getCtxWithInstallers(
           message: "What should we use for this app?",
           choices: optInstallers,
           validate: (ans: string[]) => {
-            if (ans.includes("TailwindCSS") && ans.includes("UnoCSS")) {
-              return "You can't use both TailwindCSS and UnoCSS at the same time";
+            for (const opt of opts) {
+              if (opt.every((o) => ans.includes(o))) {
+                return `You can't use both ${opt
+                  .map((o) => chalk.blue(o))
+                  .join(" and ")} at the same time`;
+              }
             }
             return true;
           },
@@ -148,5 +157,6 @@ export async function getCtxWithInstallers(
   return {
     ...ctx,
     installers: pkgs,
+    ssr: !pkgs.includes("tRPC"), // currently sq doesn't support ssr
   };
 }

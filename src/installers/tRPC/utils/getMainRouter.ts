@@ -1,7 +1,9 @@
 import { IUtil } from "~types";
 
 const getMainRouter: IUtil = (ctx) => {
-  const useAuth = ctx.installers.includes("SolidAuth");
+  const useSolidAuth = ctx.installers.includes("SolidAuth");
+  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useAuth = useSolidAuth || useNextAuth;
   return `import { z } from "zod";
 import { procedure, router${
     useAuth ? ", protectedProcedure" : ""
@@ -18,7 +20,9 @@ export default router({
     }),${
       useAuth
         ? `\n  secret: protectedProcedure.query(({ ctx }) => {
-    return \`This is top secret - \${ctx.user.displayName}\`;
+    return \`This is top secret - \${ctx.${
+      useSolidAuth ? "user.displayName" : "session.user.name"
+    }}\`;
   }),`
         : ""
     }

@@ -1,14 +1,14 @@
 import { IUtil } from "~types";
 
 const getTrpcUtils: IUtil = (ctx) => {
-  const useAuth = ctx.installers.includes("SolidAuth");
+  const useSolidAuth = ctx.installers.includes("SolidAuth");
+  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useAuth = useSolidAuth || useNextAuth;
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
   return `import { initTRPC${
     useAuth || useUpstash ? ", TRPCError" : ""
   } } from "@trpc/server";
 import type { IContext } from "./context";${
-    useAuth ? `\nimport { authenticator } from "../auth";` : ""
-  }${
     useUpstash
       ? `\nimport { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";`
@@ -53,13 +53,19 @@ export const procedure = t.procedure.use(withRateLimit);`
           useUpstash ? ".use(withRateLimit)" : ""
         }.use(
   t.middleware(async ({ ctx, next }) => {
-    if (!ctx.user) {
+    if (!ctx.${useSolidAuth ? "user" : "session"}${
+          useNextAuth ? " || !ctx.session.user" : ""
+        }) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "You are not authorized to access this resource",
       });
     }
-    return next({ ctx: { ...ctx, user: ctx.user } });
+    return next({ ctx: { ...ctx, ${
+      useNextAuth
+        ? "session: { ...ctx.session, user: ctx.session.user },"
+        : "user: ctx.user,"
+    } } });
   })
 );`
       : ""

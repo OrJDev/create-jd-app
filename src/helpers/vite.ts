@@ -4,19 +4,18 @@ import { ICtx, IUtil } from "~types";
 
 export const getViteConfig: IUtil = (ctx) => {
   const useUno = ctx.installers.includes("UnoCSS");
-  const shouldUseSSR = !ctx.installers.includes("tRPC");
   const getPlugins = () => {
     if (useUno && ctx.vercel) {
       return `[
-          solid({ ssr: ${shouldUseSSR}, adapter: vercel({ edge: false }) }),
+          solid({ ssr: ${ctx.ssr}, adapter: vercel({ edge: false }) }),
           UnoCSS(),
         ]`;
     } else if (useUno) {
-      return `[solid({ ssr: ${shouldUseSSR} }), UnoCSS()]`;
+      return `[solid({ ssr: ${ctx.ssr} }), UnoCSS()]`;
     } else if (ctx.vercel) {
-      return `[solid({ ssr: ${shouldUseSSR}, adapter: vercel({ edge: false }) })]`;
+      return `[solid({ ssr: ${ctx.ssr}, adapter: vercel({ edge: false }) })]`;
     } else {
-      return `[solid({ ssr: ${shouldUseSSR} })]`;
+      return `[solid({ ssr: ${ctx.ssr} })]`;
     }
   };
   const plugins = getPlugins();
@@ -41,11 +40,7 @@ export default defineConfig(() => {
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
-  if (
-    ctx.vercel ||
-    ctx.installers.includes("UnoCSS") ||
-    ctx.installers.includes("tRPC")
-  ) {
+  if (ctx.vercel || ctx.installers.includes("UnoCSS") || !ctx.ssr) {
     await fs.writeFile(
       path.join(ctx.userDir, "vite.config.ts"),
       getViteConfig(ctx)
