@@ -2,19 +2,18 @@ import { KeyOrKeyArray, withPackages } from "~helpers/packages";
 import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => {
-  //   const usePrisma = ctx.installers.includes("Prisma");
+  const usePrisma = ctx.installers.includes("Prisma");
   const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@solid-auth/next"];
-  //   if (usePrisma) {
-  //     normal.push("@next-auth/prisma-adapter");
-  //   }
+  if (usePrisma) {
+    normal.push("@next-auth/prisma-adapter");
+  }
   return {
     pkgs: withPackages({
       normal,
     }),
     files: [
       {
-        // path: `${__dirname}/files/${usePrisma ? "prisma-" : ""}handler.txt`,
-        path: `${__dirname}/files/handler.txt`,
+        path: `${__dirname}/files/${usePrisma ? "prisma-" : ""}handler.txt`,
         to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
       },
     ],
