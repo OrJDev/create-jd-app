@@ -9,9 +9,10 @@ import { type APIEvent } from "solid-start";
 import { prisma } from "~/server/db/client";
 
 export const authOpts: ISolidAuthHandlerOpts = {
-  adapter: PrismaAdapter(prisma),
+  // @eslint-disable-next-line @typescript-eslint/no-explicit-any
+  adapter: PrismaAdapter(prisma) as any,
   providers: [
-    GitHub({
+    Github({
       clientId: serverEnv.GITHUB_ID,
       clientSecret: serverEnv.GITHUB_SECRET,
     }),
