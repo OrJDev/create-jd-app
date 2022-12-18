@@ -24,9 +24,9 @@ const packages = {
     "@solid-auth/core": "^0.0.1",
     "@solid-auth/socials": "^0.0.2",
     // next auth
-    "@solid-auth/next": "^0.0.18",
+    "@solid-auth/next": "^0.0.19",
     "@auth/core": "^0.1.4",
-    "@next-auth/prisma-adapter": "^1.0.5", // currently not supported
+    "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.1.5",
     "@upstash/redis": "^1.18.0",
