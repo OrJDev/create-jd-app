@@ -13,6 +13,12 @@ export const authOpts: SolidAuthConfig = {
       clientSecret: serverEnv.GITHUB_SECRET,
     }),
   ],
+  session: {
+    strategy: "database",
+    generateSessionToken: () => { 
+      return crypto.randomUUID();
+    },
+  },
   debug: false,
 };
 

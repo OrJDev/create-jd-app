@@ -47,7 +47,7 @@ import { authClient } from "~/utils/auth";`
       : ""
   }${
     useNextAuth
-      ? `\nimport { getSession } from "@solid-auth/next/session";\nimport { authOpts } from "./api/auth/[...solidauth]";\nimport { signIn, signOut } from "@solid-auth/next/client";`
+      ? `\nimport { getSession } from "@solid-auth/next";\nimport { authOpts } from "./api/auth/[...solidauth]";\nimport { signIn, signOut } from "@solid-auth/next/client";`
       : ""
   }
 ${
