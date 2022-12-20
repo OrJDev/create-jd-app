@@ -2,7 +2,6 @@ import { Authenticator } from "@solid-auth/core";
 import { DiscordStrategy } from "@solid-auth/socials";
 import { createCookieSessionStorage } from "solid-start";
 import { serverEnv } from "~/env/server";
-import { sessionStorage } from "~/utils/auth";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
