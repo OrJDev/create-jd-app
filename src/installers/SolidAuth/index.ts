@@ -33,9 +33,9 @@ const config: IInstaller = (ctx) => ({
   ],
   env: [
     {
-      key: "VITE_SESSION_SECRET",
+      key: "SESSION_SECRET",
       type: "string()",
-      kind: "client",
+      kind: "server",
       defaulValue: "randomStringHey?Asf",
     },
     {
