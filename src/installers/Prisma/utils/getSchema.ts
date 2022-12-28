@@ -1,7 +1,6 @@
 import { IUtil } from "~types";
 
 const getSchema: IUtil = (ctx) => {
-  const useSolidAuth = ctx.installers.includes("SolidAuth");
   const useNextAuth = ctx.installers.includes("NextAuth");
   return `generator client {
     provider = "prisma-client-js"
@@ -54,12 +53,6 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
   @@unique([identifier, token])
-}`
-    : useSolidAuth
-    ? `model User {
-    id          String  @id
-    displayName String
-    avatar      String?
 }`
     : `model Notes {
     id   String @id @default(cuid())

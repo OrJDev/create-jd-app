@@ -12,9 +12,7 @@ const config: IInstaller = (ctx) => ({
       path: `${__dirname}/files/client.txt`,
       to: `${ctx.userDir}/src/server/db/client.ts`,
     },
-    !ctx.installers.includes("tRPC") &&
-    !ctx.installers.includes("SolidAuth") &&
-    !ctx.installers.includes("NextAuth")
+    !ctx.installers.includes("tRPC") && !ctx.installers.includes("NextAuth")
       ? {
           path: `${__dirname}/files/api.txt`,
           to: `${ctx.userDir}/src/routes/api/notes.ts`,

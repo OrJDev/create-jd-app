@@ -2,12 +2,11 @@ import { IUtil } from "~types";
 
 const getTrpcContext: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const useSolidAuth = ctx.installers.includes("SolidAuth");
   const useNextAuth = ctx.installers.includes("NextAuth");
   return `import type { inferAsyncReturnType } from "@trpc/server";
 import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db/client";` : ""
-  }${useSolidAuth ? `\nimport { authenticator } from "../auth";` : ""}${
+  }${
     useNextAuth
       ? `\nimport { getSession } from "@solid-auth/next";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
       : ""
@@ -16,16 +15,14 @@ import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext
 ) => {${
-    useSolidAuth
-      ? `\n  const user = await authenticator.isAuthenticated(opts.req);`
-      : useNextAuth
+    useNextAuth
       ? `\n  const session = await getSession(opts.req, authOpts);`
       : ""
   }
   return {
     ...opts,${usePrisma ? `\n    prisma,` : ""}${
-    useSolidAuth ? `\n    user,` : ""
-  }${useNextAuth ? `\n    session,` : ""}
+    useNextAuth ? `\n    session,` : ""
+  }
   };
 };
 

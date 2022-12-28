@@ -1,12 +1,10 @@
 import { IUtil } from "~types";
 
 const getTrpcUtils: IUtil = (ctx) => {
-  const useSolidAuth = ctx.installers.includes("SolidAuth");
   const useNextAuth = ctx.installers.includes("NextAuth");
-  const useAuth = useSolidAuth || useNextAuth;
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
   return `import { initTRPC${
-    useAuth || useUpstash ? ", TRPCError" : ""
+    useNextAuth || useUpstash ? ", TRPCError" : ""
   } } from "@trpc/server";
 import type { IContext } from "./context";${
     useUpstash
@@ -48,24 +46,18 @@ const withRateLimit = t.middleware(async ({ ctx, next }) => {
 export const procedure = t.procedure.use(withRateLimit);`
       : "\nexport const procedure = t.procedure;"
   }${
-    useAuth
+    useNextAuth
       ? `\nexport const protectedProcedure = t.procedure${
           useUpstash ? ".use(withRateLimit)" : ""
         }.use(
   t.middleware(async ({ ctx, next }) => {
-    if (!ctx.${useSolidAuth ? "user" : "session"}${
-          useNextAuth ? " || !ctx.session.user" : ""
-        }) {
+    if (!ctx.session || !ctx.session.user) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "You are not authorized to access this resource",
       });
     }
-    return next({ ctx: { ...ctx, ${
-      useNextAuth
-        ? "session: { ...ctx.session, user: ctx.session.user },"
-        : "user: ctx.user,"
-    } } });
+    return next({ ctx: { ...ctx, session: { ...ctx.session, user: ctx.session.user }, } });
   })
 );`
       : ""

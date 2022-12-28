@@ -8,6 +8,7 @@ import { formatError } from "~utils/helpers";
 import { vercelPackages, vercelEnv } from "~vercel";
 import chalk from "chalk";
 import { IExpectedPackages } from "./packages";
+import { TInstallers } from "~types";
 
 export default async (
   ctx: ICtx
@@ -93,7 +94,7 @@ export async function getCtxWithInstallers(
   curr: string[]
 ): Promise<ICtx> {
   let installers: string[] = [];
-  let pkgs: string[] = [];
+  let pkgs: TInstallers[] = [];
   const skip = curr.includes("skip");
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
@@ -113,10 +114,7 @@ export async function getCtxWithInstallers(
       let optInstallers = installers.filter(
         (pkg) => !validInstallers.includes(pkg)
       );
-      const opts = [
-        ["TailwindCSS", "UnoCSS"],
-        ["SolidAuth", "NextAuth"],
-      ];
+      const opts = [["TailwindCSS", "UnoCSS"]];
       for (const opt of opts) {
         for (const op of opt) {
           if (validInstallers.includes(op)) {
@@ -125,7 +123,7 @@ export async function getCtxWithInstallers(
         }
       }
       const newPkgs = (
-        await inquirer.prompt<{ pkgs: string[] }>({
+        await inquirer.prompt<{ pkgs: TInstallers[] }>({
           name: "pkgs",
           type: "checkbox",
           message: "What should we use for this app?",
@@ -142,9 +140,9 @@ export async function getCtxWithInstallers(
           },
         })
       ).pkgs;
-      pkgs = [...validInstallers, ...newPkgs];
+      pkgs = [...validInstallers, ...newPkgs] as TInstallers[];
     } else {
-      pkgs = validInstallers;
+      pkgs = validInstallers as TInstallers[];
     }
   }
   if (pkgs.includes("Prisma") && !ctx.vercel) {

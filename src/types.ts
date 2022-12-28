@@ -17,7 +17,7 @@ export type IPromiseOrType<T> = Promise<T> | T;
 export type ICtxWith<T> = IAppCtx & T;
 
 export type ICtx = ICtxWith<{
-  installers: string[];
+  installers: TInstallers[];
 }>;
 
 export type IConfig = {
@@ -48,3 +48,11 @@ export type IEnv = {
 };
 
 export type IUtil = (ctx: ICtx) => string;
+
+export type TInstallers =
+  | "NextAuth"
+  | "Prisma"
+  | "TailwindCSS"
+  | "UnoCSS"
+  | "Upstash Ratelimit"
+  | "tRPC";

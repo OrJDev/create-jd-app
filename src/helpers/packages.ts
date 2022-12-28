@@ -20,9 +20,6 @@ const packages = {
     "@trpc/server": "^10.1.0",
     "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
-    // solid auth
-    "@solid-auth/core": "^0.0.1",
-    "@solid-auth/socials": "^0.0.2",
     // next auth
     "@solid-auth/next": "^0.0.19",
     "@auth/core": "^0.1.4",

@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { formatError } from "~utils/helpers";
 
-const basePath = path.join(__dirname, "../installers");
+const basePath = path.join(__dirname, "..", "installers");
 
 async function main() {
   await Promise.all([
