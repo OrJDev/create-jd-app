@@ -12,7 +12,7 @@ import {
   getUserPackageManager,
   solidUpdateJSON,
 } from "./helpers";
-import { IAppCtx, ICtx, IEnv } from "~types";
+import { IAppCtx, ICtx, IEnv, IVercelOpt } from "~types";
 import { updateEnv } from "~helpers/env";
 import { modifyConfigIfNeeded } from "~helpers/vite";
 import { IExpectedPackages } from "~helpers/packages";
@@ -55,19 +55,44 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
       process.exit(1);
     }
   }
-  let vercel = false;
+  const getTempVercel = (): IVercelOpt | undefined | null => {
+    const temp = args
+      .find((o) => o.startsWith("vercel="))
+      ?.split("vercel=")
+      .pop()
+      ?.toLowerCase();
+    const ve = temp
+      ? temp === "Cli" || temp === "Dashboard"
+        ? temp
+        : temp === "none"
+        ? null
+        : "Cli"
+      : undefined;
+    if (ve) {
+      console.log(`Using Vercel ${chalk.blue(ve)} for deployment`);
+    }
+
+    return ve;
+  };
+  let vercel: IVercelOpt | undefined;
   if (args.includes("skip")) {
-    vercel = args.includes("vercel");
+    const temp = getTempVercel();
+    vercel = temp ?? undefined;
   } else {
-    vercel =
-      args.includes("vercel") ||
-      (
-        await inquirer.prompt<{ vercel: boolean }>({
+    const temp = getTempVercel();
+    if (temp !== undefined) {
+      vercel = temp ?? undefined;
+    } else {
+      const temp = (
+        await inquirer.prompt<{ vercel: IVercelOpt | "None" }>({
           name: "vercel",
-          type: "confirm",
-          message: "Will you deploy this project to vercel?",
+          type: "list",
+          choices: ["Cli", "Dashboard", "None"],
+          message: "Will you deploy this project to vercel? If so, how",
         })
       ).vercel;
+      vercel = temp === "None" ? undefined : temp;
+    }
   }
   const pkgManager = getUserPackageManager();
   return {
@@ -157,9 +182,9 @@ export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   ctx.installers.includes("Prisma") &&
     console.log(
-      `${chalk.yellow(`\t${ctx.pkgManager} run push`)}\t${chalk.gray(
-        "// pushes db to Prisma"
-      )}`
+      `${chalk.yellow(
+        `\t${ctx.pkgManager}${ctx.pkgManager === "pnpm" ? "" : "run"} push`
+      )}\t${chalk.gray("// pushes db to Prisma")}`
     );
   console.log(chalk.bold(chalk.blue(`\t${ctx.pkgManager} run dev`)));
   console.log();

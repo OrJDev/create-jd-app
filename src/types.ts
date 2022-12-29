@@ -5,10 +5,12 @@ export type IAppCtx = {
   userDir: string;
   appName: string;
   templateDir: string;
-  vercel: boolean;
+  vercel?: IVercelOpt;
   pkgManager: ReturnType<typeof getUserPackageManager>;
   ssr: boolean;
 };
+
+export type IVercelOpt = "Cli" | "Dashboard";
 
 export type INullAble<T> = T | null;
 

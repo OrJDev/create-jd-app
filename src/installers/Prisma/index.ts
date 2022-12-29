@@ -24,8 +24,8 @@ const config: IInstaller = (ctx) => ({
     postinstall: "prisma generate",
     postbuild: `cp ${
       ctx.pkgManager === "pnpm"
-        ? "node_modules/.pnpm/**/@prisma/engines/*query*"
-        : "node_modules/@prisma/engines/*query*"
+        ? "node_modules/.pnpm/**/**/prisma/*engine*.node"
+        : "node_modules/prisma/*engine*.node"
     } .vercel/output/functions/render.func/ && cp prisma/schema.prisma .vercel/output/functions/render.func/`,
     build:
       ctx.pkgManager === "pnpm"
@@ -44,7 +44,7 @@ const config: IInstaller = (ctx) => ({
     dev: "prisma",
     normal: "@prisma/client",
   }),
-  commands: "npx prisma db push",
+  commands: `${ctx.pkgManager === "npm" ? "npx" : "pnpm"} prisma db push`,
 });
 
 export default config;

@@ -1,13 +1,14 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.115",
+  "version": "1.0.116",
   "main": "dist/index.js",
   "scripts": {
-    "test": "ts-node -r tsconfig-paths/register src",
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
     "postbuild": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
-    "dev": "npm link && cd dist && npm link create-jd-app"
+    "dev": "npm link && cd dist && npm link create-jd-app",
+    "test:ts": "ts-node -r tsconfig-paths/register src",
+    "test:js": "node dist/index.js"
   },
   "bin": {
     "create-jd-app": "dist/index.js"

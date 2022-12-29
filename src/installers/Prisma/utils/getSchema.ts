@@ -3,7 +3,11 @@ import { IUtil } from "~types";
 const getSchema: IUtil = (ctx) => {
   const useNextAuth = ctx.installers.includes("NextAuth");
   return `generator client {
-    provider = "prisma-client-js"
+    provider = "prisma-client-js"${
+      ctx.vercel === "Cli"
+        ? `\n    binaryTargets = ["native", "rhel-openssl-1.0.x"]`
+        : ""
+    }
 }
 
 datasource db {
