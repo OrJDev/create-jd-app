@@ -3,7 +3,7 @@ import { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@solid-auth/next"];
+  const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@auth/solid-start"];
   if (usePrisma) {
     normal.push("@next-auth/prisma-adapter");
   }

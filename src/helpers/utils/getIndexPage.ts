@@ -39,7 +39,7 @@ import { Title${useNextAuth ? ", useRouteData" : ""} } from "solid-start";${
       : ""
   }${
     useNextAuth
-      ? `\nimport { getSession } from "@solid-auth/next";\nimport { authOpts } from "./api/auth/[...solidauth]";\nimport { signIn, signOut } from "@solid-auth/next/client";`
+      ? `\nimport { getSession } from "@auth/solid-start";\nimport { authOpts } from "./api/auth/[...solidauth]";\nimport { signIn, signOut } from "@auth/solid-start/client";`
       : ""
   }
 ${
@@ -55,7 +55,7 @@ ${
 const Home: VoidComponent = () => {${innerRes}
   return (
     <>
-      <Title>Home</Title>
+      <Title>Create JD App</Title>
       <div>
 ${innerContent}
       </div>

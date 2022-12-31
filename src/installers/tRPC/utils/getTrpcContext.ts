@@ -8,7 +8,7 @@ import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db/client";` : ""
   }${
     useNextAuth
-      ? `\nimport { getSession } from "@solid-auth/next";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
+      ? `\nimport { getSession } from "@auth/solid-start";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
       : ""
   }
 
