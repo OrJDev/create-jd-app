@@ -8,6 +8,12 @@ Create modern Solid / SolidStart web application within seconds.
 npm create jd-app@latest
 ```
 
+## Install a Particular Version
+
+```bash
+npm create jd-app@[version]
+```
+
 ## Base Template
 
 - [Solid Start](https://github.com/solidjs/solid-start)
