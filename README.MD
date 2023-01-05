@@ -1,6 +1,6 @@
 # Create JD App
 
-Create modern type safed Solid web application within seconds.
+Create modern Solid / SolidStart web application within seconds.
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ All addons are optional, you may select some, you may select all and you may sel
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
-- [Next Auth](https://github.com/orjdev/auth-solid)
+- [Next Auth](https://github.com/nextauthjs/next-auth)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 #### Preview
