@@ -2,6 +2,8 @@
 
 Create modern Solid / SolidStart web application within seconds.
 
+> Now fully supports ssr - all installers including tRPC
+
 ## Getting Started
 
 ```bash

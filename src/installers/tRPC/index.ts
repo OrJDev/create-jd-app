@@ -9,12 +9,13 @@ const config: IInstaller = (ctx) => ({
       sep: true,
     },
     {
-      path: `${__dirname}/files/utils.txt`,
+      path: `${__dirname}/utils/getClientUtils`,
       to: `${ctx.userDir}/src/utils/trpc.ts`,
+      type: "exec",
     },
     {
-      path: `${__dirname}/files/entryClient.txt`,
-      to: `${ctx.userDir}/src/entry-client.tsx`,
+      path: `${__dirname}/files/root.txt`,
+      to: `${ctx.userDir}/src/root.tsx`,
     },
     {
       path: `${ctx.templateDir}/trpc/api`,
@@ -38,11 +39,11 @@ const config: IInstaller = (ctx) => ({
   ],
   pkgs: withPackages({
     normal: [
-      "solid-trpc",
+      ctx.ssr ? "solid-trpc->ssr" : "solid-trpc",
+      ctx.ssr ? "@adeora/solid-query" : "@tanstack/solid-query",
       "solid-start-trpc",
       "@trpc/client",
       "@trpc/server",
-      "@tanstack/solid-query",
     ],
   }),
 });

@@ -152,9 +152,20 @@ export async function getCtxWithInstallers(
       )} ${chalk.red("script")}`
     );
   }
+  let ssr = true;
+  if (pkgs.includes("tRPC")) {
+    ssr = (
+      await inquirer.prompt<{ ssr: boolean }>({
+        name: "ssr",
+        type: "confirm",
+        message: "Do you want to use SSR with tRPC?",
+        default: true,
+      })
+    ).ssr;
+  }
   return {
     ...ctx,
     installers: pkgs,
-    ssr: !pkgs.includes("tRPC"), // currently sq doesn't support ssr
+    ssr,
   };
 }

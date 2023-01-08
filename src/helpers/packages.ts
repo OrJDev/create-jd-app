@@ -20,6 +20,9 @@ const packages = {
     "@trpc/server": "^10.1.0",
     "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
+    // trpc ssr
+    "solid-trpc->ssr": "^0.1.0-ssr.1",
+    "@adeora/solid-query": "^0.9.0",
     // next auth
     "@auth/solid-start": "^0.1.0",
     "@auth/core": "^0.2.4",
@@ -43,11 +46,12 @@ export function withPackages(optIn: { [K in keyof IPkgs]?: KeyOrKeyArray<K> }) {
     const __curr = optIn[keyType as OptIn];
     const arrOptIn = Array.isArray(__curr) ? __curr : [__curr];
     for (const curr of arrOptIn) {
+      const name = curr?.includes("->") ? curr.split("->")[0] : curr;
       if (keyType === "dev") {
-        devs[curr as keyof typeof devs] =
+        devs[name as keyof typeof devs] =
           packages.dev[curr as keyof typeof packages.dev];
       } else {
-        normals[curr as keyof typeof normals] =
+        normals[name as keyof typeof normals] =
           packages.normal[curr as keyof typeof packages.normal];
       }
     }
