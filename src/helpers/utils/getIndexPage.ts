@@ -76,7 +76,7 @@ const getRes = (
 ) => {
   if (useNextAuth && useTRPC) {
     return `\n  const session = useRouteData<typeof routeData>();
-  const res = trpc.secret.useQuery(undefined);
+  const res = trpc.secret.useQuery();
 `;
   }
   if (useNextAuth) {
