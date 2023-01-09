@@ -183,7 +183,7 @@ export function finished(ctx: ICtx) {
   ctx.installers.includes("Prisma") &&
     console.log(
       `${chalk.yellow(
-        `\t${ctx.pkgManager}${ctx.pkgManager === "pnpm" ? "" : "run"} push`
+        `\t${ctx.pkgManager}${ctx.pkgManager === "pnpm" ? "" : " run"} push`
       )}\t${chalk.gray("// pushes db to Prisma")}`
     );
   console.log(chalk.bold(chalk.blue(`\t${ctx.pkgManager} run dev`)));
