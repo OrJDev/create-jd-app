@@ -1,5 +1,5 @@
-import { IExpectedPackages } from "~helpers/packages";
-import { getUserPackageManager } from "~utils/helpers";
+import type { IExpectedPackages } from "~helpers/packages";
+import type { getUserPackageManager } from "~utils/helpers";
 
 export type IAppCtx = {
   userDir: string;
@@ -44,7 +44,7 @@ export type IFile = {
 export type IEnv = {
   type: string;
   key: string;
-  defaulValue?: any;
+  defaulValue?: string;
   ignore?: boolean;
   kind: "server" | "client";
 };

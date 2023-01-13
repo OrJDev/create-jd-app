@@ -1,8 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatError } from "~utils/helpers";
 
-const basePath = path.join(__dirname, "..", "installers");
+const basePath = path.join(__dirname, "../src", "installers");
 
 async function main() {
   await Promise.all([
@@ -16,13 +15,10 @@ async function main() {
       }
     }),
     fs.copy(
-      path.join(__dirname, "../../README.MD"),
-      path.join(__dirname, "../../dist/README.MD")
+      path.join(__dirname, "../README.MD"),
+      path.join(__dirname, "../dist/README.MD")
     ),
   ]);
 }
 
-main().catch((e) => {
-  console.log(formatError(e));
-  process.exit(1);
-});
+main();

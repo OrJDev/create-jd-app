@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs-extra";
-import { IEnv } from "~types";
+import type { IEnv } from "~types";
 
 export type IResolveEnvResp = {
   newServerScheme: string;
@@ -11,7 +11,7 @@ export type IResolveEnvResp = {
 export async function updateEnv(userDir: string, _env: IEnv[]) {
   const env = await resolveEnv(_env);
   const ENV_DIR = path.join(userDir, "src", "env");
-  let schema = path.join(ENV_DIR, "schema.ts");
+  const schema = path.join(ENV_DIR, "schema.ts");
   await fs.writeFile(
     schema,
     `import { z } from "zod";
@@ -42,7 +42,7 @@ export const resolveEnv = (env: IEnv[]): Promise<IResolveEnvResp> => {
     for (const element of env) {
       const shouldAddNewLine =
         element.kind === "server" ? serverWasIn : clientWasIn;
-      let value = `${shouldAddNewLine ? "\n" : ""}  ${element.key}: z.${
+      const value = `${shouldAddNewLine ? "\n" : ""}  ${element.key}: z.${
         element.type
       },`;
       if (element.kind === "server") {

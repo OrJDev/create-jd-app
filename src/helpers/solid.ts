@@ -1,5 +1,5 @@
 import { execFiles } from "~utils/files";
-import { ICtx, IFile } from "~types";
+import type { ICtx, IFile } from "~types";
 
 const helperFunc = async (ctx: ICtx) => {
   const files: IFile[] = [

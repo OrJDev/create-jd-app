@@ -1,22 +1,24 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.122",
-  "main": "dist/index.js",
+  "version": "0.1.0",
+  "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
-    "postbuild": "ts-node -r tsconfig-paths/register src/scripts/copyFiles",
+    "postbuild": "ts-node -r tsconfig-paths/register scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
     "dev": "npm link && cd dist && npm link create-jd-app",
     "test:ts": "ts-node -r tsconfig-paths/register src",
-    "test:js": "node dist/index.js"
+    "test:js": "node dist/index.js",
+    "lint": "eslint . --fix --ext .ts,.tsx,.js,.jsx",
+    "prepare": "husky install"
   },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
   "bin": {
     "create-jd-app": "dist/index.js"
   },
-  "engines": {
-    "node": ">=14.16"
-  },
-  "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
     "fs-extra": "^10.1.0",
@@ -24,25 +26,52 @@
     "ora": "^5.4.0"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.7",
+    "@changesets/cli": "^2.25.2",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^9.0.0",
     "@types/node": "^18.6.4",
     "@types/ora": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.8.0",
+    "sort-package-json": "^2.1.0",
     "tsc-alias": "^1.7.0",
-    "tsconfig-paths": "^4.1.0"
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.9.4"
   },
-  "types": "./dist/index.d.ts",
+  "lint-staged": {
+    "*.{js,json}": "prettier --write",
+    "packages/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "examples/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "package.json": "sort-package-json"
+  },
   "description": "Create modern type safed Solid web application within seconds",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OrJDev/create-jd-app.git"
   },
   "keywords": [
-    "jdev",
-    "trpc",
-    "typescript",
-    "tailwind",
-    "solidjs"
+    "JDev",
+    "tRPC",
+    "TypeScript",
+    "Tailwind",
+    "Solid",
+    "SolidStart"
   ],
   "author": "OrJDev",
   "bugs": {

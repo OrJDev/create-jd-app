@@ -1,4 +1,4 @@
-import { IUtil } from "~types";
+import type { IUtil } from "~types";
 
 const getClientUtils: IUtil = (ctx) => {
   const queryImport = ctx.ssr ? "@adeora/solid-query" : "@tanstack/solid-query";

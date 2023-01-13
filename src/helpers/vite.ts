@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
-import { ICtx, IUtil } from "~types";
+import type { ICtx, IUtil } from "~types";
 
 export const getViteConfig: IUtil = (ctx) => {
   const useUno = ctx.installers.includes("UnoCSS");

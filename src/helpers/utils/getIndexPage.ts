@@ -1,4 +1,4 @@
-import { IUtil } from "~types";
+import type { IUtil } from "~types";
 import { getStyle } from "~utils/jsx";
 
 const getIndexPage: IUtil = (ctx) => {

@@ -1,5 +1,5 @@
 import { withPackages } from "~helpers/packages";
-import { IInstaller } from "~types";
+import type { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
   files: [

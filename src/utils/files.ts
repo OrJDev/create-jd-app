@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import ora from "ora";
-import { ICtx, IFile } from "~types";
+import type { ICtx, IFile } from "~types";
 import { formatError } from "./helpers";
 
 export async function execFiles(files: (IFile | undefined)[], ctx: ICtx) {

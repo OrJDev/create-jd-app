@@ -6,25 +6,11 @@
     "paths": {
       "~*": ["./src/*"]
     },
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
     "noEmit": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noUnusedLocals": true,
-    "allowUnreachableCode": false,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "alwaysStrict": true,
-    "skipLibCheck": true,
     "outDir": "dist",
-    "sourceMap": true
   },
   "include": ["./src/"],
   "exclude": ["node_modules", "template"]

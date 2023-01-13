@@ -12,10 +12,10 @@ import {
   getUserPackageManager,
   solidUpdateJSON,
 } from "./helpers";
-import { IAppCtx, ICtx, IEnv, IVercelOpt } from "~types";
+import type { IAppCtx, ICtx, IEnv, IVercelOpt } from "~types";
 import { updateEnv } from "~helpers/env";
 import { modifyConfigIfNeeded } from "~helpers/vite";
-import { IExpectedPackages } from "~helpers/packages";
+import type { IExpectedPackages } from "~helpers/packages";
 
 export async function initApp(args: string[]): Promise<IAppCtx> {
   console.log();
@@ -38,7 +38,7 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
       })
     ).appName;
   const userDir = path.resolve(process.cwd(), appName);
-  let exists = await existsOrCreate(userDir);
+  const exists = await existsOrCreate(userDir);
   if (exists) {
     if (
       (

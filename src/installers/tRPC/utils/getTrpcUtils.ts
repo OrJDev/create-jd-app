@@ -1,4 +1,4 @@
-import { IUtil } from "~types";
+import type { IUtil } from "~types";
 
 const getTrpcUtils: IUtil = (ctx) => {
   const useNextAuth = ctx.installers.includes("NextAuth");

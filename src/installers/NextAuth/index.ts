@@ -1,5 +1,6 @@
-import { KeyOrKeyArray, withPackages } from "~helpers/packages";
-import { IInstaller } from "~types";
+import type { KeyOrKeyArray} from "~helpers/packages";
+import { withPackages } from "~helpers/packages";
+import type { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");

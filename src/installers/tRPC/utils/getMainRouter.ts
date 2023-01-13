@@ -1,4 +1,4 @@
-import { IUtil } from "~types";
+import type { IUtil } from "~types";
 
 const getMainRouter: IUtil = (ctx) => {
   const useNextAuth = ctx.installers.includes("NextAuth");

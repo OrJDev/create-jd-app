@@ -2,13 +2,13 @@ import ora from "ora";
 import path from "path";
 import fs from "fs-extra";
 import inquirer from "inquirer";
-import { IInstaller, ICtx, IEnv, IAppCtx, IConfig } from "~types";
+import type { IInstaller, ICtx, IEnv, IAppCtx, IConfig } from "~types";
 import { execFiles } from "~utils/files";
 import { formatError } from "~utils/helpers";
 import { vercelPackages, vercelEnv } from "~vercel";
 import chalk from "chalk";
-import { IExpectedPackages } from "./packages";
-import { TInstallers } from "~types";
+import type { IExpectedPackages } from "./packages";
+import type { TInstallers } from "~types";
 
 export default async (
   ctx: ICtx
@@ -98,7 +98,9 @@ export async function getCtxWithInstallers(
   const skip = curr.includes("skip");
   try {
     installers = await fs.readdir(path.join(__dirname, "../installers"));
-  } catch {}
+  } catch {
+    // do nothing
+  }
   if (installers.length) {
     const validInstallers = curr.length
       ? installers.filter((i) => curr.some((c) => c === i.toLowerCase()))

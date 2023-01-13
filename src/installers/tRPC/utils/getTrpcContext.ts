@@ -1,4 +1,4 @@
-import { IUtil } from "~types";
+import type { IUtil } from "~types";
 
 const getTrpcContext: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");

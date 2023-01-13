@@ -1,5 +1,5 @@
 import { withPackages } from "~helpers/packages";
-import { IEnv } from "~types";
+import type { IEnv } from "~types";
 
 export const vercelPackages = withPackages({
   dev: "solid-start-vercel",
