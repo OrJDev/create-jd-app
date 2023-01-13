@@ -20,7 +20,8 @@ async function main() {
   project.finished(ctx);
 }
 
-main().catch((e) => {
+main()
+.catch((e) => {
   console.log(
     `\n ${chalk.blue("Something went wrong:")} ${chalk.red(formatError(e))}\n`
   );
