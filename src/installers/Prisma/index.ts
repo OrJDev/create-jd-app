@@ -1,5 +1,5 @@
 import { withPackages } from "~helpers/packages";
-import { IInstaller } from "~types";
+import { ICtx, IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => ({
   files: [
@@ -22,11 +22,7 @@ const config: IInstaller = (ctx) => ({
   scripts: {
     push: "prisma db push",
     postinstall: "prisma generate",
-    postbuild: `cp ${
-      ctx.pkgManager === "pnpm"
-        ? "node_modules/.pnpm/**/**/prisma/*engine*.node"
-        : "node_modules/prisma/*engine*.node"
-    } .vercel/output/functions/render.func/ && cp prisma/schema.prisma .vercel/output/functions/render.func/`,
+    postbuild: getPb(ctx),
     build:
       ctx.pkgManager === "pnpm"
         ? "solid-start build && pnpm postbuild"
@@ -48,3 +44,14 @@ const config: IInstaller = (ctx) => ({
 });
 
 export default config;
+
+const getPb = (ctx: ICtx) => {
+  const dir =
+    ctx.pkgManager === "pnpm"
+      ? "node_modules/.pnpm/**/**/prisma/*engine*.node"
+      : "node_modules/prisma/*engine*.node";
+  const renderFunc = `.vercel/output/functions/render.func/`;
+  const apiFunc = `.vercel/output/functions/api.func/`;
+  const schema = `prisma/schema.prisma`;
+  return `cp ${dir} ${renderFunc} && cp ${schema} ${renderFunc} && cp ${dir} ${apiFunc} && cp ${schema} ${apiFunc}`;
+};

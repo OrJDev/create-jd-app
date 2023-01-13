@@ -1,6 +1,6 @@
 {
   "name": "create-jd-app",
-  "version": "1.0.120",
+  "version": "1.0.122",
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
