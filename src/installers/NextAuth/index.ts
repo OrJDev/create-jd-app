@@ -1,4 +1,4 @@
-import type { KeyOrKeyArray} from "~helpers/packages";
+import type { KeyOrKeyArray } from "~helpers/packages";
 import { withPackages } from "~helpers/packages";
 import type { IInstaller } from "~types";
 
@@ -43,7 +43,7 @@ const config: IInstaller = (ctx) => {
       },
       {
         key: "NEXTAUTH_URL",
-        defaulValue: "http://localhost:3000",
+        defaulValue: "http://localhost:5173",
         type: "string().optional()",
         kind: "server",
       },

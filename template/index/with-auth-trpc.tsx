@@ -1,8 +1,14 @@
 import styles from "./index.module.css";
-import { type VoidComponent } from "solid-js";
+import { type VoidComponent, Suspense } from "solid-js";
 import { A, Head, Title, Meta, Link } from "solid-start";
+import { trpc } from "~/utils/trpc";
+import { signOut, signIn } from "@auth/solid-start/client";
+import { createServerData$ } from "solid-start/server";
+import { getSession } from "@auth/solid-start";
+import { authOpts } from "./api/auth/[...solidauth]";
 
 const Home: VoidComponent = () => {
+  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
   return (
     <>
       <Head>
@@ -38,6 +44,14 @@ const Home: VoidComponent = () => {
               </div>
             </A>
           </div>
+          <div class={styles.showcaseContainer}>
+            <p class={styles.showcaseText}>
+              {hello.data ?? "Loading tRPC query"}
+            </p>
+            <Suspense>
+              <AuthShowcase />
+            </Suspense>
+          </div>
         </div>
       </main>
     </>
@@ -45,3 +59,28 @@ const Home: VoidComponent = () => {
 };
 
 export default Home;
+
+const AuthShowcase: VoidComponent = () => {
+  const sessionData = createSession();
+  return (
+    <div class={styles.authContainer}>
+      <p class={styles.showcaseText}>
+        {sessionData() && <span>Logged in as {sessionData()?.user?.name}</span>}
+      </p>
+      <button
+        class={styles.loginButton}
+        onClick={
+          sessionData() ? () => void signOut() : () => void signIn("github")
+        }
+      >
+        {sessionData() ? "Sign out" : "Sign in"}
+      </button>
+    </div>
+  );
+};
+
+const createSession = () => {
+  return createServerData$(async (_, event) => {
+    return await getSession(event.request, authOpts);
+  });
+};

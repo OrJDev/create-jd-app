@@ -3,7 +3,7 @@
   "version": "0.1.3",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json && pnpm postbuild",
     "postbuild": "ts-node -r tsconfig-paths/register scripts/copyFiles",
     "patch": "npm version patch --no-git-tag-version",
     "dev": "npm link && cd dist && npm link create-jd-app",

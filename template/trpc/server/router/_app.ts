@@ -1,6 +1,8 @@
-import { t } from "../utils";
-import exampleRouter from "./example";
+import { router } from "../utils";
+import example from "./example";
 
-export const appRouter = t.mergeRouters(exampleRouter);
+export const appRouter = router({
+  example,
+});
 
 export type IAppRouter = typeof appRouter;

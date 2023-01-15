@@ -15,6 +15,10 @@ const config: IInstaller = (ctx) => ({
       path: `${__dirname}/files/tailwind.config.txt`,
       to: `${ctx.userDir}/tailwind.config.cjs`,
     },
+    {
+      to: `${ctx.userDir}/src/routes/index.module.css`,
+      type: "delete",
+    },
   ],
   pkgs: withPackages({
     dev: ["tailwindcss", "postcss", "autoprefixer"],

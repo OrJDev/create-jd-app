@@ -180,13 +180,14 @@ export async function runCommands(ctx: IAppCtx, commands: string[]) {
 
 export function finished(ctx: ICtx) {
   console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
+  const withRun = ctx.pkgManager === "pnpm" ? "" : " run";
   ctx.installers.includes("Prisma") &&
     console.log(
-      `${chalk.yellow(
-        `\t${ctx.pkgManager}${ctx.pkgManager === "pnpm" ? "" : " run"} push`
-      )}\t${chalk.gray("// pushes db to Prisma")}`
+      `${chalk.yellow(`\t${ctx.pkgManager}${withRun} push`)}\t${chalk.gray(
+        "// pushes db to Prisma"
+      )}`
     );
-  console.log(chalk.bold(chalk.blue(`\t${ctx.pkgManager} run dev`)));
+  console.log(chalk.bold(chalk.blue(`\t${ctx.pkgManager}${withRun} dev`)));
   console.log();
   process.exit(0);
 }

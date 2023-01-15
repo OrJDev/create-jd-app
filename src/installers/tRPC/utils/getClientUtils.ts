@@ -9,7 +9,7 @@ import { httpBatchLink } from "@trpc/client";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return "";
-  return \`http://localhost:\${process.env.PORT ?? 3000}\`;
+  return \`http://localhost:\${process.env.PORT ?? 5173}\`;
 };
 
 export const trpc = createTRPCSolid<IAppRouter>();

@@ -1,19 +1,23 @@
 import { execFiles } from "~utils/files";
 import type { ICtx, IFile } from "~types";
+import getIndexLocation from "./utils/getIndexLocation";
 
 const helperFunc = async (ctx: ICtx) => {
+  const indexLocation = getIndexLocation(ctx);
   const files: IFile[] = [
-    {
-      path: `${__dirname}/utils/getIndexPage`,
-      type: "exec",
-      to: `${ctx.userDir}/src/routes/index.tsx`,
-    },
     {
       path: `${__dirname}/utils/getReadMe`,
       type: "exec",
       to: `${ctx.userDir}/README.MD`,
     },
   ];
+  if (indexLocation) {
+    files.push({
+      path: indexLocation,
+      type: "copy",
+      to: `${ctx.userDir}/src/routes/index.tsx`,
+    });
+  }
   await execFiles(files, ctx);
 };
 

@@ -1,8 +1,10 @@
 import styles from "./index.module.css";
 import { type VoidComponent } from "solid-js";
 import { A, Head, Title, Meta, Link } from "solid-start";
+import { trpc } from "~/utils/trpc";
 
 const Home: VoidComponent = () => {
+  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
   return (
     <>
       <Head>
@@ -38,6 +40,9 @@ const Home: VoidComponent = () => {
               </div>
             </A>
           </div>
+          <p class="text-2xl text-white">
+            {hello.data ?? "Loading tRPC query"}
+          </p>
         </div>
       </main>
     </>
