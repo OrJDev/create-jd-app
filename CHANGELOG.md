@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.1.5
+
+### Patch Changes
+
+- [`28b28a7`](https://github.com/OrJDev/create-jd-app/commit/28b28a7daee749966daa9a0d326f91170e32b22a) Thanks [@OrJDev](https://github.com/OrJDev)! - Set user id on Auth session callback
+
+- (Chore) With Auth & With Auth TW
+
 ## 0.1.4
 
 ### Patch Changes
