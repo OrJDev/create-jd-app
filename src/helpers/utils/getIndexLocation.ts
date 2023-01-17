@@ -14,8 +14,12 @@ const getIndexLocation: IUtil = (ctx) => {
     indexFile = "with-trpc-tw.tsx";
   } else if (usingTRPC && !usingTw) {
     indexFile = "with-trpc.tsx";
+  } else if (usingAuth && usingTw) {
+    indexFile = "with-auth-tw.tsx";
   } else if (!usingTRPC && usingTw) {
     indexFile = "with-tw.tsx";
+  } else if (usingAuth) {
+    indexFile = "with-auth.tsx";
   }
   indexFile = indexFile ? `${ctx.templateDir}/index/${indexFile}` : ``;
   return indexFile;

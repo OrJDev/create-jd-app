@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.4
+
+### Patch Changes
+
+- [`0741230`](https://github.com/OrJDev/create-jd-app/commit/0741230647a9e030c7313e6def40b42b17fc2df8) Thanks [@OrJDev](https://github.com/OrJDev)! - Feat: new index route ui
+
 ## 0.1.1
 
 ### Patch Changes
