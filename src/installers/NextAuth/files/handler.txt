@@ -3,6 +3,14 @@ import Github from "@auth/core/providers/github";
 import { serverEnv } from "~/env/server";
 
 export const authOpts: SolidAuthConfig = {
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
   providers: [
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore types error

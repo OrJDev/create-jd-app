@@ -17,6 +17,14 @@ const config: IInstaller = (ctx) => {
         path: `${__dirname}/files/${usePrisma ? "prisma-" : ""}handler.txt`,
         to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
       },
+      {
+        path: `${__dirname}/files/types.txt`,
+        to: `${ctx.userDir}/auth.d.ts`,
+      },
+      {
+        path: `${__dirname}/files/tsconfig.txt`,
+        to: `${ctx.userDir}/tsconfig.json`,
+      },
     ],
     env: [
       {

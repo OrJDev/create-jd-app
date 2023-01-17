@@ -5,6 +5,14 @@ import { serverEnv } from "~/env/server";
 import { prisma } from "~/server/db/client";
 
 export const authOpts: SolidAuthConfig = {
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   adapter: PrismaAdapter(prisma) as any,
   providers: [
@@ -17,7 +25,7 @@ export const authOpts: SolidAuthConfig = {
   ],
   session: {
     strategy: "database",
-    generateSessionToken: () => { 
+    generateSessionToken: () => {
       return crypto.randomUUID();
     },
   },
