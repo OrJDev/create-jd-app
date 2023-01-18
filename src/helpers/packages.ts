@@ -21,8 +21,8 @@ const packages = {
     "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
     // trpc ssr
-    "solid-trpc->ssr": "^0.1.0-ssr.1",
-    "@adeora/solid-query": "^0.9.0",
+    "solid-trpc->ssr": "^0.1.0",
+    "@adeora/solid-query": "^0.12.0",
     // next auth
     "@auth/solid-start": "^0.1.0",
     "@auth/core": "^0.2.4",
