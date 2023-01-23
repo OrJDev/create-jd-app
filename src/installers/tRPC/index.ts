@@ -9,12 +9,12 @@ const config: IInstaller = (ctx) => ({
       sep: true,
     },
     {
-      path: `${__dirname}/utils/getClientUtils`,
+      path: `${__dirname}/files/${ctx.ssr ? "ssr-utils" : "utils"}.txt`,
       to: `${ctx.userDir}/src/utils/trpc.ts`,
-      type: "exec",
     },
     {
-      path: `${__dirname}/files/root.txt`,
+      path: `${__dirname}/utils/getRoot`,
+      type: "exec",
       to: `${ctx.userDir}/src/root.tsx`,
     },
     {

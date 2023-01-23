@@ -1,4 +1,7 @@
-// @refresh reload
+import { type IUtil } from "~types";
+
+const getRoot: IUtil = (ctx) => {
+  return `// @refresh reload
 import "./root.css";
 import { Suspense } from "solid-js";
 import {
@@ -12,7 +15,7 @@ import {
   Scripts,
   Title,
 } from "solid-start";
-import { trpc, client, queryClient } from "~/utils/trpc";
+import { trpc, queryClient${ctx.ssr ? "" : ", client"} } from "~/utils/trpc";
 
 export default function Root() {
   return (
@@ -23,7 +26,9 @@ export default function Root() {
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Body>
-        <trpc.Provider client={client} queryClient={queryClient}>
+        <trpc.Provider${
+          ctx.ssr ? "" : " client={client}"
+        } queryClient={queryClient}>
           <Suspense>
             <ErrorBoundary>
               <Routes>
@@ -36,4 +41,7 @@ export default function Root() {
       </Body>
     </Html>
   );
-}
+}`;
+};
+
+export default getRoot;
