@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.1.6
+
+### Patch Changes
+
+- Bump Solid Query
+
+- [`3234738`](https://github.com/OrJDev/create-jd-app/commit/3234738b483a26002e4c0addca2313c1a0d1dbb1) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid-Start Versions To Support Multiple Set-Cookies
+
 ## 0.1.5
 
 ### Patch Changes
