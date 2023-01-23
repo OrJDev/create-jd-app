@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.7
+
+### Patch Changes
+
+- [`6aab430`](https://github.com/OrJDev/create-jd-app/commit/6aab430f71ce25ae0fb5be39cd128e27632b5dde) Thanks [@OrJDev](https://github.com/OrJDev)! - Use solid-trpc solid-start ssr's version
+
 ## 0.1.6
 
 ### Patch Changes
