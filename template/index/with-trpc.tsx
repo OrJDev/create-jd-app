@@ -40,9 +40,7 @@ const Home: VoidComponent = () => {
               </div>
             </A>
           </div>
-          <p class="text-2xl text-white">
-            {hello.data ?? "Loading tRPC query"}
-          </p>
+          <p>{hello.data ?? "Loading tRPC query"}</p>
         </div>
       </main>
     </>
