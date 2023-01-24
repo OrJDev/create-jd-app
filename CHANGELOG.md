@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.8
+
+### Patch Changes
+
+- [`fbec623`](https://github.com/OrJDev/create-jd-app/commit/fbec62373ab2e55b9f62dc630b4f7f981b7e8256) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid Start Packages
+
 ## 0.1.7
 
 ### Patch Changes
