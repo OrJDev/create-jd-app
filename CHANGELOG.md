@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.9
+
+### Patch Changes
+
+- [`9821e94`](https://github.com/OrJDev/create-jd-app/commit/9821e94035b76939a6ab77cdf3865b4f4f948dd1) Thanks [@OrJDev](https://github.com/OrJDev)! - Add Node Types And Bump Solid Eslint
+
 ## 0.1.8
 
 ### Patch Changes
