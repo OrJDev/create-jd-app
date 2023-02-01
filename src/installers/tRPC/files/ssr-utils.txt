@@ -22,11 +22,4 @@ export const trpc = createTRPCSolidStart<IAppRouter>({
   },
 });
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      refetchOnMount: false,
-    },
-  },
-});
+export const queryClient = new QueryClient();
