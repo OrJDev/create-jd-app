@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.15
+
+### Patch Changes
+
+- [`b5ff307`](https://github.com/OrJDev/create-jd-app/commit/b5ff307b0f182aac5a0ca2f9159acc550af4f344) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid Query SSR
+
 ## 0.1.14
 
 ### Patch Changes
