@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.14
+
+### Patch Changes
+
+- [`fe66715`](https://github.com/OrJDev/create-jd-app/commit/fe66715e42ba104616afd71fcf8a47928a81c22f) Thanks [@OrJDev](https://github.com/OrJDev)! - Revert the port to 3000
+
 ## 0.1.13
 
 ### Patch Changes
