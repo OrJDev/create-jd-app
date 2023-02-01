@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.1.11
+
+### Patch Changes
+
+- [`387d038`](https://github.com/OrJDev/create-jd-app/commit/387d038c80fd8def9af2ab56b61b4002bdb9c2e5) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump to 0.2.18 in order to delete the prisma postbuild script
+
+- [`a9a96a3`](https://github.com/OrJDev/create-jd-app/commit/a9a96a3f414348720df08f169765d207db272e11) Thanks [@OrJDev](https://github.com/OrJDev)! - Better queryClient options for trpc + ssr
+
 ## 0.1.10
 
 ### Patch Changes
