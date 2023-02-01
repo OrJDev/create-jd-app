@@ -51,7 +51,7 @@ const config: IInstaller = (ctx) => {
       },
       {
         key: "NEXTAUTH_URL",
-        defaulValue: "http://localhost:5173",
+        defaulValue: "http://localhost:3000",
         type: "string().optional()",
         kind: "server",
       },

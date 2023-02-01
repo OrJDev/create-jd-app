@@ -1,9 +1,9 @@
 {
   "name": "template",
   "scripts": {
-    "dev": "solid-start dev --port 5173",
+    "dev": "solid-start dev --port 3000",
+    "start": "solid-start start --port 3000",
     "build": "solid-start build",
-    "start": "solid-start start",
     "lint": "eslint --fix \"**/*.{ts,tsx,js,jsx}\""
   },
   "type": "module",
