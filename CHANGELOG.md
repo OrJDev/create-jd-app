@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.10
+
+### Patch Changes
+
+- [`57246e8`](https://github.com/OrJDev/create-jd-app/commit/57246e810d06726edac41b6cb2f3c98bff64f082) Thanks [@OrJDev](https://github.com/OrJDev)! - Remove Tailwind Classes From With tRPC
+
 ## 0.1.9
 
 ### Patch Changes
