@@ -4,7 +4,6 @@ import { createTRPCSolid } from "solid-trpc";
 import { httpBatchLink } from "@trpc/client";
 
 const getBaseUrl = () => {
-  if (typeof window !== "undefined") return "";
   return `http://localhost:${process.env.PORT ?? 5173}`;
 };
 
