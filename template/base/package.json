@@ -1,7 +1,7 @@
 {
   "name": "template",
   "scripts": {
-    "dev": "solid-start dev",
+    "dev": "solid-start dev --port 5173",
     "build": "solid-start build",
     "start": "solid-start start",
     "lint": "eslint --fix \"**/*.{ts,tsx,js,jsx}\""
