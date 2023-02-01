@@ -1,5 +1,15 @@
 # create-jd-app
 
+## 0.1.12
+
+### Patch Changes
+
+- [`bfc1c88`](https://github.com/OrJDev/create-jd-app/commit/bfc1c882917f31ae0ba08fa5d0add7d3c2883d58) Thanks [@OrJDev](https://github.com/OrJDev)! - Add create-jd-app meta color to the root
+
+- [`0a00a47`](https://github.com/OrJDev/create-jd-app/commit/0a00a47fe46f6ea22b4da5e81fd35b87bc56b3b6) Thanks [@OrJDev](https://github.com/OrJDev)! - tRPC + SSR: suggest a production url
+
+- [`149ae00`](https://github.com/OrJDev/create-jd-app/commit/149ae0041c878b22be3763ed651f90645853c7c0) Thanks [@OrJDev](https://github.com/OrJDev)! - Move meta description and icon to the root
+
 ## 0.1.11
 
 ### Patch Changes
