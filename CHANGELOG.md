@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.13
+
+### Patch Changes
+
+- Set the port to 5173
+
 ## 0.1.12
 
 ### Patch Changes
