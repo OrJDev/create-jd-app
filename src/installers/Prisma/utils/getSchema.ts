@@ -25,7 +25,7 @@ ${
   providerAccountId String
   refresh_token     String? // @db.Text
   access_token      String? // @db.Text
-  expires_at        Int?  // should have expires_in if you are using Discord
+  expires_in        Int?  // add expires_at Int? - if you are using Github
   token_type        String?
   scope             String?
   id_token          String? // @db.Text

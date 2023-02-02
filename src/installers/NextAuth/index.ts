@@ -28,12 +28,12 @@ const config: IInstaller = (ctx) => {
     ],
     env: [
       {
-        key: "GITHUB_ID",
+        key: "DISCORD_ID",
         type: "string()",
         kind: "server",
       },
       {
-        key: "GITHUB_SECRET",
+        key: "DISCORD_SECRET",
         type: "string()",
         kind: "server",
       },

@@ -63,7 +63,7 @@ const AuthShowcase: VoidComponent = () => {
       <button
         class={styles.loginButton}
         onClick={
-          sessionData() ? () => void signOut() : () => void signIn("github")
+          sessionData() ? () => void signOut() : () => void signIn("discord")
         }
       >
         {sessionData() ? "Sign out" : "Sign in"}
