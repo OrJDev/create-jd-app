@@ -1,5 +1,15 @@
 # create-jd-app
 
+## 0.1.16
+
+### Patch Changes
+
+- [`4fed573`](https://github.com/OrJDev/create-jd-app/commit/4fed573794a6589aa9343d75fca5b86ffea16e29) Thanks [@OrJDev](https://github.com/OrJDev)! - Add a note on how to use the discord authjs provider correctly
+
+- [`2c9ee1a`](https://github.com/OrJDev/create-jd-app/commit/2c9ee1afe463a8c95757a9ddb4f314cd7b83cb9c) Thanks [@OrJDev](https://github.com/OrJDev)! - externalize Prisma
+
+- [`ce92195`](https://github.com/OrJDev/create-jd-app/commit/ce921955815a05e1d0f7da227ed47ca144ee03ae) Thanks [@OrJDev](https://github.com/OrJDev)! - Remove prisma falsy postbuild warning
+
 ## 0.1.15
 
 ### Patch Changes
