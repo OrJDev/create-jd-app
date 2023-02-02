@@ -4,6 +4,7 @@ import type { ICtx, IUtil } from "~types";
 
 export const getViteConfig: IUtil = (ctx) => {
   const useUno = ctx.installers.includes("UnoCSS");
+  const usePrisma = ctx.installers.includes("Prisma");
   const getPlugins = () => {
     if (useUno && ctx.vercel) {
       return `[
@@ -31,14 +32,21 @@ import vercel from "solid-start-vercel";`
   
 export default defineConfig(() => {
   return {
-    plugins: ${plugins},
+    plugins: ${plugins},${
+    usePrisma ? `\n    ssr: { external: ["@prisma/client"] },` : ""
+  }
   };
 });
   `;
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
-  if (ctx.vercel || ctx.installers.includes("UnoCSS") || !ctx.ssr) {
+  if (
+    ctx.vercel ||
+    ctx.installers.includes("UnoCSS") ||
+    !ctx.ssr ||
+    ctx.installers.includes("Prisma")
+  ) {
     await fs.writeFile(
       path.join(ctx.userDir, "vite.config.ts"),
       getViteConfig(ctx)
