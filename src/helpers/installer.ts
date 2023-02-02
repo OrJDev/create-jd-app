@@ -147,13 +147,6 @@ export async function getCtxWithInstallers(
       pkgs = validInstallers as TInstallers[];
     }
   }
-  if (pkgs.includes("Prisma") && !ctx.vercel) {
-    console.log(
-      `${chalk.red("Make sure to update the")} ${chalk.blue(
-        "postbuild"
-      )} ${chalk.red("script")}`
-    );
-  }
   let ssr = true;
   if (pkgs.includes("tRPC")) {
     ssr = (
