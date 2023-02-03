@@ -1,7 +1,7 @@
 import type { IUtil } from "~types";
 
 const getSchema: IUtil = (ctx) => {
-  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useNextAuth = ctx.installers.includes("AuthJS");
   return `generator client {
     provider = "prisma-client-js"${
       ctx.vercel === "Cli"

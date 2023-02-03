@@ -25,7 +25,7 @@ All addons are optional, you may select some, you may select all and you may sel
 - [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
-- [Next Auth](https://github.com/nextauthjs/next-auth)
+- [AuthJS](https://github.com/nextauthjs/next-auth)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 
 #### Preview

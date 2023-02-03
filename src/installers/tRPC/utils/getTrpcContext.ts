@@ -2,7 +2,7 @@ import type { IUtil } from "~types";
 
 const getTrpcContext: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useNextAuth = ctx.installers.includes("AuthJS");
   return `import type { inferAsyncReturnType } from "@trpc/server";
 import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db/client";` : ""

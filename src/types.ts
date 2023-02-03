@@ -52,7 +52,7 @@ export type IEnv = {
 export type IUtil = (ctx: ICtx) => string;
 
 export type TInstallers =
-  | "NextAuth"
+  | "AuthJS"
   | "Prisma"
   | "TailwindCSS"
   | "UnoCSS"

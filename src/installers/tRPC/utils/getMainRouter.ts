@@ -1,7 +1,7 @@
 import type { IUtil } from "~types";
 
 const getMainRouter: IUtil = (ctx) => {
-  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useNextAuth = ctx.installers.includes("AuthJS");
   return `import { z } from "zod";
 import { procedure, router${
     useNextAuth ? ", protectedProcedure" : ""

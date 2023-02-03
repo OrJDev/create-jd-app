@@ -4,7 +4,7 @@ const getIndexLocation: IUtil = (ctx) => {
   const usingTRPC = ctx.installers.includes("tRPC");
   const usingTw =
     ctx.installers.includes("TailwindCSS") || ctx.installers.includes("UnoCSS");
-  const usingAuth = ctx.installers.includes("NextAuth");
+  const usingAuth = ctx.installers.includes("AuthJS");
   let indexFile = "";
   if (usingTRPC && usingTw && usingAuth) {
     indexFile = "with-auth-trpc-tw.tsx";

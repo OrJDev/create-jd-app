@@ -1,7 +1,7 @@
 import type { IUtil } from "~types";
 
 const getTrpcUtils: IUtil = (ctx) => {
-  const useNextAuth = ctx.installers.includes("NextAuth");
+  const useNextAuth = ctx.installers.includes("AuthJS");
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
   return `import { initTRPC${
     useNextAuth || useUpstash ? ", TRPCError" : ""
