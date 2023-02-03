@@ -1,17 +1,43 @@
-import type { IUtil } from "~types";
+import type { IEnv, IUtil } from "~types";
 
-const getReadMe: IUtil = (ctx) => {
-  const usePrisma = ctx.installers.includes("Prisma");
-  return `# Create JD App
+const getReadMe: IUtil<IEnv[]> = (ctx, passed = []) => {
+  const envContent = `### Enviroment Variables
 
-This project was created using [Create JD App](https://github.com/OrJDev/create-jd-app)
+${passed
+  .filter((env) => !env.ignore || env.key === "ENABLE_VC_BUILD")
+  .map((env) => `- \`${env.key}\`=${env.defaulValue ?? ""}`)
+  .join("\n")}  
+  `;
+  const runCmd = ctx.pkgManager === "pnpm" ? "" : " run";
+  return `This project was created using [Create JD App](https://github.com/OrJDev/create-jd-app)
 
-${
-  ctx.vercel
-    ? `## Deploying To Vercel
+## Start Dev Server
+
+\`\`\`bash
+${ctx.pkgManager}${runCmd} dev
+\`\`\`
+
+This will start a dev server on port \`3000\` and will watch for changes.
+
+## Testing Production Build
+
+### Build
+
+\`\`\`bash
+${ctx.pkgManager}${runCmd} build
+\`\`\`
+
+### Start
+
+\`\`\`bash
+${ctx.pkgManager}${runCmd} start
+\`\`\`
+
+This will start a production server on port \`3000\`.
 ${
   ctx.vercel === "Cli"
-    ? `
+    ? `\n## Deploying To Vercel
+
 ### Building
 
 \`\`\`bash
@@ -23,18 +49,10 @@ ${
 \`\`\`bash
 vercel deploy --prod --prebuilt
 \`\`\``
-    : `### You Are Done
-Create a github repo and push your code to it, then deploy it to vercel (:`
-}
-  
-### Enviroment Variables
-  
-- \`ENABLE_VC_BUILD\`=\`1\` .${
-        usePrisma ? "\n- `DATABASE_URL`=`your database url` ." : ""
-      }
-`
     : ""
 }
+${envContent}
+[Sponsor Create JD App](https://github.com/sponsors/OrJDev)
 `;
 };
 

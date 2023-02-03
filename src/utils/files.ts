@@ -25,7 +25,7 @@ async function execFile(file: IFile, ctx: ICtx) {
         return;
       }
       const method = await import(file.path);
-      await fs.outputFile(file.to, method.default(ctx));
+      await fs.outputFile(file.to, method.default(ctx, file.pass));
     } else if (file.type === "delete") {
       await fs.remove(file.to);
     } else if (file.type === "write") {

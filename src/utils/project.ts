@@ -135,7 +135,7 @@ export async function modifyProject(
   const spinner = ora("Modifying project").start();
   try {
     await Promise.all([
-      solidHelper(ctx),
+      solidHelper(ctx, env),
       updateEnv(ctx.userDir, env),
       solidUpdateJSON(ctx, scripts, pkgs),
       modifyConfigIfNeeded(ctx),

@@ -39,6 +39,8 @@ export type IFile = {
   type?: "copy" | "exec" | "delete" | "write" | "append";
   path?: string;
   sep?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pass?: any;
 };
 
 export type IEnv = {
@@ -49,7 +51,7 @@ export type IEnv = {
   kind: "server" | "client";
 };
 
-export type IUtil = (ctx: ICtx) => string;
+export type IUtil<T = undefined> = (ctx: ICtx, passed?: T) => string;
 
 export type TInstallers =
   | "AuthJS"

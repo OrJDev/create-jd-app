@@ -1,43 +1,27 @@
-# Create JD App
-
 This project was created using [Create JD App](https://github.com/OrJDev/create-jd-app)
 
-# Deploying
-
-### Vercel Adapter (or any other adapter)
-
-#### Installing
+## Start Dev Server
 
 ```bash
-npm install -D solid-start-vercel@latest
+pnpm dev
 ```
 
-#### Adding to vite config
+This will start a dev server on port `3000` and will watch for changes.
 
-```ts
-import solid from "solid-start/vite";
-import dotenv from "dotenv";
-import { defineConfig } from "vite";
-// @ts-ignore
-import vercel from "solid-start-vercel";
+## Testing Production Build
 
-export default defineConfig(() => {
-  dotenv.config();
-  return {
-    plugins: [solid({ ssr: false, adapter: vercel({ edge: false }) })],
-  };
-});
+### Build
+
+```bash
+pnpm build
 ```
 
-### Enviroment Variables
+### Start
 
-- `ENABLE_VC_BUILD` set to `1` .
-- If you are using prisma: `DATABASE_URL` set to your `database url`.
+```bash
+pnpm start
+```
 
-### In Case You Are Using Prisma
+This will start a production server on port `3000`.
 
-i created a script that will copy prisma schema to the vercel output folder, if you are using different service please modify the `postbuild` script in `package.json` and make sure you copy the scheme to the output folder.
-
-### You Are Done
-
-Create a github repo and push your code to it, then deploy it to vercel (:
+[Sponsor Create JD App](https://github.com/sponsors/OrJDev)
