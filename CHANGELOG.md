@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.17
+
+### Patch Changes
+
+- [`f1b3b0a`](https://github.com/OrJDev/create-jd-app/commit/f1b3b0a757fc607f66a5da258b3172f6839327ec) Thanks [@OrJDev](https://github.com/OrJDev)! - Set the default AuthJS provider to Discord
+
 ## 0.1.16
 
 ### Patch Changes
