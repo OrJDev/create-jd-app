@@ -3,6 +3,7 @@ import Discord from "@auth/core/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { serverEnv } from "~/env/server";
 import { prisma } from "~/server/db/client";
+import type { Adapter } from "@auth/core/adapters";
 
 export const authOpts: SolidAuthConfig = {
   callbacks: {
@@ -13,22 +14,14 @@ export const authOpts: SolidAuthConfig = {
       return session;
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore types error
+    // @ts-expect-error Types Issue
     Discord({
       clientId: serverEnv.DISCORD_ID,
       clientSecret: serverEnv.DISCORD_SECRET,
     }),
   ],
-  session: {
-    strategy: "database",
-    generateSessionToken: () => {
-      return crypto.randomUUID();
-    },
-  },
   debug: false,
 };
 

@@ -25,7 +25,7 @@ const packages = {
     "@adeora/solid-query": "0.12.0",
     // next auth
     "@auth/solid-start": "^0.1.0",
-    "@auth/core": "^0.2.4",
+    "@auth/core": "^0.3.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.1.5",

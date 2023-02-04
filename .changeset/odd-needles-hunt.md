@@ -2,4 +2,4 @@
 "create-jd-app": patch
 ---
 
-Rename NextAuth To AuthJS
+Bump @auth/core

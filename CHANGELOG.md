@@ -1,5 +1,17 @@
 # create-jd-app
 
+## 0.1.18
+
+### Patch Changes
+
+- [`03fc0d9`](https://github.com/OrJDev/create-jd-app/commit/03fc0d9c8296eb27abb8a4f0073e6a80c5b1381a) Thanks [@OrJDev](https://github.com/OrJDev)! - More Detailed Readme.md For Starter Projects
+
+- [`8ec2602`](https://github.com/OrJDev/create-jd-app/commit/8ec260295660cbdec6bb17195aa21970235c4012) Thanks [@OrJDev](https://github.com/OrJDev)! - Rename NextAuth To AuthJS
+
+- [`7e680d7`](https://github.com/OrJDev/create-jd-app/commit/7e680d75aa87cde684b36ef64a59f0bd0137d029) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump SolidStart To Fix CSR + Vercel
+
+- [`c62303f`](https://github.com/OrJDev/create-jd-app/commit/c62303f9037a2d770a7211259aa2afd672917528) Thanks [@OrJDev](https://github.com/OrJDev)! - Lock SolidQuery SSR (0.12.0) To Prevent Type Errors
+
 ## 0.1.17
 
 ### Patch Changes

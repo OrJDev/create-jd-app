@@ -12,8 +12,7 @@ export const authOpts: SolidAuthConfig = {
     },
   },
   providers: [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore types error
+    // @ts-expect-error Types Issue
     Discord({
       clientId: serverEnv.DISCORD_ID,
       clientSecret: serverEnv.DISCORD_SECRET,
