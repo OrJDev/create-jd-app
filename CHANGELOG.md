@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.1.19
+
+### Patch Changes
+
+- [`e95722e`](https://github.com/OrJDev/create-jd-app/commit/e95722e0cde34b72a5ed0d8f03ba01ccb8d7aa12) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid SSR tRPC To Fix Refetches On Client
+
+- Bump @auth/core
+
 ## 0.1.18
 
 ### Patch Changes
