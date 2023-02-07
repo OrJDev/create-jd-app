@@ -37,7 +37,7 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
         default: "my-app",
       })
     ).appName;
-  const userDir = path.resolve(process.cwd(), appName);
+  const userDir = path.resolve(process.cwd(), appName === "." ? "" : appName);
   const exists = await existsOrCreate(userDir);
   if (exists) {
     if (
@@ -179,7 +179,7 @@ export async function runCommands(ctx: IAppCtx, commands: string[]) {
 }
 
 export function finished(ctx: ICtx) {
-  console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
+  ctx.appName !== "." && console.log(`\n\t${chalk.green(`cd ${ctx.appName}`)}`);
   const withRun = ctx.pkgManager === "pnpm" ? "" : " run";
   ctx.installers.includes("Prisma") &&
     console.log(

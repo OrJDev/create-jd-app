@@ -42,6 +42,7 @@ async function execFile(file: IFile, ctx: ICtx) {
 }
 
 export async function existsOrCreate(path: string): Promise<boolean> {
+  if(process.cwd() === path) return fs.readdirSync(path).length === 0 ? false : true;
   try {
     await fs.access(path);
     return true;
