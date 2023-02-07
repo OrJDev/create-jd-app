@@ -37,7 +37,8 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
         default: "my-app",
       })
     ).appName;
-  const userDir = path.resolve(process.cwd(), appName);
+  const useCurrentDir = args.includes("current");
+  const userDir = path.resolve(process.cwd(), useCurrentDir ? "" : appName);
   const exists = await existsOrCreate(userDir);
   if (exists) {
     if (
