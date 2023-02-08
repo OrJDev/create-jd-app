@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.20
+
+### Patch Changes
+
+- [`ca0fd9d`](https://github.com/OrJDev/create-jd-app/commit/ca0fd9db029361a2c1fae82436047e0d140fc93d) Thanks [@OrJDev](https://github.com/OrJDev)! - Allow Users To Use The Current Dir
+
 ## 0.1.19
 
 ### Patch Changes
