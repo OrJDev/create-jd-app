@@ -40,7 +40,7 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
   const useCurrentDir = args.includes("current");
   const userDir = path.resolve(process.cwd(), useCurrentDir ? "" : appName);
   const exists = await existsOrCreate(userDir);
-  if (exists) {
+  if (exists && !useCurrentDir) {
     if (
       (
         await inquirer.prompt<{ overWrite: boolean }>({
