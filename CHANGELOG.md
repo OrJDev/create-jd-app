@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.21
+
+### Patch Changes
+
+- [`0dfbc5f`](https://github.com/OrJDev/create-jd-app/commit/0dfbc5f91d936fd9d49d5e82c53e4f1ef14a7e5e) Thanks [@OrJDev](https://github.com/OrJDev)! - Fix falsy warning when using the --current flag
+
 ## 0.1.20
 
 ### Patch Changes
