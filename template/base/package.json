@@ -8,22 +8,22 @@
   },
   "type": "module",
   "devDependencies": {
-    "solid-start-node": "^0.2.19",
-    "typescript": "^4.8.3",
-    "vite": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
-    "eslint": "^8.27.0",
-    "eslint-plugin-solid": "^0.9.3",
-    "@types/node": "^18.11.18"
+    "solid-start-node": "^0.2.21",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.2",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-solid": "^0.9.4",
+    "@types/node": "^18.14.0"
   },
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.7.0",
-    "solid-js": "^1.5.7",
-    "solid-start": "^0.2.19",
-    "undici": "5.11.0",
-    "zod": "^3.19.1"
+    "solid-js": "^1.6.11",
+    "solid-start": "^0.2.21",
+    "undici": "5.20.0",
+    "zod": "^3.20.6"
   },
   "engines": {
     "node": ">=16"
