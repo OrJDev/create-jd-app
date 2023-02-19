@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.1.22
+
+### Patch Changes
+
+- [#56](https://github.com/OrJDev/create-jd-app/pull/56) [`62f7238`](https://github.com/OrJDev/create-jd-app/commit/62f723898a01db6825b4801e259865596976bc43) Thanks [@shivanshubisht](https://github.com/shivanshubisht)! - Updated dependencies
+
+- [#58](https://github.com/OrJDev/create-jd-app/pull/58) [`381dab1`](https://github.com/OrJDev/create-jd-app/commit/381dab13c08a6cc828ca3aec8f2f3237f6f690a5) Thanks [@shivanshubisht](https://github.com/shivanshubisht)! - Unused '@ts-expect-error' directive.
+
 ## 0.1.21
 
 ### Patch Changes
