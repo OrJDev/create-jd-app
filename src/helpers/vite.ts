@@ -25,8 +25,7 @@ export const getViteConfig: IUtil = (ctx) => {
   }
 import { defineConfig } from "vite";${
     ctx.vercel
-      ? `\n// @ts-expect-error no typing
-import vercel from "solid-start-vercel";`
+      ? `\nimport vercel from "solid-start-vercel";`
       : ""
   }
   
