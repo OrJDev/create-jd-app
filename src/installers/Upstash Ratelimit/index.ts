@@ -10,7 +10,11 @@ const config: IInstaller = (ctx) => ({
     : [
         {
           path: `${__dirname}/files/api.txt`,
-          to: `${ctx.userDir}/src/routes/api/limit.ts`,
+          to: `${ctx.userDir}/src/utils/withRateLimit.ts`,
+        },
+        {
+          path: `${__dirname}/files/entry-server.txt`,
+          to: `${ctx.userDir}/src/entry-server.tsx`,
         },
       ],
   env: [
