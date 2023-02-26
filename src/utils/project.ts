@@ -156,10 +156,11 @@ export async function installDeps(ctx: ICtx) {
   );
   const spinner = ora("Installing dependencies").start();
   try {
-    await execa(`${ctx.pkgManager} install`, { cwd: ctx.userDir });
+    const flags = ctx.pkgManager === "npm" ? " --legacy-peer-deps" : "";
+    await execa(`${ctx.pkgManager} install${flags}`, { cwd: ctx.userDir });
     spinner.succeed("Installed dependencies");
   } catch (e) {
-    spinner.fail(`Couldn't install template dependencies: ${formatError(e)}`);
+    spinner.fail(`Couldn't install dependencies: ${formatError(e)}`);
     process.exit(1);
   }
 }
