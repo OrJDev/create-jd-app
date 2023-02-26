@@ -1,35 +1,35 @@
 const packages = {
   dev: {
     // adapters
-    "solid-start-vercel": "^0.2.19",
+    "solid-start-vercel": "^0.2.21",
     // tailwind
-    tailwindcss: "^3.2.4",
-    postcss: "^8.4.19",
+    tailwindcss: "^3.2.7",
+    postcss: "^8.4.21",
     autoprefixer: "^10.4.13",
     // prisma
-    prisma: "^4.6.1",
+    prisma: "^4.10.1",
     // unocss
-    unocss: "^0.46.5",
+    unocss: "^0.49.7",
   },
   normal: {
     // prisma
-    "@prisma/client": "^4.6.1",
+    "@prisma/client": "^4.10.1",
     // trpc
-    "@tanstack/solid-query": "^4.15.1",
-    "@trpc/client": "^10.1.0",
-    "@trpc/server": "^10.1.0",
+    "@tanstack/solid-query": "^4.24.9",
+    "@trpc/client": "^10.12.0",
+    "@trpc/server": "^10.12.0",
     "solid-start-trpc": "^0.0.16",
     "solid-trpc": "^0.0.11-rc.2",
     // trpc ssr
     "solid-trpc->ssr": "0.1.0-sssr.6",
-    "@adeora/solid-query": "0.16.0",
+    "@adeora/solid-query": "0.19.0",
     // next auth
     "@auth/solid-start": "^0.1.0",
-    "@auth/core": "^0.3.0",
+    "@auth/core": "^0.4.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit
-    "@upstash/ratelimit": "^0.1.5",
-    "@upstash/redis": "^1.18.0",
+    "@upstash/ratelimit": "^0.3.5",
+    "@upstash/redis": "^1.20.0"
   },
 };
 
