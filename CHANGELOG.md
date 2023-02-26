@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.23
+
+### Patch Changes
+
+- [`d9ad103`](https://github.com/OrJDev/create-jd-app/commit/d9ad1037852fbed8c359ec9f408a7e750badfaa6) Thanks [@OrJDev](https://github.com/OrJDev)! - Fix: legacy-peer-deps when using npm
+
 ## 0.1.22
 
 ### Patch Changes
