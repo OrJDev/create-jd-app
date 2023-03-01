@@ -2,8 +2,6 @@
 
 Create modern Solid / SolidStart web application within seconds.
 
-> Now fully supports ssr - all installers including tRPC
-
 ## Getting Started
 
 ```bash
@@ -22,7 +20,7 @@ npm create jd-app@latest
 All addons are optional, you may select some, you may select all and you may select none.
 
 - [Prisma](https://github.com/prisma/prisma)
-- [tRPC](https://github.com/trpc/trpc)
+- [pRPC](https://github.com/orjdev/prpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
 - [AuthJS](https://github.com/nextauthjs/next-auth)

@@ -1,22 +1,22 @@
 import { type IUtil } from "~types";
 
 const getIndexLocation: IUtil = (ctx) => {
-  const usingTRPC = ctx.installers.includes("tRPC");
+  const usingPRPC = ctx.installers.includes("pRPC");
   const usingTw =
     ctx.installers.includes("TailwindCSS") || ctx.installers.includes("UnoCSS");
   const usingAuth = ctx.installers.includes("AuthJS");
   let indexFile = "";
-  if (usingTRPC && usingTw && usingAuth) {
-    indexFile = "with-auth-trpc-tw.tsx";
-  } else if (usingTRPC && !usingTw && usingAuth) {
-    indexFile = "with-auth-trpc.tsx";
-  } else if (usingTRPC && usingTw) {
-    indexFile = "with-trpc-tw.tsx";
-  } else if (usingTRPC && !usingTw) {
-    indexFile = "with-trpc.tsx";
+  if (usingPRPC && usingTw && usingAuth) {
+    indexFile = "with-auth-prpc-tw.tsx";
+  } else if (usingPRPC && !usingTw && usingAuth) {
+    indexFile = "with-auth-prpc.tsx";
+  } else if (usingPRPC && usingTw) {
+    indexFile = "with-prpc-tw.tsx";
+  } else if (usingPRPC && !usingTw) {
+    indexFile = "with-prpc.tsx";
   } else if (usingAuth && usingTw) {
     indexFile = "with-auth-tw.tsx";
-  } else if (!usingTRPC && usingTw) {
+  } else if (!usingPRPC && usingTw) {
     indexFile = "with-tw.tsx";
   } else if (usingAuth) {
     indexFile = "with-auth.tsx";

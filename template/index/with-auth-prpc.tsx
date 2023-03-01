@@ -1,14 +1,16 @@
 import styles from "./index.module.css";
 import { type VoidComponent, Suspense } from "solid-js";
 import { A } from "solid-start";
-import { trpc } from "~/utils/trpc";
 import { signOut, signIn } from "@auth/solid-start/client";
 import { createServerData$ } from "solid-start/server";
 import { getSession } from "@auth/solid-start";
 import { authOpts } from "./api/auth/[...solidauth]";
+import { helloQuery } from "../server/queries";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
+  const hello = helloQuery(() => ({
+    name: "from pRPC",
+  }));
   return (
     <main>
       <div class={styles.container}>
@@ -40,7 +42,7 @@ const Home: VoidComponent = () => {
         </div>
         <div class={styles.showcaseContainer}>
           <p class={styles.showcaseText}>
-            {hello.data ?? "Loading tRPC query"}
+            {hello.data ?? "Loading pRPC query"}
           </p>
           <Suspense>
             <AuthShowcase />

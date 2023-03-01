@@ -1,10 +1,12 @@
 import styles from "./index.module.css";
 import { type VoidComponent } from "solid-js";
 import { A } from "solid-start";
-import { trpc } from "~/utils/trpc";
+import { helloQuery } from "../server/queries";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
+  const hello = helloQuery(() => ({
+    name: "from pRPC",
+  }));
   return (
     <main>
       <div class={styles.container}>
@@ -34,7 +36,7 @@ const Home: VoidComponent = () => {
             </div>
           </A>
         </div>
-        <p>{hello.data ?? "Loading tRPC query"}</p>
+        <p>{hello.data ?? "Loading pRPC query"}</p>
       </div>
     </main>
   );

@@ -1,9 +1,11 @@
 import { type VoidComponent } from "solid-js";
 import { A } from "solid-start";
-import { trpc } from "../utils/trpc";
+import { helloQuery } from "../server/queries";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
+  const hello = helloQuery(() => ({
+    name: "from pRPC",
+  }));
   return (
     <main class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#026d56] to-[#152a2c]">
       <div class="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
@@ -33,7 +35,7 @@ const Home: VoidComponent = () => {
             </div>
           </A>
         </div>
-        <p class="text-2xl text-white">{hello.data ?? "Loading tRPC query"}</p>
+        <p class="text-2xl text-white">{hello.data ?? "Loading pRPC query"}</p>
       </div>
     </main>
   );

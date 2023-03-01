@@ -5,7 +5,7 @@ const config: IInstaller = (ctx) => ({
   pkgs: withPackages({
     normal: ["@upstash/ratelimit", "@upstash/redis"],
   }),
-  files: ctx.installers.includes("tRPC")
+  files: ctx.installers.includes("pRPC")
     ? undefined
     : [
         {
