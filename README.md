@@ -21,6 +21,7 @@ All addons are optional, you may select some, you may select all and you may sel
 
 - [Prisma](https://github.com/prisma/prisma)
 - [pRPC](https://github.com/orjdev/prpc)
+- [tRPC](https://github.com/trpc/trpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [UnoCSS](https://github.com/unocss/unocss)
 - [AuthJS](https://github.com/nextauthjs/next-auth)
