@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.26
+
+### Patch Changes
+
+- [`83d5d20`](https://github.com/OrJDev/create-jd-app/commit/83d5d206d2871a8da201373084ca255cf3f747d9) Thanks [@OrJDev](https://github.com/OrJDev)! - Feat: tRPC installer
+
 ## 0.1.25
 
 ### Patch Changes
