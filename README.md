@@ -17,7 +17,7 @@ npm create jd-app@latest
 
 ## Addons
 
-All addons are optional, you may select some, you may select all and you may select none.
+All addons are optional, you may select some, you may select all and you may select none
 
 - [Prisma](https://github.com/prisma/prisma)
 - [pRPC](https://github.com/orjdev/prpc)
