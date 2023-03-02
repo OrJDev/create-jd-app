@@ -46,7 +46,7 @@ export default function Search() {
 
     return (
         <>
-            <button type="button" ref={searchButtonRef} class="search-input">
+            {/* <button type="button" ref={searchButtonRef} class="search-input">
                 <svg width="24" height="24" fill="none">
                     <path
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
@@ -66,7 +66,7 @@ export default function Search() {
 
                     <span class="sr-only"> to search</span>
                 </span>
-            </button>
+            </button> */}
 
             {/*{isOpen &&*/}
             {/*    createPortal(*/}
