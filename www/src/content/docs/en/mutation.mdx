@@ -1,0 +1,87 @@
+---
+title: 'mutation$'
+description: 'API for the mutation$ function'
+---
+
+**API for the mutation$ function**
+
+Converts the function to be a `server$` function and will add in zod validation if there is a zod object in the 2nd argument. Returns a `createMutation` is from `@adeora/solid-query`.
+
+## Examples
+
+```ts
+import { mutation$ } from '@prpc/solid'
+import { z } from 'zod'
+import { isServer } from 'solid-js/web'
+
+export const decrease = mutation$(
+  ({ payload }) => {
+    const result = payload.a - payload.b
+    console.log(isServer)
+    console.log('add', result)
+    return result
+  },
+  'decrease', // this will be used the mutation key
+  z.object({
+    a: z.number(),
+    b: z.number(),
+  }) // this will be used as the input type and input validation
+)
+```
+
+### Client Usage
+
+```ts
+import {
+  createSignal,
+  Match,
+  Suspense,
+  Switch,
+  type VoidComponent,
+} from 'solid-js'
+import { decrease } from '~/server/mutations'
+
+const Mutation: VoidComponent = () => {
+  const [num1, setNum1] = createSignal(1)
+  const mutationRes = decrease()
+  return (
+    <div>
+      <Suspense>
+        <Switch>
+          <Match when={mutationRes.data}>
+            <div>Num {mutationRes.data}</div>
+          </Match>
+          <Match when={mutationRes.error}>
+            <div>Error</div>
+          </Match>
+        </Switch>
+        <button onClick={() => setNum1((num) => num + 1)}>
+          Increment {num1()}
+        </button>
+      </Suspense>
+      <button
+        onClick={() =>
+          mutationRes.mutateAsync({
+            a: num1(),
+            b: 2,
+          })
+        }
+      >
+        Submit
+      </button>
+    </div>
+  )
+}
+```
+
+## API
+
+### Creation
+
+- First argument is the function to be wrapped with `server$`
+- Second argument is the mutation key for `@adeora/solid-query`
+- Third argument is zod schema (optional)
+
+### Usage
+
+Returns a `createMutation` from `@adeora/solid-query`

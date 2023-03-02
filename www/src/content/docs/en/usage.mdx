@@ -1,0 +1,136 @@
+---
+title: 'Usage'
+description: 'How to use pRPC'
+---
+
+**Examples**
+
+### query$ Server
+
+```ts
+import { query$ } from '@prpc/solid'
+import { z } from 'zod'
+import { isServer } from 'solid-js/web'
+
+export const decrease = query$(
+  ({ payload }) => {
+    const result = payload.a - payload.b
+    console.log(isServer)
+    console.log('add', result)
+    return result
+  },
+  'decrease', // this will be used as the query key (along with the input)
+  z.object({
+    a: z.number(),
+    b: z.number(),
+  }) // this will be used as the input type and input validation
+)
+```
+
+### query$ Client
+
+```tsx
+import {
+  createSignal,
+  Match,
+  Suspense,
+  Switch,
+  type VoidComponent,
+} from 'solid-js'
+import { decrease } from '~/server/queries'
+const Query: VoidComponent = () => {
+  const [num1, setNum1] = createSignal(1)
+  const addRes = decrease(
+    () => ({
+      a: num1(),
+      b: 2,
+    }),
+    () => ({
+      placeholderData: (prev) => prev,
+    })
+  )
+
+  return (
+    <div>
+      <Suspense>
+        <Switch>
+          <Match when={addRes.data}>
+            <div class='font-bold'>Num {addRes.data}</div>
+          </Match>
+          <Match when={addRes.error}>
+            <div>Error</div>
+          </Match>
+        </Switch>
+      </Suspense>
+      <button onClick={() => setNum1((num) => num + 1)}>Increment</button>
+    </div>
+  )
+}
+```
+
+### mutation$ Server
+
+```ts
+import { mutation$ } from '@prpc/solid'
+import { z } from 'zod'
+import { isServer } from 'solid-js/web'
+
+export const decrease = mutation$(
+  ({ payload }) => {
+    const result = payload.a - payload.b
+    console.log(isServer)
+    console.log('add', result)
+    return result
+  },
+  'decrease', // this will be used the mutation key
+  z.object({
+    a: z.number(),
+    b: z.number(),
+  }) // this will be used as the input type and input validation
+)
+```
+
+### mutation$ Client
+
+```tsx
+import {
+  createSignal,
+  Match,
+  Suspense,
+  Switch,
+  type VoidComponent,
+} from 'solid-js'
+import { decrease } from '~/server/mutations'
+
+const Mutation: VoidComponent = () => {
+  const [num1, setNum1] = createSignal(1)
+  const mutationRes = decrease()
+  return (
+    <div>
+      <Suspense>
+        <Switch>
+          <Match when={mutationRes.data}>
+            <div>Num {mutationRes.data}</div>
+          </Match>
+          <Match when={mutationRes.error}>
+            <div>Error</div>
+          </Match>
+        </Switch>
+        <button onClick={() => setNum1((num) => num + 1)}>
+          Increment {num1()}
+        </button>
+      </Suspense>
+      <button
+        onClick={() =>
+          mutationRes.mutateAsync({
+            a: num1(),
+            b: 2,
+          })
+        }
+      >
+        Submit
+      </button>
+    </div>
+  )
+}
+```

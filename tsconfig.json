@@ -12,6 +12,6 @@
     "noUnusedLocals": true,
     "outDir": "dist",
   },
-  "include": ["./src/"],
+  "include": ["./src/", "www"],
   "exclude": ["node_modules", "template"]
 }

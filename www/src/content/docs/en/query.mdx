@@ -1,0 +1,69 @@
+---
+title: 'query$'
+description: 'API for the query$ function'
+---
+
+**API for the query$ function**
+
+Converts the function to be a `server$` function and will add in zod validation if there is a zod object in the 2nd argument. Return object has `useQuery` method on it from `@adeora/solid-query`.
+
+## Examples
+
+```ts
+import { query$ } from '@prpc/solid'
+import { z } from 'zod'
+import { isServer } from 'solid-js/web'
+
+export const decrease = query$(
+  ({ payload }) => {
+    const result = payload.a - payload.b
+    console.log(isServer)
+    console.log('add', result)
+    return result
+  },
+  'decrease', // this will be used as the query key (along with the input)
+  z.object({
+    a: z.number(),
+    b: z.number(),
+  }) // this will be used as the input type and input validation
+)
+```
+
+### Client Usage
+
+```ts
+import { createSignal, Suspense, type VoidComponent } from 'solid-js'
+import { decrease } from '~/server/queries'
+
+const Query: VoidComponent = () => {
+  const [num1, setNum1] = createSignal(1)
+  const addRes = decrease(
+    () => ({
+      a: num1(),
+      b: 2,
+    }),
+    () => ({
+      placeholderData: (prev) => prev,
+    })
+  )
+
+  return (
+    <div>
+      <Suspense>
+        <p>{addRes.data ? `Num: ${addRes.data}` : 'Pending'}</p>
+      </Suspense>
+      <button onClick={() => setNum1((num) => num + 1)}>Increment</button>
+    </div>
+  )
+}
+```
+
+## API
+
+- First argument is the function to be wrapped with `server$`
+- Second argument is the mutation key for `@adeora/solid-query`
+- Third argument is zod schema (optional)
+
+### Usage
+
+Returns an object with `createQuery` from `@adeora/solid-query`
