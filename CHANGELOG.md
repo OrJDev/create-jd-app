@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.28
+
+### Patch Changes
+
+- [`51d0ae0`](https://github.com/OrJDev/create-jd-app/commit/51d0ae08fbbe0bc5294932512c590cab6bc94bc6) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: trpc api location
+
 ## 0.1.27
 
 ### Patch Changes
