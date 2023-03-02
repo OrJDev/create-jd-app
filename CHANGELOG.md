@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.27
+
+### Patch Changes
+
+- [`0d70686`](https://github.com/OrJDev/create-jd-app/commit/0d70686bcc0229fcb5ca55ad11de024524a70cfa) Thanks [@OrJDev](https://github.com/OrJDev)! - Fix: prpc vite / packages
+
 ## 0.1.26
 
 ### Patch Changes
