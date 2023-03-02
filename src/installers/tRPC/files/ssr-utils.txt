@@ -16,7 +16,7 @@ export const trpc = createTRPCSolidStart<IAppRouter>({
     return {
       links: [
         httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
+          url: `${getBaseUrl()}/api`,
         }),
       ],
     };
