@@ -19,7 +19,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${ctx.templateDir}/trpc/api`,
-      to: `${ctx.userDir}/src/routes/api`,
+      to: `${ctx.userDir}/src/routes/api/trpc`,
     },
     {
       path: `${__dirname}/utils/getTrpcUtils`,
