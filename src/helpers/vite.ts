@@ -27,7 +27,7 @@ export const getViteConfig: IUtil = (ctx) => {
   }
 import { defineConfig } from "vite";${
     ctx.vercel ? `\nimport vercel from "solid-start-vercel";` : ""
-  }${usePrpc ? `\nimport prpc from "@prpc/solid";` : ""}
+  }${usePrpc ? `\nimport prpc from "@prpc/vite";` : ""}
   
 export default defineConfig(() => {
   return {
