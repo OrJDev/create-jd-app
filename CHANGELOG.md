@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.29
+
+### Patch Changes
+
+- [`86efe20`](https://github.com/OrJDev/create-jd-app/commit/86efe20aa47eb13b7f0896ea8b2d9892ecebb903) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: pRPC directly import the vite plugin from @prpc/vite
+
 ## 0.1.28
 
 ### Patch Changes
