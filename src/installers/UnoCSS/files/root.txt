@@ -1,6 +1,7 @@
 // @refresh reload
 import "./root.css";
 import "uno.css";
+import "@unocss/reset/tailwind.css";
 import { Suspense } from "solid-js";
 import {
   Body,
