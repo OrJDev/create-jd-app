@@ -12,7 +12,8 @@ const config: IInstaller = (ctx) => {
         to: `${ctx.userDir}/src/server/queries.ts`,
       },
       {
-        path: `${__dirname}/files/root.txt`,
+        path: `${__dirname}/utils/getRoot`,
+        type: "exec",
         to: `${ctx.userDir}/src/root.tsx`,
       },
     ],
