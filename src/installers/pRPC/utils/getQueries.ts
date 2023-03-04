@@ -13,7 +13,7 @@ import { z } from "zod";${
 export const helloQuery = query$(
   ({ payload }) => {
     return \`server says hello: \${payload.name}\`;
-    },
+  },
   "hello",
   z.object({ name: z.string() })${usesRateLimit ? ",\n  withRateLimit" : ""}
 );
