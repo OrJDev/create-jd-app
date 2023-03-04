@@ -8,7 +8,8 @@ const config: IInstaller = (ctx) => {
     }),
     files: [
       {
-        path: `${__dirname}/files/queries.txt`,
+        path: `${__dirname}/utils/getQueries`,
+        type: "exec",
         to: `${ctx.userDir}/src/server/queries.ts`,
       },
       {

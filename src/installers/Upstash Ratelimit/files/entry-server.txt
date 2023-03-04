@@ -1,0 +1,11 @@
+import {
+  StartServer,
+  createHandler,
+  renderAsync,
+} from "solid-start/entry-server";
+import { withRateLimit } from "./utils/withRateLimit";
+
+export default createHandler(
+  withRateLimit,
+  renderAsync((event) => <StartServer event={event} />)
+);

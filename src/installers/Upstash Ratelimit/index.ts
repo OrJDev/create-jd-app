@@ -5,14 +5,29 @@ const config: IInstaller = (ctx) => ({
   pkgs: withPackages({
     normal: ["@upstash/ratelimit", "@upstash/redis"],
   }),
-  files: ctx.installers.includes("pRPC")
-    ? undefined
-    : [
+  files: (() => {
+    // tRPC ratelimit is handled in it's own installer as t.middleware
+    if (ctx.installers.includes("tRPC")) return [];
+
+    if (ctx.installers.includes("pRPC"))
+      return [
         {
-          path: `${__dirname}/files/api.txt`,
-          to: `${ctx.userDir}/src/routes/api/limit.ts`,
+          path: `${__dirname}/files/prpc-middleware.txt`,
+          to: `${ctx.userDir}/src/server/withRateLimit.ts`,
         },
-      ],
+      ];
+
+    return [
+      {
+        path: `${__dirname}/files/solidjs-middleware.txt`,
+        to: `${ctx.userDir}/src/utils/withRateLimit.ts`,
+      },
+      {
+        path: `${__dirname}/files/entry-server.txt`,
+        to: `${ctx.userDir}/src/entry-server.tsx`,
+      },
+    ];
+  })(),
   env: [
     {
       key: "UPSTASH_REDIS_REST_URL",
