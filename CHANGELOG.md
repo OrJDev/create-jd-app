@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.30
+
+### Patch Changes
+
+- [#77](https://github.com/OrJDev/create-jd-app/pull/77) [`9079a90`](https://github.com/OrJDev/create-jd-app/commit/9079a90cc5b74b80057d9eb775130cc5da0dbbf7) Thanks [@lnxcz](https://github.com/lnxcz)! - prevent UnoCSS imports being overwritten by TRPC/PRPC addon
+
 ## 0.1.29
 
 ### Patch Changes
