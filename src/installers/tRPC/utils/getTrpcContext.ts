@@ -11,7 +11,6 @@ import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
       ? `\nimport { getSession } from "@auth/solid-start";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
       : ""
   }
-
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext
 ) => {${
@@ -25,11 +24,9 @@ export const createContextInner = async (
   }
   };
 };
-
 export const createContext = async (opts: createSolidAPIHandlerContext) => {
   return await createContextInner(opts);
 };
-
 export type IContext = inferAsyncReturnType<typeof createContext>;
 `;
 };

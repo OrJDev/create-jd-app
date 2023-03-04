@@ -1,145 +1,43 @@
 # create-jd-app
 
-## 0.1.22
+## 0.1.30
 
 ### Patch Changes
 
-- [#56](https://github.com/OrJDev/create-jd-app/pull/56) [`62f7238`](https://github.com/OrJDev/create-jd-app/commit/62f723898a01db6825b4801e259865596976bc43) Thanks [@shivanshubisht](https://github.com/shivanshubisht)! - Updated dependencies
+- [#77](https://github.com/OrJDev/create-jd-app/pull/77) [`9079a90`](https://github.com/OrJDev/create-jd-app/commit/9079a90cc5b74b80057d9eb775130cc5da0dbbf7) Thanks [@lnxcz](https://github.com/lnxcz)! - prevent UnoCSS imports being overwritten by TRPC/PRPC addon
 
-- [#58](https://github.com/OrJDev/create-jd-app/pull/58) [`381dab1`](https://github.com/OrJDev/create-jd-app/commit/381dab13c08a6cc828ca3aec8f2f3237f6f690a5) Thanks [@shivanshubisht](https://github.com/shivanshubisht)! - Unused '@ts-expect-error' directive.
-
-## 0.1.21
+## 0.1.29
 
 ### Patch Changes
 
-- [`0dfbc5f`](https://github.com/OrJDev/create-jd-app/commit/0dfbc5f91d936fd9d49d5e82c53e4f1ef14a7e5e) Thanks [@OrJDev](https://github.com/OrJDev)! - Fix falsy warning when using the --current flag
+- [`86efe20`](https://github.com/OrJDev/create-jd-app/commit/86efe20aa47eb13b7f0896ea8b2d9892ecebb903) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: pRPC directly import the vite plugin from @prpc/vite
 
-## 0.1.20
-
-### Patch Changes
-
-- [`ca0fd9d`](https://github.com/OrJDev/create-jd-app/commit/ca0fd9db029361a2c1fae82436047e0d140fc93d) Thanks [@OrJDev](https://github.com/OrJDev)! - Allow Users To Use The Current Dir
-
-## 0.1.19
+## 0.1.28
 
 ### Patch Changes
 
-- [`e95722e`](https://github.com/OrJDev/create-jd-app/commit/e95722e0cde34b72a5ed0d8f03ba01ccb8d7aa12) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid SSR tRPC To Fix Refetches On Client
+- [`51d0ae0`](https://github.com/OrJDev/create-jd-app/commit/51d0ae08fbbe0bc5294932512c590cab6bc94bc6) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: trpc api location
 
-- Bump @auth/core
-
-## 0.1.18
+## 0.1.27
 
 ### Patch Changes
 
-- [`03fc0d9`](https://github.com/OrJDev/create-jd-app/commit/03fc0d9c8296eb27abb8a4f0073e6a80c5b1381a) Thanks [@OrJDev](https://github.com/OrJDev)! - More Detailed Readme.md For Starter Projects
+- [`0d70686`](https://github.com/OrJDev/create-jd-app/commit/0d70686bcc0229fcb5ca55ad11de024524a70cfa) Thanks [@OrJDev](https://github.com/OrJDev)! - Fix: prpc vite / packages
 
-- [`8ec2602`](https://github.com/OrJDev/create-jd-app/commit/8ec260295660cbdec6bb17195aa21970235c4012) Thanks [@OrJDev](https://github.com/OrJDev)! - Rename NextAuth To AuthJS
-
-- [`7e680d7`](https://github.com/OrJDev/create-jd-app/commit/7e680d75aa87cde684b36ef64a59f0bd0137d029) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump SolidStart To Fix CSR + Vercel
-
-- [`c62303f`](https://github.com/OrJDev/create-jd-app/commit/c62303f9037a2d770a7211259aa2afd672917528) Thanks [@OrJDev](https://github.com/OrJDev)! - Lock SolidQuery SSR (0.12.0) To Prevent Type Errors
-
-## 0.1.17
+## 0.1.26
 
 ### Patch Changes
 
-- [`f1b3b0a`](https://github.com/OrJDev/create-jd-app/commit/f1b3b0a757fc607f66a5da258b3172f6839327ec) Thanks [@OrJDev](https://github.com/OrJDev)! - Set the default AuthJS provider to Discord
+- [`83d5d20`](https://github.com/OrJDev/create-jd-app/commit/83d5d206d2871a8da201373084ca255cf3f747d9) Thanks [@OrJDev](https://github.com/OrJDev)! - Feat: tRPC installer
 
-## 0.1.16
-
-### Patch Changes
-
-- [`4fed573`](https://github.com/OrJDev/create-jd-app/commit/4fed573794a6589aa9343d75fca5b86ffea16e29) Thanks [@OrJDev](https://github.com/OrJDev)! - Add a note on how to use the discord authjs provider correctly
-
-- [`2c9ee1a`](https://github.com/OrJDev/create-jd-app/commit/2c9ee1afe463a8c95757a9ddb4f314cd7b83cb9c) Thanks [@OrJDev](https://github.com/OrJDev)! - externalize Prisma
-
-- [`ce92195`](https://github.com/OrJDev/create-jd-app/commit/ce921955815a05e1d0f7da227ed47ca144ee03ae) Thanks [@OrJDev](https://github.com/OrJDev)! - Remove prisma falsy postbuild warning
-
-## 0.1.15
+## 0.1.25
 
 ### Patch Changes
 
-- [`b5ff307`](https://github.com/OrJDev/create-jd-app/commit/b5ff307b0f182aac5a0ca2f9159acc550af4f344) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid Query SSR
+- [`f6bb655`](https://github.com/OrJDev/create-jd-app/commit/f6bb655a5a9f9736fc1e3f98c183c1c049ee6b78) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: pRPC installer
 
-## 0.1.14
-
-### Patch Changes
-
-- [`fe66715`](https://github.com/OrJDev/create-jd-app/commit/fe66715e42ba104616afd71fcf8a47928a81c22f) Thanks [@OrJDev](https://github.com/OrJDev)! - Revert the port to 3000
-
-## 0.1.13
+## 0.1.24
 
 ### Patch Changes
 
-- Set the port to 5173
-
-## 0.1.12
-
-### Patch Changes
-
-- [`bfc1c88`](https://github.com/OrJDev/create-jd-app/commit/bfc1c882917f31ae0ba08fa5d0add7d3c2883d58) Thanks [@OrJDev](https://github.com/OrJDev)! - Add create-jd-app meta color to the root
-
-- [`0a00a47`](https://github.com/OrJDev/create-jd-app/commit/0a00a47fe46f6ea22b4da5e81fd35b87bc56b3b6) Thanks [@OrJDev](https://github.com/OrJDev)! - tRPC + SSR: suggest a production url
-
-- [`149ae00`](https://github.com/OrJDev/create-jd-app/commit/149ae0041c878b22be3763ed651f90645853c7c0) Thanks [@OrJDev](https://github.com/OrJDev)! - Move meta description and icon to the root
-
-## 0.1.11
-
-### Patch Changes
-
-- [`387d038`](https://github.com/OrJDev/create-jd-app/commit/387d038c80fd8def9af2ab56b61b4002bdb9c2e5) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump to 0.2.18 in order to delete the prisma postbuild script
-
-- [`a9a96a3`](https://github.com/OrJDev/create-jd-app/commit/a9a96a3f414348720df08f169765d207db272e11) Thanks [@OrJDev](https://github.com/OrJDev)! - Better queryClient options for trpc + ssr
-
-## 0.1.10
-
-### Patch Changes
-
-- [`57246e8`](https://github.com/OrJDev/create-jd-app/commit/57246e810d06726edac41b6cb2f3c98bff64f082) Thanks [@OrJDev](https://github.com/OrJDev)! - Remove Tailwind Classes From With tRPC
-
-## 0.1.9
-
-### Patch Changes
-
-- [`9821e94`](https://github.com/OrJDev/create-jd-app/commit/9821e94035b76939a6ab77cdf3865b4f4f948dd1) Thanks [@OrJDev](https://github.com/OrJDev)! - Add Node Types And Bump Solid Eslint
-
-## 0.1.8
-
-### Patch Changes
-
-- [`fbec623`](https://github.com/OrJDev/create-jd-app/commit/fbec62373ab2e55b9f62dc630b4f7f981b7e8256) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid Start Packages
-
-## 0.1.7
-
-### Patch Changes
-
-- [`6aab430`](https://github.com/OrJDev/create-jd-app/commit/6aab430f71ce25ae0fb5be39cd128e27632b5dde) Thanks [@OrJDev](https://github.com/OrJDev)! - Use solid-trpc solid-start ssr's version
-
-## 0.1.6
-
-### Patch Changes
-
-- Bump Solid Query
-
-- [`3234738`](https://github.com/OrJDev/create-jd-app/commit/3234738b483a26002e4c0addca2313c1a0d1dbb1) Thanks [@OrJDev](https://github.com/OrJDev)! - Bump Solid-Start Versions To Support Multiple Set-Cookies
-
-## 0.1.5
-
-### Patch Changes
-
-- [`28b28a7`](https://github.com/OrJDev/create-jd-app/commit/28b28a7daee749966daa9a0d326f91170e32b22a) Thanks [@OrJDev](https://github.com/OrJDev)! - Set user id on Auth session callback
-
-- (Chore) With Auth & With Auth TW
-
-## 0.1.4
-
-### Patch Changes
-
-- [`0741230`](https://github.com/OrJDev/create-jd-app/commit/0741230647a9e030c7313e6def40b42b17fc2df8) Thanks [@OrJDev](https://github.com/OrJDev)! - Feat: new index route ui
-
-## 0.1.1
-
-### Patch Changes
-
-- [`88fc889`](https://github.com/OrJDev/create-jd-app/commit/88fc889a3badd520ee3ae84715d2d43282f5c68e) Thanks [@OrJDev](https://github.com/OrJDev)! - Force release
+- [`e351894`](https://github.com/OrJDev/create-jd-app/commit/e351894c02fa0f03ade089ef1b4b59e13d62fc61) Thanks [@OrJDev](https://github.com/OrJDev)! - trpc: move to @tanstack/solid-query@alpha

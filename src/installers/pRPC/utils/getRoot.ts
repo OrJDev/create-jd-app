@@ -22,7 +22,10 @@ import {
   Title,
   Link,
 } from "solid-start";
-import { trpc, queryClient${ctx.ssr ? "" : ", client"} } from "~/utils/trpc";
+import { QueryProvider } from "@prpc/solid";
+import { QueryClient } from "@adeora/solid-query";
+
+const queryClient = new QueryClient();
 
 export default function Root() {
   return (
@@ -36,9 +39,7 @@ export default function Root() {
         <Link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <trpc.Provider${
-          ctx.ssr ? "" : " client={client}"
-        } queryClient={queryClient}>
+        <QueryProvider queryClient={queryClient}>
           <Suspense>
             <ErrorBoundary>
               <Routes>
@@ -46,7 +47,7 @@ export default function Root() {
               </Routes>
             </ErrorBoundary>
           </Suspense>
-        </trpc.Provider>
+        </QueryProvider>
         <Scripts />
       </Body>
     </Html>

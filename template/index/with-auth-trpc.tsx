@@ -1,11 +1,11 @@
 import styles from "./index.module.css";
 import { type VoidComponent, Suspense } from "solid-js";
 import { A } from "solid-start";
-import { trpc } from "~/utils/trpc";
 import { signOut, signIn } from "@auth/solid-start/client";
 import { createServerData$ } from "solid-start/server";
 import { getSession } from "@auth/solid-start";
 import { authOpts } from "./api/auth/[...solidauth]";
+import { trpc } from "~/utils/trpc";
 
 const Home: VoidComponent = () => {
   const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));

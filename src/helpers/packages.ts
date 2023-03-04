@@ -14,22 +14,24 @@ const packages = {
   normal: {
     // prisma
     "@prisma/client": "^4.10.1",
+    // prpc
+    "@prpc/solid": "^0.2.7",
+    "@prpc/vite": "^0.3.5",
+    "@adeora/solid-query": "^0.20.0",
     // trpc
-    "@tanstack/solid-query": "^4.24.9",
+    "@tanstack/solid-query": "^5.0.0-alpha.0",
     "@trpc/client": "^10.12.0",
     "@trpc/server": "^10.12.0",
     "solid-start-trpc": "^0.0.16",
-    "solid-trpc": "^0.0.11-rc.2",
-    // trpc ssr
-    "solid-trpc->ssr": "0.1.0-sssr.6",
-    "@adeora/solid-query": "0.19.0",
+    "solid-trpc": "^0.0.11-rc.3",
+    "solid-trpc->ssr": "0.1.0-sssr.7",
     // next auth
     "@auth/solid-start": "^0.1.0",
     "@auth/core": "^0.4.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.3.5",
-    "@upstash/redis": "^1.20.0"
+    "@upstash/redis": "^1.20.0",
   },
 };
 

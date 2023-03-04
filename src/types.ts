@@ -59,4 +59,5 @@ export type TInstallers =
   | "TailwindCSS"
   | "UnoCSS"
   | "Upstash Ratelimit"
+  | "pRPC"
   | "tRPC";

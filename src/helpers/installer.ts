@@ -116,11 +116,17 @@ export async function getCtxWithInstallers(
       let optInstallers = installers.filter(
         (pkg) => !validInstallers.includes(pkg)
       );
-      const opts = [["TailwindCSS", "UnoCSS"]];
+      const opts: Array<Array<TInstallers>> = [
+        ["TailwindCSS", "UnoCSS"],
+        ["tRPC", "pRPC"],
+      ];
       for (const opt of opts) {
         for (const op of opt) {
           if (validInstallers.includes(op)) {
-            optInstallers = optInstallers.filter((pkg) => !opt.includes(pkg));
+            optInstallers = optInstallers.filter(
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (pkg) => !opt.includes(pkg as any)
+            );
           }
         }
       }

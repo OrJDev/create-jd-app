@@ -1,6 +1,6 @@
 {
   "name": "create-jd-app",
-  "version": "0.1.22",
+  "version": "0.1.30",
   "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json && pnpm postbuild",
@@ -69,7 +69,7 @@
   },
   "keywords": [
     "JDev",
-    "tRPC",
+    "pRPC",
     "TypeScript",
     "Tailwind",
     "Solid",

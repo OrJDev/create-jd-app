@@ -12,19 +12,15 @@ import type { IContext } from "./context";${
 import { Redis } from "@upstash/redis";`
       : ""
   }
-
 export const t = initTRPC.context<IContext>().create();
-
 export const router = t.router;${
     useUpstash
       ? `\nconst ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.fixedWindow(20, "10 s"),
 });
-
 const withRateLimit = t.middleware(async ({ ctx, next }) => {
   const ip = ctx.req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(
     \`mw_\${ip}\`
   );
@@ -42,7 +38,6 @@ const withRateLimit = t.middleware(async ({ ctx, next }) => {
   }
   return next({ ctx });
 });
-
 export const procedure = t.procedure.use(withRateLimit);`
       : "\nexport const procedure = t.procedure;"
   }${

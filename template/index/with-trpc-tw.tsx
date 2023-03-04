@@ -1,6 +1,6 @@
 import { type VoidComponent } from "solid-js";
 import { A } from "solid-start";
-import { trpc } from "../utils/trpc";
+import { trpc } from "~/utils/trpc";
 
 const Home: VoidComponent = () => {
   const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));

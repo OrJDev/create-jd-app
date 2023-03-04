@@ -19,7 +19,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${ctx.templateDir}/trpc/api`,
-      to: `${ctx.userDir}/src/routes/api`,
+      to: `${ctx.userDir}/src/routes/api/trpc`,
     },
     {
       path: `${__dirname}/utils/getTrpcUtils`,
@@ -40,7 +40,7 @@ const config: IInstaller = (ctx) => ({
   pkgs: withPackages({
     normal: [
       ctx.ssr ? "solid-trpc->ssr" : "solid-trpc",
-      ctx.ssr ? "@adeora/solid-query" : "@tanstack/solid-query",
+      "@tanstack/solid-query",
       "solid-start-trpc",
       "@trpc/client",
       "@trpc/server",
