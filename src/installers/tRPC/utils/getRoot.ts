@@ -1,8 +1,14 @@
 import { type IUtil } from "~types";
 
 const getRoot: IUtil = (ctx) => {
+  const useUno = ctx.installers.includes("UnoCSS");
+
   return `// @refresh reload
 import "./root.css";
+${useUno ?
+`import "uno.css";
+import "@unocss/reset/tailwind.css";
+` : ""}
 import { Suspense } from "solid-js";
 import {
   Body,
