@@ -1,6 +1,7 @@
-import { middleware$, PRPCClientError } from "@prpc/solid";
+import { middleware$ } from "@prpc/solid";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { ServerError } from "solid-start";
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -13,8 +14,9 @@ export const withRateLimit = middleware$(async ({ request$ }) => {
   await pending;
 
   if (!success) {
-    throw new PRPCClientError(
-      `Rate limit exceeded, retry in ${new Date(reset).getDate()} seconds`
+    throw new ServerError(
+      `Rate limit exceeded, retry in ${new Date(reset).getDate()} seconds`,
+      { status: 429 }
     );
   }
 });
