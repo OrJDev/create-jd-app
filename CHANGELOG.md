@@ -1,5 +1,14 @@
 # create-jd-app
 
+## 0.1.31
+
+### Patch Changes
+
+- [`e41b776`](https://github.com/OrJDev/create-jd-app/commit/e41b77626715b1a0793687eba1c5f1df19ba527b) Thanks [@OrJDev](https://github.com/OrJDev)! - move(prpc): use tanstack solid query alpha
+
+- [#63](https://github.com/OrJDev/create-jd-app/pull/63) [`b329f02`](https://github.com/OrJDev/create-jd-app/commit/b329f02dd9c5f6bfe9347c135d8ff2eab631e9e3) Thanks [@va3y](https://github.com/va3y)! - reworked non-tRPC rate lmiter as Solid Start middleware
+  added rate limiter support for pRPC
+
 ## 0.1.30
 
 ### Patch Changes
