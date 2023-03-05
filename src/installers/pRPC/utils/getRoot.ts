@@ -5,10 +5,13 @@ const getRoot: IUtil = (ctx) => {
 
   return `// @refresh reload
 import "./root.css";
-${useUno ?
-`import "uno.css";
+${
+  useUno
+    ? `import "uno.css";
 import "@unocss/reset/tailwind.css";
-` : ""}
+`
+    : ""
+}
 import { Suspense } from "solid-js";
 import {
   Body,
@@ -23,7 +26,7 @@ import {
   Link,
 } from "solid-start";
 import { QueryProvider } from "@prpc/solid";
-import { QueryClient } from "@adeora/solid-query";
+import { QueryClient } from "@tanstack/solid-query";
 
 const queryClient = new QueryClient();
 

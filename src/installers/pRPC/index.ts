@@ -4,7 +4,7 @@ import type { IInstaller } from "~types";
 const config: IInstaller = (ctx) => {
   return {
     pkgs: withPackages({
-      normal: ["@prpc/solid", "@prpc/vite", "@adeora/solid-query"],
+      normal: ["@prpc/solid", "@prpc/vite", "@tanstack/solid-query"],
     }),
     files: [
       {

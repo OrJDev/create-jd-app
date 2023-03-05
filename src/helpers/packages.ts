@@ -15,11 +15,10 @@ const packages = {
     // prisma
     "@prisma/client": "^4.10.1",
     // prpc
-    "@prpc/solid": "^0.2.7",
-    "@prpc/vite": "^0.3.5",
-    "@adeora/solid-query": "^0.20.0",
+    "@prpc/solid": "^0.2.14",
+    "@prpc/vite": "^0.3.6",
     // trpc
-    "@tanstack/solid-query": "^5.0.0-alpha.0",
+    "@tanstack/solid-query": "^5.0.0-alpha.2",
     "@trpc/client": "^10.12.0",
     "@trpc/server": "^10.12.0",
     "solid-start-trpc": "^0.0.16",
