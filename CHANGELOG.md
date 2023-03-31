@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.32
+
+### Patch Changes
+
+- [`810d5cc`](https://github.com/OrJDev/create-jd-app/commit/810d5cc186a968732a6a1da1ceae62c3bb16005d) Thanks [@OrJDev](https://github.com/OrJDev)! - bump pRPC packages
+
 ## 0.1.31
 
 ### Patch Changes
