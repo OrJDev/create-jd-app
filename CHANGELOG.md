@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.1.33
+
+### Patch Changes
+
+- [`fb74ef1`](https://github.com/OrJDev/create-jd-app/commit/fb74ef1d13f4ff17e91a9347db7ba4d27affdeb3) Thanks [@OrJDev](https://github.com/OrJDev)! - bump: solidjs/router
+
 ## 0.1.32
 
 ### Patch Changes
