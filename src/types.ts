@@ -57,7 +57,6 @@ export type TInstallers =
   | "AuthJS"
   | "Prisma"
   | "TailwindCSS"
-  | "UnoCSS"
   | "Upstash Ratelimit"
   | "pRPC"
   | "tRPC";

@@ -8,8 +8,6 @@ const packages = {
     autoprefixer: "^10.4.13",
     // prisma
     prisma: "^4.10.1",
-    // unocss
-    unocss: "^0.49.7",
   },
   normal: {
     // prisma
@@ -25,7 +23,7 @@ const packages = {
     "solid-trpc": "^0.0.11-rc.3",
     "solid-trpc->ssr": "0.1.0-sssr.7",
     // next auth
-    "@auth/solid-start": "^0.1.0",
+    "@solid-auth/base": "^1.0.0",
     "@auth/core": "^0.4.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit

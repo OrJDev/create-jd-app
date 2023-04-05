@@ -4,7 +4,7 @@ import type { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@auth/solid-start"];
+  const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@solid-auth/base"];
   if (usePrisma) {
     normal.push("@next-auth/prisma-adapter");
   }
@@ -25,6 +25,12 @@ const config: IInstaller = (ctx) => {
         path: `${__dirname}/files/tsconfig.txt`,
         to: `${ctx.userDir}/tsconfig.json`,
       },
+      !ctx.installers.includes("tRPC") && !ctx.installers.includes("pRPC")
+        ? {
+            path: `${__dirname}/files/root.txt`,
+            to: `${ctx.userDir}/src/root.tsx`,
+          }
+        : undefined,
     ],
     env: [
       {

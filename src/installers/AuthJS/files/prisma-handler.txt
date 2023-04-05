@@ -1,9 +1,8 @@
-import { SolidAuth, type SolidAuthConfig } from "@auth/solid-start";
+import { SolidAuth, type SolidAuthConfig } from "@solid-auth/base";
 import Discord from "@auth/core/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { serverEnv } from "~/env/server";
 import { prisma } from "~/server/db/client";
-import type { Adapter } from "@auth/core/adapters";
 
 export const authOpts: SolidAuthConfig = {
   callbacks: {
@@ -14,9 +13,8 @@ export const authOpts: SolidAuthConfig = {
       return session;
     },
   },
-  adapter: PrismaAdapter(prisma) as Adapter,
+  adapter: PrismaAdapter(prisma),
   providers: [
-    // @ts-expect-error Types Issue
     Discord({
       clientId: serverEnv.DISCORD_ID,
       clientSecret: serverEnv.DISCORD_SECRET,

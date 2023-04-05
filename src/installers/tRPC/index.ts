@@ -13,11 +13,6 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     },
     {
-      path: `${__dirname}/utils/getRoot`,
-      type: "exec",
-      to: `${ctx.userDir}/src/root.tsx`,
-    },
-    {
       path: `${ctx.templateDir}/trpc/api`,
       to: `${ctx.userDir}/src/routes/api/trpc`,
     },
@@ -36,6 +31,13 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/server/trpc/router/example.ts`,
       type: "exec",
     },
+    !ctx.installers.includes("AuthJS")
+      ? {
+          path: `${__dirname}/utils/getRoot`,
+          type: "exec",
+          to: `${ctx.userDir}/src/root.tsx`,
+        }
+      : undefined,
   ],
   pkgs: withPackages({
     normal: [

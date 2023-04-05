@@ -3,8 +3,7 @@ import type { ICtx, IUtil } from "~types";
 const getIndexLocation: IUtil = (ctx) => {
   const usingPRPC = ctx.installers.includes("pRPC");
   const usingTRPC = ctx.installers.includes("tRPC");
-  const usingTw =
-    ctx.installers.includes("TailwindCSS") || ctx.installers.includes("UnoCSS");
+  const usingTw = ctx.installers.includes("TailwindCSS");
   const usingAuth = ctx.installers.includes("AuthJS");
   return createFileHelper(
     usingTRPC || usingPRPC,

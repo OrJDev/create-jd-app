@@ -116,10 +116,7 @@ export async function getCtxWithInstallers(
       let optInstallers = installers.filter(
         (pkg) => !validInstallers.includes(pkg)
       );
-      const opts: Array<Array<TInstallers>> = [
-        ["TailwindCSS", "UnoCSS"],
-        ["tRPC", "pRPC"],
-      ];
+      const opts: Array<Array<TInstallers>> = [["tRPC", "pRPC"]];
       for (const opt of opts) {
         for (const op of opt) {
           if (validInstallers.includes(op)) {

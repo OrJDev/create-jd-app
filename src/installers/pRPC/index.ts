@@ -12,11 +12,12 @@ const config: IInstaller = (ctx) => {
         type: "exec",
         to: `${ctx.userDir}/src/server/queries.ts`,
       },
-      {
-        path: `${__dirname}/utils/getRoot`,
-        type: "exec",
-        to: `${ctx.userDir}/src/root.tsx`,
-      },
+      !ctx.installers.includes("AuthJS")
+        ? {
+            path: `${__dirname}/files/root.txt`,
+            to: `${ctx.userDir}/src/root.tsx`,
+          }
+        : undefined,
     ],
   };
 };

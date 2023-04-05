@@ -1,4 +1,4 @@
-import { SolidAuth, type SolidAuthConfig } from "@auth/solid-start";
+import { SolidAuth, type SolidAuthConfig } from "@solid-auth/base";
 import Discord from "@auth/core/providers/discord";
 import { serverEnv } from "~/env/server";
 
@@ -12,7 +12,6 @@ export const authOpts: SolidAuthConfig = {
     },
   },
   providers: [
-    // @ts-expect-error Types Issue
     Discord({
       clientId: serverEnv.DISCORD_ID,
       clientSecret: serverEnv.DISCORD_SECRET,

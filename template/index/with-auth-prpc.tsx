@@ -1,11 +1,8 @@
 import styles from "./index.module.css";
-import { type VoidComponent, Suspense } from "solid-js";
+import { type VoidComponent } from "solid-js";
 import { A } from "solid-start";
-import { signOut, signIn } from "@auth/solid-start/client";
-import { createServerData$ } from "solid-start/server";
-import { getSession } from "@auth/solid-start";
-import { authOpts } from "./api/auth/[...solidauth]";
 import { helloQuery } from "../server/queries";
+import { createSession, signOut, signIn } from "@solid-auth/base/client";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({
@@ -44,9 +41,7 @@ const Home: VoidComponent = () => {
           <p class={styles.showcaseText}>
             {hello.data ?? "Loading pRPC query"}
           </p>
-          <Suspense>
-            <AuthShowcase />
-          </Suspense>
+          <AuthShowcase />
         </div>
       </div>
     </main>
@@ -60,22 +55,25 @@ const AuthShowcase: VoidComponent = () => {
   return (
     <div class={styles.authContainer}>
       <p class={styles.showcaseText}>
-        {sessionData() && <span>Logged in as {sessionData()?.user?.name}</span>}
+        {sessionData().status === "authenticated" && (
+          <span>
+            Logged in as{" "}
+            {sessionData().data?.user?.name ?? sessionData().data?.user?.email}
+          </span>
+        )}
       </p>
       <button
         class={styles.loginButton}
-        onClick={
-          sessionData() ? () => void signOut() : () => void signIn("discord")
-        }
+        onClick={() => {
+          if (sessionData().status === "authenticated") {
+            void signOut();
+          } else {
+            void signIn("github");
+          }
+        }}
       >
-        {sessionData() ? "Sign out" : "Sign in"}
+        {sessionData().status === "authenticated" ? "Sign out" : "Sign in"}
       </button>
     </div>
   );
-};
-
-const createSession = () => {
-  return createServerData$(async (_, event) => {
-    return await getSession(event.request, authOpts);
-  });
 };

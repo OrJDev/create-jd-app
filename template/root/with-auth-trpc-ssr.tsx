@@ -1,7 +1,4 @@
-import { type IUtil } from "~types";
-
-const getRoot: IUtil = (ctx) => {
-  return `// @refresh reload
+// @refresh reload
 import "./root.css";
 import { Suspense } from "solid-js";
 import {
@@ -16,7 +13,8 @@ import {
   Title,
   Link,
 } from "solid-start";
-import { trpc, queryClient${ctx.ssr ? "" : ", client"} } from "~/utils/trpc";
+import { SessionProvider } from "@solid-auth/base/client";
+import { trpc, queryClient } from "~/utils/trpc";
 
 export default function Root() {
   return (
@@ -30,23 +28,19 @@ export default function Root() {
         <Link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <trpc.Provider${
-          ctx.ssr ? "" : " client={client}"
-        } queryClient={queryClient}>
-          <Suspense>
-            <ErrorBoundary>
-              <Routes>
-                <FileRoutes />
-              </Routes>
-            </ErrorBoundary>
-          </Suspense>
+        <trpc.Provider queryClient={queryClient}>
+          <SessionProvider>
+            <Suspense>
+              <ErrorBoundary>
+                <Routes>
+                  <FileRoutes />
+                </Routes>
+              </ErrorBoundary>
+            </Suspense>
+          </SessionProvider>
         </trpc.Provider>
         <Scripts />
       </Body>
     </Html>
   );
 }
-`;
-};
-
-export default getRoot;
