@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.2.1
+
+### Patch Changes
+
+- [`4bedfa7`](https://github.com/OrJDev/create-jd-app/commit/4bedfa75d9f557ce246cdbb2598b4478bad8aac4) Thanks [@OrJDev](https://github.com/OrJDev)! - bump prpc/vite
+
+- [`620d065`](https://github.com/OrJDev/create-jd-app/commit/620d0655a605e2d584050fdcae924c679b2d8d08) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: bump @prpc/solid
+
 ## 0.2.0
 
 ### Minor Changes
