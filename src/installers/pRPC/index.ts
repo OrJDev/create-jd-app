@@ -17,7 +17,10 @@ const config: IInstaller = (ctx) => {
             path: `${__dirname}/files/root.txt`,
             to: `${ctx.userDir}/src/root.tsx`,
           }
-        : undefined,
+        : {
+            path: `${__dirname}/files/middleware.txt`,
+            to: `${ctx.userDir}/src/server/middleware.ts`,
+          },
     ],
   };
 };

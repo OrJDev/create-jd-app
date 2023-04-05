@@ -31,7 +31,7 @@ export default function Root() {
         <Link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <QueryProvider client={queryClient}>
+        <QueryProvider queryClient={queryClient}>
           <SessionProvider>
             <Suspense>
               <ErrorBoundary>

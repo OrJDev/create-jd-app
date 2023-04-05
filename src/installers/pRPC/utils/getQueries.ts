@@ -8,6 +8,10 @@ import { z } from "zod";${
     usesRateLimit
       ? '\nimport { withRateLimit } from "~/server/withRateLimit";'
       : ""
+  }${
+    ctx.installers.includes("AuthJS")
+      ? `\nimport { authMw } from "./middleware";`
+      : ""
   }
   
 export const helloQuery = query$(
@@ -16,7 +20,18 @@ export const helloQuery = query$(
   },
   "hello",
   z.object({ name: z.string() })${usesRateLimit ? ",\n  withRateLimit" : ""}
-);
+);${
+    ctx.installers.includes("AuthJS")
+      ? `\n\nexport const protectedQuery = query$(
+  ({ ctx$ }) => {
+    return \`server says hello: \${ctx$.session.user.name}\`;
+  },
+  "protected-1",
+  undefined,
+  authMw
+);`
+      : ""
+  }
 `;
 };
 
