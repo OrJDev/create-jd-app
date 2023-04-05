@@ -5,7 +5,7 @@ const getTrpcContext: IUtil = (ctx) => {
   const useNextAuth = ctx.installers.includes("AuthJS");
   return `import type { inferAsyncReturnType } from "@trpc/server";
 import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
-    usePrisma ? `\nimport { prisma } from "~/server/db/client";` : ""
+    usePrisma ? `\nimport { prisma } from "~/server/db";` : ""
   }${
     useNextAuth
       ? `\nimport { getSession } from "@auth/solid-start";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`

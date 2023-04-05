@@ -1,4 +1,4 @@
-import { prisma } from "~/server/db/client";
+import { prisma } from "~/server/db";
 import { json, type APIEvent } from "solid-start";
 
 export async function GET() {

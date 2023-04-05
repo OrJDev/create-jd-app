@@ -10,7 +10,7 @@ const config: IInstaller = (ctx) => ({
     },
     {
       path: `${__dirname}/files/client.txt`,
-      to: `${ctx.userDir}/src/server/db/client.ts`,
+      to: `${ctx.userDir}/src/server/db.ts`,
     },
     !ctx.installers.includes("pRPC") && !ctx.installers.includes("AuthJS")
       ? {
