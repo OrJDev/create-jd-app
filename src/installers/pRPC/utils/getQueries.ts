@@ -2,15 +2,17 @@ import type { IUtil } from "~types";
 
 const getQueries: IUtil = (ctx) => {
   const usesRateLimit = ctx.installers.includes("Upstash Ratelimit");
-
+  const useAuth = ctx.installers.includes("AuthJS");
   return `import { query$ } from "@prpc/solid";
 import { z } from "zod";${
-    usesRateLimit
-      ? '\nimport { withRateLimit } from "~/server/withRateLimit";'
-      : ""
-  }${
-    ctx.installers.includes("AuthJS")
-      ? `\nimport { authMw } from "./middleware";`
+    useAuth || usesRateLimit
+      ? `\nimport { ${
+          useAuth && usesRateLimit
+            ? "authMw, rateLimitMW"
+            : useAuth
+            ? "authMw"
+            : "rateLimitMW"
+        } } from "./middleware";`
       : ""
   }
   
@@ -19,9 +21,9 @@ export const helloQuery = query$(
     return \`server says hello: \${payload.name}\`;
   },
   "hello",
-  z.object({ name: z.string() })${usesRateLimit ? ",\n  withRateLimit" : ""}
+  z.object({ name: z.string() })
 );${
-    ctx.installers.includes("AuthJS")
+    useAuth
       ? `\n\nexport const protectedQuery = query$(
   ({ ctx$ }) => {
     return \`server says hello: \${ctx$.session.user.name}\`;
@@ -29,6 +31,17 @@ export const helloQuery = query$(
   "protected-1",
   undefined,
   authMw
+);`
+      : ""
+  }${
+    usesRateLimit
+      ? `\n\nexport const rateLimitedQuery = query$(
+  () => {
+    return \`server says hello\`;
+  },
+  "limited-1",
+  undefined,
+  rateLimitMW
 );`
       : ""
   }

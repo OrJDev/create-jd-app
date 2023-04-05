@@ -17,10 +17,15 @@ const config: IInstaller = (ctx) => {
             path: `${__dirname}/files/root.txt`,
             to: `${ctx.userDir}/src/root.tsx`,
           }
-        : {
-            path: `${__dirname}/files/middleware.txt`,
+        : undefined,
+      ctx.installers.includes("AuthJS") ||
+      ctx.installers.includes("Upstash Ratelimit")
+        ? {
+            path: `${__dirname}/utils/getMiddleware`,
+            type: "exec",
             to: `${ctx.userDir}/src/server/middleware.ts`,
-          },
+          }
+        : undefined,
     ],
   };
 };
