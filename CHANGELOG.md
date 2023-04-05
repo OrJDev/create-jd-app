@@ -1,5 +1,19 @@
 # create-jd-app
 
+## 0.2.0
+
+### Minor Changes
+
+- [`730f3f5`](https://github.com/OrJDev/create-jd-app/commit/730f3f57d497084e14f791205130575461719815) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: move to the new solid-auth
+
+### Patch Changes
+
+- [`628a058`](https://github.com/OrJDev/create-jd-app/commit/628a058565ac08fe8f539a37fbab95ee409138ef) Thanks [@OrJDev](https://github.com/OrJDev)! - Organize the pRPC middlewares better
+
+- [`e19923f`](https://github.com/OrJDev/create-jd-app/commit/e19923f49d8d877a2816ea3fc82cccb64ae72290) Thanks [@OrJDev](https://github.com/OrJDev)! - move prisma to server/db instead of server/db/client
+
+- [`6476be8`](https://github.com/OrJDev/create-jd-app/commit/6476be884f9ea20e9e0ec6858024c4156c049fcb) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: pRPC protected query example
+
 ## 0.1.33
 
 ### Patch Changes
