@@ -29,7 +29,6 @@ export const helloQuery = query$(
     return \`server says hello: \${ctx$.session.user.name}\`;
   },
   "protected-1",
-  undefined,
   authMw
 );`
       : ""
@@ -40,7 +39,6 @@ export const helloQuery = query$(
     return \`server says hello\`;
   },
   "limited-1",
-  undefined,
   rateLimitMW
 );`
       : ""
