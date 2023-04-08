@@ -2,7 +2,7 @@ import { type SolidAuthConfig } from "@solid-auth/base";
 import Discord from "@auth/core/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { serverEnv } from "~/env/server";
-import { prisma } from "~/server/db";
+import { prisma } from "./db";
 
 declare module "@auth/core/types" {
   export interface Session {
