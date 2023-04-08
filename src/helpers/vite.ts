@@ -17,7 +17,7 @@ export const getViteConfig: IUtil = (ctx) => {
   return `import solid from "solid-start/vite";
 import { defineConfig } from "vite";${
     ctx.vercel ? `\nimport vercel from "solid-start-vercel";` : ""
-  }${usePrpc ? `\nimport prpc from "@prpc/vite";` : ""}
+  }${usePrpc ? `\nimport prpc from "@prpc/vite";import path from "path";` : ""}
   
 export default defineConfig(() => {
   return {
@@ -27,7 +27,7 @@ export default defineConfig(() => {
     usePrpc
       ? `\n    resolve: {
       alias: {
-        rpc: "./src/server/api",
+        rpc: path.join(__dirname, "src", "server", "api"),
       },
     },`
       : ""
