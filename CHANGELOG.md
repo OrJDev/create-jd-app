@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.2.4
+
+### Patch Changes
+
+- [`d832a4a`](https://github.com/OrJDev/create-jd-app/commit/d832a4a64bc265a9ddbe3d97d0bff6944befe584) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: prpc import build alias
+
 ## 0.2.3
 
 ### Patch Changes
