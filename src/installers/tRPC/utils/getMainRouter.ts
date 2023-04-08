@@ -6,6 +6,7 @@ const getMainRouter: IUtil = (ctx) => {
 import { procedure, router${
     useNextAuth ? ", protectedProcedure" : ""
   } } from "../utils";
+
 export default router({
   hello: procedure.input(z.object({ name: z.string() })).query(({ input }) => {
     return \`Hello \${input.name}\`;

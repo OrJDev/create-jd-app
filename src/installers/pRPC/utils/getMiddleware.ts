@@ -6,7 +6,7 @@ const getMiddleware: IUtil = (ctx) => {
   return `import { middleware$, error$ } from "@prpc/solid";${
     useAuth
       ? `\nimport { getSession } from "@solid-auth/base";
-import { authOpts } from "~/routes/api/auth/[...solidauth]";`
+import { authOptions } from "../auth";\n`
       : ""
   }${
     useUpstash
@@ -35,7 +35,7 @@ export const rateLimitMW = middleware$(async ({ request$ }) => {
   }${
     useAuth
       ? `\nexport const authMw = middleware$(async ({ request$ }) => {
-  const session = await getSession(request$, authOpts);
+  const session = await getSession(request$, authOptions);
   if (!session || !session.user) {
     return error$("You can't do that!");
   }

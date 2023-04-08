@@ -14,16 +14,12 @@ const config: IInstaller = (ctx) => {
     }),
     files: [
       {
-        path: `${__dirname}/files/${usePrisma ? "prisma-" : ""}handler.txt`,
+        path: `${__dirname}/files/${usePrisma ? "prisma-" : ""}config.txt`,
+        to: `${ctx.userDir}/src/server/auth.ts`,
+      },
+      {
+        path: `${__dirname}/files/handler.txt`,
         to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
-      },
-      {
-        path: `${__dirname}/files/types.txt`,
-        to: `${ctx.userDir}/auth.d.ts`,
-      },
-      {
-        path: `${__dirname}/files/tsconfig.txt`,
-        to: `${ctx.userDir}/tsconfig.json`,
       },
       !ctx.installers.includes("tRPC") && !ctx.installers.includes("pRPC")
         ? {

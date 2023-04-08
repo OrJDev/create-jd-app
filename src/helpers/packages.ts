@@ -24,7 +24,7 @@ const packages = {
     "solid-trpc->ssr": "0.1.0-sssr.7",
     // next auth
     "@solid-auth/base": "^1.0.0",
-    "@auth/core": "^0.4.0",
+    "@auth/core": "^0.5.1",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.3.5",

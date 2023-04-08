@@ -12,10 +12,12 @@ import type { IContext } from "./context";${
 import { Redis } from "@upstash/redis";`
       : ""
   }
+
 export const t = initTRPC.context<IContext>().create();
+
 export const router = t.router;${
     useUpstash
-      ? `\nconst ratelimit = new Ratelimit({
+      ? `\n\nconst ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.fixedWindow(20, "10 s"),
 });
@@ -42,7 +44,7 @@ export const procedure = t.procedure.use(withRateLimit);`
       : "\nexport const procedure = t.procedure;"
   }${
     useNextAuth
-      ? `\nexport const protectedProcedure = t.procedure${
+      ? `\n\nexport const protectedProcedure = t.procedure${
           useUpstash ? ".use(withRateLimit)" : ""
         }.use(
   t.middleware(async ({ ctx, next }) => {

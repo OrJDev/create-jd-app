@@ -8,9 +8,13 @@ const config: IInstaller = (ctx) => {
     }),
     files: [
       {
+        path: `${__dirname}/files/tsconfig.txt`,
+        to: `${ctx.userDir}/tsconfig.json`,
+      },
+      {
         path: `${__dirname}/utils/getQueries`,
         type: "exec",
-        to: `${ctx.userDir}/src/server/queries.ts`,
+        to: `${ctx.userDir}/src/server/api/queries.ts`,
       },
       !ctx.installers.includes("AuthJS")
         ? {
@@ -23,7 +27,7 @@ const config: IInstaller = (ctx) => {
         ? {
             path: `${__dirname}/utils/getMiddleware`,
             type: "exec",
-            to: `${ctx.userDir}/src/server/middleware.ts`,
+            to: `${ctx.userDir}/src/server/api/middleware.ts`,
           }
         : undefined,
     ],

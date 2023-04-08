@@ -1,23 +1,4 @@
-import { SolidAuth, type SolidAuthConfig } from "@solid-auth/base";
-import Discord from "@auth/core/providers/discord";
-import { serverEnv } from "~/env/server";
+import { SolidAuth } from "@solid-auth/base";
+import { authOptions } from "~/server/auth";
 
-export const authOpts: SolidAuthConfig = {
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-      }
-      return session;
-    },
-  },
-  providers: [
-    Discord({
-      clientId: serverEnv.DISCORD_ID,
-      clientSecret: serverEnv.DISCORD_SECRET,
-    }),
-  ],
-  debug: false,
-};
-
-export const { GET, POST } = SolidAuth(authOpts);
+export const { GET, POST } = SolidAuth(authOptions);

@@ -8,14 +8,15 @@ import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db";` : ""
   }${
     useNextAuth
-      ? `\nimport { getSession } from "@auth/solid-start";\nimport { authOpts } from "~/routes/api/auth/[...solidauth]";`
+      ? `\nimport { getSession } from "@solid-auth/base";\nimport { authOptions } from "../auth";`
       : ""
   }
+
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext
 ) => {${
     useNextAuth
-      ? `\n  const session = await getSession(opts.req, authOpts);`
+      ? `\n  const session = await getSession(opts.req, authOptions);`
       : ""
   }
   return {
@@ -24,9 +25,11 @@ export const createContextInner = async (
   }
   };
 };
+
 export const createContext = async (opts: createSolidAPIHandlerContext) => {
   return await createContextInner(opts);
 };
+
 export type IContext = inferAsyncReturnType<typeof createContext>;
 `;
 };

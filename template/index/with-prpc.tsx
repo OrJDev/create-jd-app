@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
 import { type VoidComponent } from "solid-js";
 import { A } from "solid-start";
-import { helloQuery } from "../server/queries";
+import { helloQuery } from "rpc/queries";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({

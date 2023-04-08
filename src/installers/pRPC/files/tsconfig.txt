@@ -8,10 +8,11 @@
     "moduleResolution": "node",
     "jsxImportSource": "solid-js",
     "jsx": "preserve",
-    "types": ["solid-start/env", "./auth"],
+    "types": ["solid-start/env"],
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "rpc/*": ["./src/server/api/*"]
     }
   }
 }
