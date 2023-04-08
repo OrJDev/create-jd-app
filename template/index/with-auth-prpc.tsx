@@ -66,7 +66,7 @@ const AuthShowcase: VoidComponent = () => {
             if (session.data?.info) {
               void signOut().then(() => session.refetch());
             } else {
-              void signIn("github");
+              void signIn("discord");
             }
           }}
         >

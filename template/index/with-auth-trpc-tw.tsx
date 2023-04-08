@@ -65,7 +65,7 @@ const AuthShowcase: VoidComponent = () => {
           if (sessionData().status === "authenticated") {
             void signOut();
           } else {
-            void signIn("github");
+            void signIn("discord");
           }
         }}
       >
