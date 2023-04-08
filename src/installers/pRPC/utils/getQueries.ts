@@ -16,31 +16,31 @@ import { z } from "zod";${
       : ""
   }
   
-export const helloQuery = query$(
-  ({ payload }) => {
+export const helloQuery = query$({
+  queryFn: ({ payload }) => {
     return \`server says hello: \${payload.name}\`;
   },
-  "hello",
-  z.object({ name: z.string() })
-);${
+  key: "hello",
+  schema: z.object({ name: z.string() }),
+});${
     useAuth
-      ? `\n\nexport const protectedQuery = query$(
-  ({ ctx$ }) => {
-    return \`server says hello: \${ctx$.session.user.name}\`;
+      ? `\n\nexport const protectedQuery = query$({
+  queryFn: ({ ctx$ }) => {
+    return \`protected -\${ctx$.session.user.name}\`;
   },
-  "protected-1",
-  authMw
-);`
+  key: "protected-1",
+  middlewares: [authMw],
+});`
       : ""
   }${
     usesRateLimit
-      ? `\n\nexport const rateLimitedQuery = query$(
-  () => {
-    return \`server says hello\`;
+      ? `\n\nexport const rateLimitedQuery = query$({
+  queryFn: () => {
+    return "You are not limited, yay!";
   },
-  "limited-1",
-  rateLimitMW
-);`
+  key: "limited",
+  middlewares: [rateLimitMW],
+});`
       : ""
   }
 `;
