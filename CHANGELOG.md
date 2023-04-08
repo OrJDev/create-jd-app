@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.2.5
+
+### Patch Changes
+
+- [`06739a9`](https://github.com/OrJDev/create-jd-app/commit/06739a976593a014f0c0262cba6665208241c08f) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: use prpc query to fetch logged in user
+
 ## 0.2.4
 
 ### Patch Changes
