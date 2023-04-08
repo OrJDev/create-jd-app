@@ -23,6 +23,14 @@ export default defineConfig(() => {
   return {
     plugins: ${plugins},${
     usePrisma ? `\n    ssr: { external: ["@prisma/client"] },` : ""
+  }${
+    usePrpc
+      ? `\n    resolve: {
+      alias: {
+        rpc: "./src/server/api",
+      },
+    },`
+      : ""
   }
   };
 });
