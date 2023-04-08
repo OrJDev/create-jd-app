@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.2.2
+
+### Patch Changes
+
+- [`6aed32c`](https://github.com/OrJDev/create-jd-app/commit/6aed32cb28a790d6b7902133957012aef64df771) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: new folder structure
+
+- [`c6a5c7e`](https://github.com/OrJDev/create-jd-app/commit/c6a5c7e0a5739681a76a7637e8fc69870be6245c) Thanks [@OrJDev](https://github.com/OrJDev)! - bump packages + prpc object syntax
+
 ## 0.2.1
 
 ### Patch Changes
