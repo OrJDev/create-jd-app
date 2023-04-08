@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.2.3
+
+### Patch Changes
+
+- [`15a9ca5`](https://github.com/OrJDev/create-jd-app/commit/15a9ca5b3931049904ade4ca069484dbae3f4d53) Thanks [@OrJDev](https://github.com/OrJDev)! - clean the path of prisma
+
+- [`70853d1`](https://github.com/OrJDev/create-jd-app/commit/70853d10cde4ab1de472bb5815fe79077b837087) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: import alias for prpc
+
 ## 0.2.2
 
 ### Patch Changes
