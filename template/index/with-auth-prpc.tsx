@@ -1,8 +1,8 @@
 import styles from "./index.module.css";
-import { type VoidComponent } from "solid-js";
+import { type VoidComponent, Show } from "solid-js";
 import { A } from "solid-start";
-import { helloQuery } from "rpc/queries";
-import { createSession, signOut, signIn } from "@solid-auth/base/client";
+import { helloQuery, meQuery } from "rpc/queries";
+import { signOut, signIn } from "@solid-auth/base/client";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({
@@ -51,29 +51,28 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const sessionData = createSession();
+  const session = meQuery();
   return (
-    <div class={styles.authContainer}>
-      <p class={styles.showcaseText}>
-        {sessionData().status === "authenticated" && (
-          <span>
-            Logged in as{" "}
-            {sessionData().data?.user?.name ?? sessionData().data?.user?.email}
-          </span>
-        )}
-      </p>
-      <button
-        class={styles.loginButton}
-        onClick={() => {
-          if (sessionData().status === "authenticated") {
-            void signOut();
-          } else {
-            void signIn("github");
-          }
-        }}
-      >
-        {sessionData().status === "authenticated" ? "Sign out" : "Sign in"}
-      </button>
-    </div>
+    <Show when={session.data}>
+      <div class={styles.authContainer}>
+        <p class={styles.showcaseText}>
+          {session.data?.info && (
+            <span>Logged in as {session.data.info?.user?.name}</span>
+          )}
+        </p>
+        <button
+          class={styles.loginButton}
+          onClick={() => {
+            if (session.data?.info) {
+              void signOut().then(() => session.refetch());
+            } else {
+              void signIn("github");
+            }
+          }}
+        >
+          {session.data?.info ? "Sign out" : "Sign in"}
+        </button>
+      </div>
+    </Show>
   );
 };

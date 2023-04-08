@@ -14,6 +14,11 @@ import { z } from "zod";${
             : "rateLimitMW"
         } } from "./middleware";`
       : ""
+  }${
+    useAuth
+      ? `\nimport { getSession } from "@solid-auth/base";
+import { authOptions } from "../auth";`
+      : ""
   }
   
 export const helloQuery = query$({
@@ -30,6 +35,15 @@ export const helloQuery = query$({
   },
   key: "protected-1",
   middlewares: [authMw],
+});
+
+export const meQuery = query$({
+  queryFn: async ({ request$ }) => {
+    return {
+      info: await getSession(request$, authOptions),
+    };
+  },
+  key: "me",
 });`
       : ""
   }${
