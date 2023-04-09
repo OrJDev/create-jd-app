@@ -13,8 +13,8 @@ const packages = {
     // prisma
     "@prisma/client": "^4.10.1",
     // prpc
-    "@prpc/solid": "^0.2.24",
-    "@prpc/vite": "^0.3.14",
+    "@prpc/solid": "^0.2.25",
+    "@prpc/vite": "^0.3.16",
     // trpc
     "@tanstack/solid-query": "^5.0.0-alpha.16",
     "@trpc/client": "^10.12.0",

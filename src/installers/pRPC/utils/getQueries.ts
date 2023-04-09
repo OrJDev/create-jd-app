@@ -8,10 +8,10 @@ import { z } from "zod";${
     useAuth || usesRateLimit
       ? `\nimport { ${
           useAuth && usesRateLimit
-            ? "authMw, rateLimitMW"
+            ? "protectedProcedure, rateLimitProcedure"
             : useAuth
-            ? "authMw"
-            : "rateLimitMW"
+            ? "protectedProcedure"
+            : "rateLimitProcedure"
         } } from "./middleware";`
       : ""
   }${
@@ -29,12 +29,11 @@ export const helloQuery = query$({
   schema: z.object({ name: z.string() }),
 });${
     useAuth
-      ? `\n\nexport const protectedQuery = query$({
+      ? `\n\nexport const protectedQuery = protectedProcedure.query$({
   queryFn: ({ ctx$ }) => {
     return \`protected -\${ctx$.session.user.name}\`;
   },
-  key: "protected-1",
-  middlewares: [authMw],
+  key: "protected-1"
 });
 
 export const meQuery = query$({
@@ -48,12 +47,11 @@ export const meQuery = query$({
       : ""
   }${
     usesRateLimit
-      ? `\n\nexport const rateLimitedQuery = query$({
+      ? `\n\nexport const rateLimitedQuery = rateLimitProcedure.query$({
   queryFn: () => {
     return "You are not limited, yay!";
   },
   key: "limited",
-  middlewares: [rateLimitMW],
 });`
       : ""
   }
