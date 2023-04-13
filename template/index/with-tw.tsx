@@ -6,7 +6,7 @@ const Home: VoidComponent = () => {
     <main class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#026d56] to-[#152a2c]">
       <div class="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
         <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span class="text-[hsl(88, 77%, 78%)]">JD</span> App
+          Create <span class="text-[hsl(88,_77%,_78%)]">JD</span> App
         </h1>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
           <A

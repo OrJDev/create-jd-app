@@ -16,6 +16,10 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/tailwind.config.cjs`,
     },
     {
+      path: `${__dirname}/files/vscode-settings.txt`,
+      to: `${ctx.userDir}/.vscode/settings.json`,
+    },
+    {
       to: `${ctx.userDir}/src/routes/index.module.css`,
       type: "delete",
     },
