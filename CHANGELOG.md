@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 0.2.6
+
+### Patch Changes
+
+- [`51f3377`](https://github.com/OrJDev/create-jd-app/commit/51f3377cf93c1e065bab14ab35905d542b024bca) Thanks [@OrJDev](https://github.com/OrJDev)! - change: signIn to discord
+
 ## 0.2.5
 
 ### Patch Changes
