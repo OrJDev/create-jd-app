@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import { type VoidComponent } from "solid-js";
+import { type VoidComponent, Suspense, Show } from "solid-js";
 import { A } from "solid-start";
 import { createSession, signOut, signIn } from "@solid-auth/base/client";
 
@@ -33,7 +33,9 @@ const Home: VoidComponent = () => {
             </div>
           </A>
         </div>
-        <AuthShowcase />
+        <Suspense>
+          <AuthShowcase />
+        </Suspense>
       </div>
     </main>
   );
@@ -42,29 +44,28 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const sessionData = createSession();
+  const session = createSession();
   return (
     <div class={styles.authContainer}>
-      <p class={styles.showcaseText}>
-        {sessionData().status === "authenticated" && (
-          <span>
-            Logged in as{" "}
-            {sessionData().data?.user?.name ?? sessionData().data?.user?.email}
-          </span>
-        )}{" "}
-      </p>
-      <button
-        class={styles.loginButton}
-        onClick={() => {
-          if (sessionData().status === "authenticated") {
-            void signOut();
-          } else {
-            void signIn("discord");
-          }
-        }}
+      <Show
+        when={session()}
+        fallback={
+          <button
+            onClick={() => signIn("discord", { redirectTo: "/" })}
+            class={styles.loginButton}
+          >
+            Sign in
+          </button>
+        }
       >
-        {sessionData().status === "authenticated" ? "Sign out" : "Sign in"}
-      </button>
+        <span class={styles.showcaseText}>Welcome {session()?.user?.name}</span>
+        <button
+          onClick={() => signOut({ redirectTo: "/" })}
+          class={styles.loginButton}
+        >
+          Sign out
+        </button>
+      </Show>
     </div>
   );
 };

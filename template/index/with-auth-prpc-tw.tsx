@@ -1,7 +1,7 @@
-import { Show, type VoidComponent } from "solid-js";
+import { Show, type VoidComponent, Suspense } from "solid-js";
 import { A } from "solid-start";
-import { helloQuery, meQuery } from "rpc/queries";
-import { signOut, signIn } from "@solid-auth/base/client";
+import { helloQuery } from "rpc/queries";
+import { signOut, signIn, createSession } from "@solid-auth/base/client";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({
@@ -40,7 +40,9 @@ const Home: VoidComponent = () => {
           <p class="text-2xl text-white">
             {hello.data ?? "Loading pRPC query"}
           </p>
-          <AuthShowcase />
+          <Suspense>
+            <AuthShowcase />
+          </Suspense>
         </div>
       </div>
     </main>
@@ -50,28 +52,28 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const session = meQuery();
+  const session = createSession();
   return (
-    <Show when={session.data}>
-      <div class="flex flex-col items-center justify-center gap-4">
-        <p class="text-center text-2xl text-white">
-          {session.data?.info && (
-            <span>Logged in as {session.data.info?.user?.name}</span>
-          )}
-        </p>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <Show
+        when={session()}
+        fallback={
+          <button
+            onClick={() => signIn("discord", { redirectTo: "/" })}
+            class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+          >
+            Sign in
+          </button>
+        }
+      >
+        <span class="text-xl text-white">Welcome {session()?.user?.name}</span>
         <button
+          onClick={() => signOut({ redirectTo: "/" })}
           class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          onClick={() => {
-            if (session.data?.info) {
-              void signOut().then(() => session.refetch());
-            } else {
-              void signIn("discord");
-            }
-          }}
         >
-          {session.data?.info ? "Sign out" : "Sign in"}
+          Sign out
         </button>
-      </div>
-    </Show>
+      </Show>
+    </div>
   );
 };

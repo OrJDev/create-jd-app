@@ -8,16 +8,11 @@ import { z } from "zod";${
     useAuth || usesRateLimit
       ? `\nimport { ${
           useAuth && usesRateLimit
-            ? "protectedProcedure, rateLimitProcedure"
+            ? "authMw, rateLimitMW"
             : useAuth
-            ? "protectedProcedure"
-            : "rateLimitProcedure"
+            ? "authMw"
+            : "rateLimitMW"
         } } from "./middleware";`
-      : ""
-  }${
-    useAuth
-      ? `\nimport { getSession } from "@solid-auth/base";
-import { authOptions } from "../auth";`
       : ""
   }
   
@@ -29,29 +24,23 @@ export const helloQuery = query$({
   schema: z.object({ name: z.string() }),
 });${
     useAuth
-      ? `\n\nexport const protectedQuery = protectedProcedure.query$({
+      ? `\n\nexport const protectedQuery = query$({
   queryFn: ({ ctx$ }) => {
     return \`protected -\${ctx$.session.user.name}\`;
   },
-  key: "protected-1"
+  key: "protected-1",
+  middlewares: [authMw],
 });
-
-export const meQuery = query$({
-  queryFn: async ({ request$ }) => {
-    return {
-      info: await getSession(request$, authOptions),
-    };
-  },
-  key: "me",
-});`
+`
       : ""
   }${
     usesRateLimit
-      ? `\n\nexport const rateLimitedQuery = rateLimitProcedure.query$({
+      ? `\n\nexport const rateLimitedQuery = query$({
   queryFn: () => {
     return "You are not limited, yay!";
   },
   key: "limited",
+  middlewares: [rateLimitMW],
 });`
       : ""
   }

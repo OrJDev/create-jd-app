@@ -3,7 +3,7 @@ import type { IUtil } from "~types";
 const getMiddleware: IUtil = (ctx) => {
   const useAuth = ctx.installers.includes("AuthJS");
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
-  return `import { middleware$, error$, reuseable$ } from "@prpc/solid";${
+  return `import { middleware$, error$ } from "@prpc/solid";${
     useAuth
       ? `\nimport { getSession } from "@solid-auth/base";
 import { authOptions } from "../auth";\n`
@@ -30,8 +30,6 @@ export const rateLimitMW = middleware$(async ({ request$ }) => {
     );
   }
 });
-
-export const rateLimitProcedure = reuseable$(rateLimitMW);
 `
       : ""
   }${
@@ -48,8 +46,6 @@ export const rateLimitProcedure = reuseable$(rateLimitMW);
     },
   };
 });
-
-export const protectedProcedure = reuseable$(authMw);
 `
       : ""
   }  

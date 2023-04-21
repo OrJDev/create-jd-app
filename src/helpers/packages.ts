@@ -13,8 +13,8 @@ const packages = {
     // prisma
     "@prisma/client": "^4.10.1",
     // prpc
-    "@prpc/solid": "^0.2.25",
-    "@prpc/vite": "^0.3.16",
+    "@prpc/solid": "^0.2.32",
+    "@prpc/vite": "^0.3.21",
     // trpc
     "@tanstack/solid-query": "^5.0.0-alpha.16",
     "@trpc/client": "^10.12.0",
@@ -23,7 +23,7 @@ const packages = {
     "solid-trpc": "^0.0.11-rc.3",
     "solid-trpc->ssr": "0.1.0-sssr.7",
     // next auth
-    "@solid-auth/base": "^1.0.0",
+    "@solid-auth/base": "^2.0.2",
     "@auth/core": "^0.5.1",
     "@next-auth/prisma-adapter": "^1.0.5",
     // upstash ratelimit

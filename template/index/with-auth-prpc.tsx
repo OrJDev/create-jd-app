@@ -1,8 +1,8 @@
 import styles from "./index.module.css";
-import { type VoidComponent, Show } from "solid-js";
+import { type VoidComponent, Show, Suspense } from "solid-js";
 import { A } from "solid-start";
-import { helloQuery, meQuery } from "rpc/queries";
-import { signOut, signIn } from "@solid-auth/base/client";
+import { helloQuery } from "rpc/queries";
+import { signOut, signIn, createSession } from "@solid-auth/base/client";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({
@@ -41,7 +41,9 @@ const Home: VoidComponent = () => {
           <p class={styles.showcaseText}>
             {hello.data ?? "Loading pRPC query"}
           </p>
-          <AuthShowcase />
+          <Suspense>
+            <AuthShowcase />
+          </Suspense>
         </div>
       </div>
     </main>
@@ -51,28 +53,28 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const session = meQuery();
+  const session = createSession();
   return (
-    <Show when={session.data}>
-      <div class={styles.authContainer}>
-        <p class={styles.showcaseText}>
-          {session.data?.info && (
-            <span>Logged in as {session.data.info?.user?.name}</span>
-          )}
-        </p>
+    <div class={styles.authContainer}>
+      <Show
+        when={session()}
+        fallback={
+          <button
+            onClick={() => signIn("discord", { redirectTo: "/" })}
+            class={styles.loginButton}
+          >
+            Sign in
+          </button>
+        }
+      >
+        <span class={styles.showcaseText}>Welcome {session()?.user?.name}</span>
         <button
+          onClick={() => signOut({ redirectTo: "/" })}
           class={styles.loginButton}
-          onClick={() => {
-            if (session.data?.info) {
-              void signOut().then(() => session.refetch());
-            } else {
-              void signIn("discord");
-            }
-          }}
         >
-          {session.data?.info ? "Sign out" : "Sign in"}
+          Sign out
         </button>
-      </div>
-    </Show>
+      </Show>
+    </div>
   );
 };
