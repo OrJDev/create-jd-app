@@ -1,5 +1,17 @@
 # create-jd-app
 
+## 0.2.7
+
+### Patch Changes
+
+- [`1280672`](https://github.com/OrJDev/create-jd-app/commit/1280672d482e6033f2c26ef84ecaec193cde8af6) Thanks [@OrJDev](https://github.com/OrJDev)! - prpc: use reuseable$ for auth and limiting
+
+- [`9dca4b6`](https://github.com/OrJDev/create-jd-app/commit/9dca4b6d66e0845a4c92a149e0d374459866d49c) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: authjs hydration & prpc reuseable$
+
+- [#92](https://github.com/OrJDev/create-jd-app/pull/92) [`2fd363d`](https://github.com/OrJDev/create-jd-app/commit/2fd363d04e4bd16cb141cdc78129a5c5cb11f75e) Thanks [@jesseb34r](https://github.com/jesseb34r)! - fix: use correct tailwind hsl syntax for arbitrary colors
+
+- [#92](https://github.com/OrJDev/create-jd-app/pull/92) [`e04fc70`](https://github.com/OrJDev/create-jd-app/commit/e04fc70bd3eccd80e3efcc1aaff1ac40113d6027) Thanks [@jesseb34r](https://github.com/jesseb34r)! - feat: add recommended vscode editor settings to tailwindcss template
+
 ## 0.2.6
 
 ### Patch Changes
