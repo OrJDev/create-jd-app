@@ -16,7 +16,7 @@ const packages = {
     "@prpc/solid": "^0.2.32",
     "@prpc/vite": "^0.3.21",
     // trpc
-    "@tanstack/solid-query": "^5.0.0-alpha.16",
+    "@tanstack/solid-query": "5.0.0-alpha.20",
     "@trpc/client": "^10.12.0",
     "@trpc/server": "^10.12.0",
     "solid-start-trpc": "^0.0.16",
