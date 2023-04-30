@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 0.2.8
+
+### Patch Changes
+
+- [`e6cb8a0`](https://github.com/OrJDev/create-jd-app/commit/e6cb8a0d213123a7e9e4e1a8b52188f843b45a49) Thanks [@OrJDev](https://github.com/OrJDev)! - bump: @prpc/solid to latest
+
+- [`92b6ec6`](https://github.com/OrJDev/create-jd-app/commit/92b6ec6ba94678895fb7b213f47c7941ace75455) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: lock solid query
+
 ## 0.2.7
 
 ### Patch Changes
