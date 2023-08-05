@@ -16,12 +16,12 @@ const packages = {
     "@prpc/solid": "^0.2.33",
     "@prpc/vite": "^0.3.21",
     // trpc
-    "@tanstack/solid-query": "5.0.0-alpha.20",
+    "@tanstack/solid-query": "^5.0.0-beta.15",
     "@trpc/client": "^10.12.0",
     "@trpc/server": "^10.12.0",
     "solid-start-trpc": "^0.0.16",
-    "solid-trpc": "^0.0.11-rc.3",
-    "solid-trpc->ssr": "0.1.0-sssr.7",
+    "solid-trpc": "^0.0.12-rc.3",
+    "solid-trpc->ssr": "0.1.0-sssr.8",
     // next auth
     "@solid-mediakit/auth": "^1.0.0",
     "@auth/core": "^0.10.0",
