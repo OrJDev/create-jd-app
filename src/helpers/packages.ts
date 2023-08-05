@@ -1,7 +1,7 @@
 const packages = {
   dev: {
     // adapters
-    "solid-start-vercel": "^0.2.26",
+    "solid-start-vercel": "^0.2.30",
     // tailwind
     tailwindcss: "^3.2.7",
     postcss: "^8.4.21",
@@ -13,7 +13,7 @@ const packages = {
     // prisma
     "@prisma/client": "^4.10.1",
     // prpc
-    "@prpc/solid": "^0.2.33",
+    "@prpc/solid": "^0.2.35",
     "@prpc/vite": "^0.3.21",
     // trpc
     "@tanstack/solid-query": "^5.0.0-beta.15",
