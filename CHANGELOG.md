@@ -1,5 +1,17 @@
 # create-jd-app
 
+## 0.2.9
+
+### Patch Changes
+
+- [`3d2517d`](https://github.com/OrJDev/create-jd-app/commit/3d2517d7fc6277325c2006aea2fd6d31725ce35e) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: bump everything to latest
+
+- [`727642a`](https://github.com/OrJDev/create-jd-app/commit/727642a59a3ac974f67668dda151db4c8e32adc1) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use the correct prisma adapter for authjs
+
+- [`8706b54`](https://github.com/OrJDev/create-jd-app/commit/8706b546c422e29a929f81f80a4eef9f01245308) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: update solid query & trpc to its beta version
+
+- [`0a81a7b`](https://github.com/OrJDev/create-jd-app/commit/0a81a7bbe0d20e5db476ba90277ececb75e00bd6) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use a better version of solid-auth
+
 ## 0.2.8
 
 ### Patch Changes
