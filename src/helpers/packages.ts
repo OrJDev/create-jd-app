@@ -25,7 +25,7 @@ const packages = {
     // next auth
     "@solid-mediakit/auth": "^1.0.0",
     "@auth/core": "^0.10.0",
-    "@next-auth/prisma-adapter": "^1.0.5",
+    "@auth/prisma-adapter": "^1.0.1",
     // upstash ratelimit
     "@upstash/ratelimit": "^0.3.5",
     "@upstash/redis": "^1.20.0",

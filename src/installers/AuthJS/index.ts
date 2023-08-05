@@ -9,7 +9,7 @@ const config: IInstaller = (ctx) => {
     "@solid-mediakit/auth",
   ];
   if (usePrisma) {
-    normal.push("@next-auth/prisma-adapter");
+    normal.push("@auth/prisma-adapter");
   }
   return {
     pkgs: withPackages({
