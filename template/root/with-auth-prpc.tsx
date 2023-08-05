@@ -13,7 +13,7 @@ import {
   Title,
   Link,
 } from "solid-start";
-import { SessionProvider } from "@solid-auth/base/client";
+import { SessionProvider } from "@solid-mediakit/auth/client";
 import { QueryProvider } from "@prpc/solid";
 import { QueryClient } from "@tanstack/solid-query";
 

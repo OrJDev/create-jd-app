@@ -13,7 +13,7 @@ import {
   Title,
   Link,
 } from "solid-start";
-import { SessionProvider } from "@solid-auth/base/client";
+import { SessionProvider } from "@solid-mediakit/auth/client";
 import { trpc, queryClient } from "~/utils/trpc";
 
 export default function Root() {

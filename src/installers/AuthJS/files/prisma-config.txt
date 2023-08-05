@@ -1,4 +1,4 @@
-import { type SolidAuthConfig } from "@solid-auth/base";
+import { type SolidAuthConfig } from "@solid-mediakit/auth";
 import Discord from "@auth/core/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db";

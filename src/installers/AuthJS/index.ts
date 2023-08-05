@@ -4,7 +4,10 @@ import type { IInstaller } from "~types";
 
 const config: IInstaller = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const normal: KeyOrKeyArray<"normal"> = ["@auth/core", "@solid-auth/base"];
+  const normal: KeyOrKeyArray<"normal"> = [
+    "@auth/core",
+    "@solid-mediakit/auth",
+  ];
   if (usePrisma) {
     normal.push("@next-auth/prisma-adapter");
   }

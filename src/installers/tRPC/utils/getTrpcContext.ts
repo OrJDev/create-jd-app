@@ -8,7 +8,7 @@ import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
     usePrisma ? `\nimport { prisma } from "~/server/db";` : ""
   }${
     useNextAuth
-      ? `\nimport { getSession } from "@solid-auth/base";\nimport { authOptions } from "../auth";`
+      ? `\nimport { getSession } from "@solid-mediakit/auth";\nimport { authOptions } from "../auth";`
       : ""
   }
 

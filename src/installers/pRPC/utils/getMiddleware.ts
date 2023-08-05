@@ -5,7 +5,7 @@ const getMiddleware: IUtil = (ctx) => {
   const useUpstash = ctx.installers.includes("Upstash Ratelimit");
   return `import { middleware$, error$ } from "@prpc/solid";${
     useAuth
-      ? `\nimport { getSession } from "@solid-auth/base";
+      ? `\nimport { getSession } from "@solid-mediakit/auth";
 import { authOptions } from "../auth";\n`
       : ""
   }${

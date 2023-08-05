@@ -2,7 +2,7 @@ import styles from "./index.module.css";
 import { type VoidComponent, Show, Suspense } from "solid-js";
 import { A } from "solid-start";
 import { helloQuery } from "rpc/queries";
-import { signOut, signIn, createSession } from "@solid-auth/base/client";
+import { signOut, signIn, createSession } from "@solid-mediakit/auth/client";
 
 const Home: VoidComponent = () => {
   const hello = helloQuery(() => ({
