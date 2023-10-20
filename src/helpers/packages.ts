@@ -1,7 +1,7 @@
 const packages = {
   dev: {
     // adapters
-    "solid-start-vercel": "^0.2.30",
+    "solid-start-vercel": "^0.3.7",
     // tailwind
     tailwindcss: "^3.2.7",
     postcss: "^8.4.21",
@@ -16,14 +16,13 @@ const packages = {
     "@prpc/solid": "^0.2.35",
     "@prpc/vite": "^0.3.21",
     // trpc
-    "@tanstack/solid-query": "^5.0.0-beta.15",
-    "@trpc/client": "^10.12.0",
-    "@trpc/server": "^10.12.0",
+    "@tanstack/solid-query": "^5.0.0",
+    "@trpc/client": "^10.41.0",
+    "@trpc/server": "^10.41.0",
     "solid-start-trpc": "^0.0.16",
-    "solid-trpc": "^0.0.12-rc.3",
-    "solid-trpc->ssr": "0.1.0-sssr.8",
+    "@solid-mediakit/trpc": "^1.0.2",
     // next auth
-    "@solid-mediakit/auth": "^1.0.0",
+    "@solid-mediakit/auth": "^1.0.3",
     "@auth/core": "^0.10.0",
     "@auth/prisma-adapter": "^1.0.1",
     // upstash ratelimit

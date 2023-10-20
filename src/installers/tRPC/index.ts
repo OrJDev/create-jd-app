@@ -9,7 +9,7 @@ const config: IInstaller = (ctx) => ({
       sep: true,
     },
     {
-      path: `${__dirname}/files/${ctx.ssr ? "ssr-utils" : "utils"}.txt`,
+      path: `${__dirname}/files/ssr-utils.txt`,
       to: `${ctx.userDir}/src/utils/trpc.ts`,
     },
     {
@@ -31,17 +31,10 @@ const config: IInstaller = (ctx) => ({
       to: `${ctx.userDir}/src/server/trpc/router/example.ts`,
       type: "exec",
     },
-    !ctx.installers.includes("AuthJS")
-      ? {
-          path: `${__dirname}/utils/getRoot`,
-          type: "exec",
-          to: `${ctx.userDir}/src/root.tsx`,
-        }
-      : undefined,
   ],
   pkgs: withPackages({
     normal: [
-      ctx.ssr ? "solid-trpc->ssr" : "solid-trpc",
+      "@solid-mediakit/trpc",
       "@tanstack/solid-query",
       "solid-start-trpc",
       "@trpc/client",

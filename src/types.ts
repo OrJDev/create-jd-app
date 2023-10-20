@@ -7,7 +7,6 @@ export type IAppCtx = {
   templateDir: string;
   vercel?: IVercelOpt;
   pkgManager: ReturnType<typeof getUserPackageManager>;
-  ssr: boolean;
 };
 
 export type IVercelOpt = "Cli" | "Dashboard";

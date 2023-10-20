@@ -150,20 +150,9 @@ export async function getCtxWithInstallers(
       pkgs = validInstallers as TInstallers[];
     }
   }
-  let ssr = true;
-  if (pkgs.includes("tRPC")) {
-    ssr = (
-      await inquirer.prompt<{ ssr: boolean }>({
-        name: "ssr",
-        type: "confirm",
-        message: "Do you want to use SSR with tRPC?",
-        default: true,
-      })
-    ).ssr;
-  }
+
   return {
     ...ctx,
     installers: pkgs,
-    ssr,
   };
 }

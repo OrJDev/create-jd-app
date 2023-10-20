@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/solid-query";
 import type { IAppRouter } from "~/server/trpc/router/_app";
-import { createTRPCSolidStart } from "solid-trpc";
+import { createTRPCSolidStart } from "@solid-mediakit/trpc";
 import { httpBatchLink } from "@trpc/client";
 
 const getBaseUrl = () => {

@@ -8,9 +8,9 @@ export const getViteConfig: IUtil = (ctx) => {
   const withPrpc = usePrpc ? "prpc(), " : "";
   const getPlugins = () => {
     if (ctx.vercel) {
-      return `[${withPrpc}solid({ ssr: ${ctx.ssr}, adapter: vercel({ edge: false }) })]`;
+      return `[${withPrpc}solid({ ssr: true, adapter: vercel({ edge: false }) })]`;
     } else {
-      return `[${withPrpc}solid({ ssr: ${ctx.ssr} })]`;
+      return `[${withPrpc}solid({ ssr: true })]`;
     }
   };
   const plugins = getPlugins();
@@ -40,7 +40,6 @@ export default defineConfig(() => {
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
   if (
     ctx.vercel ||
-    !ctx.ssr ||
     ctx.installers.includes("Prisma") ||
     ctx.installers.includes("pRPC")
   ) {

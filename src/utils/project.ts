@@ -102,7 +102,6 @@ export async function initApp(args: string[]): Promise<IAppCtx> {
     vercel,
     pkgManager,
     templateDir: path.join(__dirname, "../../template"),
-    ssr: true,
   };
 }
 

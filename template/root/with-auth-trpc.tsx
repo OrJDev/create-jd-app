@@ -13,8 +13,9 @@ import {
   Title,
   Link,
 } from "solid-start";
+import { trpc, queryClient } from "~/utils/trpc";
+import { QueryClientProvider } from "@tanstack/solid-query";
 import { SessionProvider } from "@solid-mediakit/auth/client";
-import { trpc, queryClient, client } from "~/utils/trpc";
 
 export default function Root() {
   return (
@@ -28,17 +29,19 @@ export default function Root() {
         <Link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <trpc.Provider client={client} queryClient={queryClient}>
-          <SessionProvider>
-            <Suspense>
-              <ErrorBoundary>
-                <Routes>
-                  <FileRoutes />
-                </Routes>
-              </ErrorBoundary>
-            </Suspense>
-          </SessionProvider>
-        </trpc.Provider>
+        <Suspense>
+          <ErrorBoundary>
+            <SessionProvider>
+              <QueryClientProvider client={queryClient}>
+                <trpc.Provider queryClient={queryClient}>
+                  <Routes>
+                    <FileRoutes />
+                  </Routes>
+                </trpc.Provider>
+              </QueryClientProvider>
+            </SessionProvider>
+          </ErrorBoundary>
+        </Suspense>
         <Scripts />
       </Body>
     </Html>
