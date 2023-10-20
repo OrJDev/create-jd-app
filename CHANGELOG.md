@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 1.0.0
+
+### Major Changes
+
+- [`d95e613`](https://github.com/OrJDev/create-jd-app/commit/d95e6136984c1c5f7b92f44590c221942bbf1a27) Thanks [@OrJDev](https://github.com/OrJDev)! - get everything to the latest versions of Solid (Query, Start, Etc)
+
 ## 0.2.9
 
 ### Patch Changes
