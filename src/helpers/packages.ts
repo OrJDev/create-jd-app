@@ -1,7 +1,7 @@
 const packages = {
   dev: {
     // adapters
-    "solid-start-vercel": "^0.3.9",
+    "solid-start-vercel": "0.3.7",
     // tailwind
     tailwindcss: "^3.2.7",
     postcss: "^8.4.21",
