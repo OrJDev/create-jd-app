@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 1.5.1
+
+### Patch Changes
+
+- [`f8b97de`](https://github.com/OrJDev/create-jd-app/commit/f8b97de260d37e9ea7d02c7a544b3ff24c28d796) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: correct readme links to repo
+
+- [`9b01d49`](https://github.com/OrJDev/create-jd-app/commit/9b01d49fd6f9cc1bbd7c9f25805ed87da95c0edd) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: get solid up to date
+
 ## 1.0.0
 
 ### Major Changes
