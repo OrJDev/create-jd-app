@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 1.5.2
+
+### Patch Changes
+
+- [`9a966d2`](https://github.com/OrJDev/create-jd-app/commit/9a966d244f1889d64efe40bdb62b7b4d07c84ebe) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: don't use latest solid start version
+
 ## 1.5.1
 
 ### Patch Changes
