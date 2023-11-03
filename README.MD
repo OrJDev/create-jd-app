@@ -20,8 +20,8 @@ npm create jd-app@latest
 All addons are optional, you may select some, you may select all and you may select none.
 
 - [Prisma](https://github.com/prisma/prisma)
-- [tRPC](https://github.com/trpc/trpc)
+- [tRPC](https://github.com/solidjs-community/mediakit/tree/main/packages/trpc)
 - [pRPC](https://github.com/orjdev/prpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
-- [AuthJS](https://github.com/nextauthjs/next-auth)
+- [AuthJS](https://github.com/solidjs-community/mediakit/tree/main/packages/auth)
 - [Upstash Ratelimit](https://github.com/upstash/ratelimit)
