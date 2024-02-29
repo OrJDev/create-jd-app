@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.0.0
+
+### Major Changes
+
+- [`218649d`](https://github.com/OrJDev/create-jd-app/commit/218649d2fb760a5ca4455498068d10e755f17c73) Thanks [@OrJDev](https://github.com/OrJDev)! - finally: use solid start 2.0
+
 ## 1.5.2
 
 ### Patch Changes
