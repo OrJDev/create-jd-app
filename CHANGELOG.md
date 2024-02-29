@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.1.1
+
+### Patch Changes
+
+- [`3aa091a`](https://github.com/OrJDev/create-jd-app/commit/3aa091af814d5d8c70fa55f81a9d2ad059704a34) Thanks [@OrJDev](https://github.com/OrJDev)! - fix trpc package version
+
 ## 2.1.0
 
 ### Minor Changes
