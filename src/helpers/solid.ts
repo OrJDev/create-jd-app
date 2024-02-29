@@ -25,7 +25,7 @@ const helperFunc = async (ctx: ICtx, env: IEnv[]) => {
     files.push({
       path: appLocation,
       type: "copy",
-      to: `${ctx.userDir}/src/root.tsx`,
+      to: `${ctx.userDir}/src/app.tsx`,
     });
   }
   await execFiles(files, ctx);

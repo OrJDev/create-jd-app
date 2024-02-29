@@ -5,8 +5,8 @@ const getAppLocation: IUtil = (ctx) => {
   const usingAuth = ctx.installers.includes("AuthJS");
 
   if (usingTRPC && usingAuth)
-    return `${ctx.templateDir}/root/with-auth-trpc.tsx`;
-  else if (usingTRPC) return `${ctx.templateDir}/root/with-trpc.tsx`;
+    return `${ctx.templateDir}/app/with-auth-trpc.tsx`;
+  else if (usingTRPC) return `${ctx.templateDir}/app/with-trpc.tsx`;
   return ``;
 };
 
