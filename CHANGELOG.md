@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.1.0
+
+### Minor Changes
+
+- [`94c1b94`](https://github.com/OrJDev/create-jd-app/commit/94c1b94de1e2f1dd576a161a29653819dcb0dc79) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: wrong usage of dirs
+
 ## 2.0.0
 
 ### Major Changes
