@@ -1,15 +1,14 @@
 import type { ICtx, IUtil } from "~types";
 
 const getIndexLocation: IUtil = (ctx) => {
-  const usingPRPC = ctx.installers.includes("pRPC");
   const usingTRPC = ctx.installers.includes("tRPC");
   const usingTw = ctx.installers.includes("TailwindCSS");
   const usingAuth = ctx.installers.includes("AuthJS");
   return createFileHelper(
-    usingTRPC || usingPRPC,
+    usingTRPC,
     usingTw,
     usingAuth,
-    usingTRPC ? "tRPC" : "pRPC",
+    usingTRPC ? "tRPC" : null,
     ctx
   );
 };
@@ -20,10 +19,10 @@ function createFileHelper(
   usingRPC: boolean,
   usingTw: boolean,
   usingAuth: boolean,
-  rpc: "pRPC" | "tRPC",
+  rpc: null | "tRPC",
   ctx: ICtx
 ) {
-  const fileName = `${rpc.toLowerCase()}`;
+  const fileName = rpc ? `${rpc.toLowerCase()}` : "";
   let indexFile = "";
   if (usingRPC && usingTw && usingAuth) {
     indexFile = `with-auth-${fileName}-tw.tsx`;
@@ -40,5 +39,6 @@ function createFileHelper(
   } else if (usingAuth) {
     indexFile = "with-auth.tsx";
   }
+
   return indexFile ? `${ctx.templateDir}/index/${indexFile}` : ``;
 }

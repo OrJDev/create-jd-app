@@ -1,4 +1,4 @@
-import { createSolidAPIHandler } from "solid-start-trpc";
+import { createSolidAPIHandler } from "@solid-mediakit/trpc/handler";
 import { createContext } from "~/server/trpc/context";
 import { appRouter } from "~/server/trpc/router/_app";
 

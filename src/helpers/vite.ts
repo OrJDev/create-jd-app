@@ -4,45 +4,28 @@ import type { ICtx, IUtil } from "~types";
 
 export const getViteConfig: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const usePrpc = ctx.installers.includes("pRPC");
-  const withPrpc = usePrpc ? "prpc(), " : "";
-  const getPlugins = () => {
-    if (ctx.vercel) {
-      return `[${withPrpc}solid({ ssr: true, adapter: vercel({ edge: false }) })]`;
-    } else {
-      return `[${withPrpc}solid({ ssr: true })]`;
-    }
-  };
-  const plugins = getPlugins();
-  return `import solid from "solid-start/vite";
-import { defineConfig } from "vite";${
+  return `import { defineConfig } from '@solidjs/start/config'${
     ctx.vercel ? `\nimport vercel from "solid-start-vercel";` : ""
-  }${usePrpc ? `\nimport prpc from "@prpc/vite";import path from "path";` : ""}
+  }
   
-export default defineConfig(() => {
-  return {
-    plugins: ${plugins},${
-    usePrisma ? `\n    ssr: { external: ["@prisma/client"] },` : ""
-  }${
-    usePrpc
-      ? `\n    resolve: {
-      alias: {
-        rpc: path.join(__dirname, "src", "server", "api"),
-      },
+export default defineConfig({
+  start: {
+    ssr: true,${
+      usePrisma ? `\n    ssr: { external: ["@prisma/client"] },` : ""
+    }${
+    ctx.vercel
+      ? `\n    server: {
+      preset: 'vercel',
     },`
       : ""
   }
-  };
-});
+  },
+})
   `;
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
-  if (
-    ctx.vercel ||
-    ctx.installers.includes("Prisma") ||
-    ctx.installers.includes("pRPC")
-  ) {
+  if (ctx.vercel || ctx.installers.includes("Prisma")) {
     await fs.writeFile(
       path.join(ctx.userDir, "vite.config.ts"),
       getViteConfig(ctx)

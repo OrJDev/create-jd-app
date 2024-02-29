@@ -1,5 +1,5 @@
 import { type VoidComponent } from "solid-js";
-import { A } from "solid-start";
+import { A } from "@solidjs/router";
 
 const Home: VoidComponent = () => {
   return (

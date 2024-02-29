@@ -1,5 +1,5 @@
 import type { inferAsyncReturnType } from "@trpc/server";
-import type { createSolidAPIHandlerContext } from "solid-start-trpc";
+import type { createSolidAPIHandlerContext } from "@solid-mediakit/trpc/handler";
 
 export const createContextInner = async (
   opts: createSolidAPIHandlerContext

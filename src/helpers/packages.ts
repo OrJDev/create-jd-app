@@ -1,33 +1,27 @@
 const packages = {
   dev: {
-    // adapters
-    "solid-start-vercel": "0.3.7",
     // tailwind
-    tailwindcss: "^3.2.7",
-    postcss: "^8.4.21",
-    autoprefixer: "^10.4.13",
+    tailwindcss: "^3.4.1",
+    postcss: "^8.4.35",
+    autoprefixer: "^10.4.17",
     // prisma
-    prisma: "^4.10.1",
+    prisma: "^5.10.2",
   },
   normal: {
     // prisma
-    "@prisma/client": "^4.10.1",
-    // prpc
-    "@prpc/solid": "^0.2.35",
-    "@prpc/vite": "^0.3.21",
+    "@prisma/client": "^5.10.2",
     // trpc
-    "@tanstack/solid-query": "^5.0.0",
-    "@trpc/client": "^10.41.0",
-    "@trpc/server": "^10.41.0",
-    "solid-start-trpc": "^0.0.16",
-    "@solid-mediakit/trpc": "^1.0.2",
+    "@tanstack/solid-query": "^5.24.1",
+    "@trpc/client": "^10.45.1",
+    "@trpc/server": "^10.45.1",
+    "@solid-mediakit/trpc": "^2.01",
     // next auth
-    "@solid-mediakit/auth": "^1.0.3",
-    "@auth/core": "^0.10.0",
+    "@solid-mediakit/auth": "^2.0.1",
+    "@auth/core": "0.15.0",
     "@auth/prisma-adapter": "^1.0.1",
     // upstash ratelimit
-    "@upstash/ratelimit": "^0.3.5",
-    "@upstash/redis": "^1.20.0",
+    "@upstash/ratelimit": "^0.4.1",
+    "@upstash/redis": "^1.28.4",
   },
 };
 

@@ -57,5 +57,4 @@ export type TInstallers =
   | "Prisma"
   | "TailwindCSS"
   | "Upstash Ratelimit"
-  | "pRPC"
   | "tRPC";

@@ -1,11 +1,11 @@
 import { execFiles } from "~utils/files";
 import type { ICtx, IEnv, IFile } from "~types";
 import getIndexLocation from "./utils/getIndexLocation";
-import getRootLocation from "./utils/getRootLocation";
+import getAppLocation from "./utils/getAppLocation";
 
 const helperFunc = async (ctx: ICtx, env: IEnv[]) => {
   const indexLocation = getIndexLocation(ctx);
-  const rootLocation = getRootLocation(ctx);
+  const appLocation = getAppLocation(ctx);
   const files: IFile[] = [
     {
       path: `${__dirname}/utils/getReadMe`,
@@ -21,9 +21,9 @@ const helperFunc = async (ctx: ICtx, env: IEnv[]) => {
       to: `${ctx.userDir}/src/routes/index.tsx`,
     });
   }
-  if (rootLocation) {
+  if (appLocation) {
     files.push({
-      path: rootLocation,
+      path: appLocation,
       type: "copy",
       to: `${ctx.userDir}/src/root.tsx`,
     });

@@ -1,8 +1,7 @@
-import solid from "solid-start/vite";
-import { defineConfig } from "vite";
+import { defineConfig } from "@solidjs/start/config";
 
-export default defineConfig(() => {
-  return {
-    plugins: [solid({ ssr: true })],
-  };
+export default defineConfig({
+  start: {
+    ssr: true,
+  },
 });

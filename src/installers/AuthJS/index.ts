@@ -24,10 +24,10 @@ const config: IInstaller = (ctx) => {
         path: `${__dirname}/files/handler.txt`,
         to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
       },
-      !ctx.installers.includes("tRPC") && !ctx.installers.includes("pRPC")
+      !ctx.installers.includes("tRPC")
         ? {
-            path: `${__dirname}/files/root.txt`,
-            to: `${ctx.userDir}/src/root.tsx`,
+            path: `${__dirname}/files/app.txt`,
+            to: `${ctx.userDir}/src/app.tsx`,
           }
         : undefined,
     ],

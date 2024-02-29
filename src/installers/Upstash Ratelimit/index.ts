@@ -1,23 +1,11 @@
 import { withPackages } from "~helpers/packages";
 import type { IInstaller } from "~types";
 
-const config: IInstaller = (ctx) => ({
+const config: IInstaller = () => ({
   pkgs: withPackages({
     normal: ["@upstash/ratelimit", "@upstash/redis"],
   }),
-  files:
-    ctx.installers.includes("pRPC") || ctx.installers.includes("tRPC")
-      ? []
-      : [
-          {
-            path: `${__dirname}/files/solidjs-middleware.txt`,
-            to: `${ctx.userDir}/src/utils/withRateLimit.ts`,
-          },
-          {
-            path: `${__dirname}/files/entry-server.txt`,
-            to: `${ctx.userDir}/src/entry-server.tsx`,
-          },
-        ],
+  files: [],
   env: [
     {
       key: "UPSTASH_REDIS_REST_URL",

@@ -159,7 +159,8 @@ export async function installDeps(ctx: ICtx) {
     await execa(`${ctx.pkgManager} install${flags}`, { cwd: ctx.userDir });
     spinner.succeed("Installed dependencies");
   } catch (e) {
-    spinner.fail(`Couldn't install dependencies: ${formatError(e)}`);
+    console.error(e);
+    spinner.fail(`Cann't install dependencies: ${formatError(e)}`);
     process.exit(1);
   }
 }

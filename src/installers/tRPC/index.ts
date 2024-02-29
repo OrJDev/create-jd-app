@@ -36,7 +36,6 @@ const config: IInstaller = (ctx) => ({
     normal: [
       "@solid-mediakit/trpc",
       "@tanstack/solid-query",
-      "solid-start-trpc",
       "@trpc/client",
       "@trpc/server",
     ],

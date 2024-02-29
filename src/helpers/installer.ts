@@ -5,7 +5,6 @@ import inquirer from "inquirer";
 import type { IInstaller, ICtx, IEnv, IAppCtx, IConfig } from "~types";
 import { execFiles } from "~utils/files";
 import { formatError } from "~utils/helpers";
-import { vercelPackages, vercelEnv } from "~vercel";
 import chalk from "chalk";
 import type { IExpectedPackages } from "./packages";
 import type { TInstallers } from "~types";
@@ -30,11 +29,6 @@ export default async (
       kind: "client",
     },
   ];
-  if (ctx.vercel) {
-    normalDeps = { ...normalDeps, ...vercelPackages[0] };
-    devModeDeps = { ...devModeDeps, ...vercelPackages[1] };
-    env = [...env, ...vercelEnv];
-  }
   let commands: string[] = [];
 
   const execInstaller = async (cfg: IConfig) => {
@@ -116,17 +110,17 @@ export async function getCtxWithInstallers(
       let optInstallers = installers.filter(
         (pkg) => !validInstallers.includes(pkg)
       );
-      const opts: Array<Array<TInstallers>> = [["tRPC", "pRPC"]];
-      for (const opt of opts) {
-        for (const op of opt) {
-          if (validInstallers.includes(op)) {
-            optInstallers = optInstallers.filter(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (pkg) => !opt.includes(pkg as any)
-            );
-          }
-        }
-      }
+      // const opts: Array<Array<TInstallers>> = [["tRPC", "pRPC"]];
+      // for (const opt of opts) {
+      //   for (const op of opt) {
+      //     if (validInstallers.includes(op)) {
+      //       optInstallers = optInstallers.filter(
+      //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      //         (pkg) => !opt.includes(pkg as any)
+      //       );
+      //     }
+      //   }
+      // }
       const newPkgs = (
         await inquirer.prompt<{ pkgs: TInstallers[] }>({
           name: "pkgs",
@@ -134,13 +128,13 @@ export async function getCtxWithInstallers(
           message: "What should we use for this app?",
           choices: optInstallers,
           validate: (ans: string[]) => {
-            for (const opt of opts) {
-              if (opt.every((o) => ans.includes(o))) {
-                return `You can't use both ${opt
-                  .map((o) => chalk.blue(o))
-                  .join(" and ")} at the same time`;
-              }
-            }
+            // for (const opt of opts) {
+            //   if (opt.every((o) => ans.includes(o))) {
+            //     return `You can't use both ${opt
+            //       .map((o) => chalk.blue(o))
+            //       .join(" and ")} at the same time`;
+            //   }
+            // }
             return true;
           },
         })

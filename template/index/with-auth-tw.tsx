@@ -1,5 +1,5 @@
 import { type VoidComponent, Suspense, Show } from "solid-js";
-import { A } from "solid-start";
+import { A } from "@solidjs/router";
 import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
 
 const Home: VoidComponent = () => {

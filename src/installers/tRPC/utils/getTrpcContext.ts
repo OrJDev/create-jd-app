@@ -4,7 +4,7 @@ const getTrpcContext: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
   const useNextAuth = ctx.installers.includes("AuthJS");
   return `import type { inferAsyncReturnType } from "@trpc/server";
-import type { createSolidAPIHandlerContext } from "solid-start-trpc";${
+import type { createSolidAPIHandlerContext } from "@solid-mediakit/trpc/handler";${
     usePrisma ? `\nimport { prisma } from "~/server/db";` : ""
   }${
     useNextAuth
