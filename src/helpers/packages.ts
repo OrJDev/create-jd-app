@@ -14,7 +14,7 @@ const packages = {
     "@tanstack/solid-query": "^5.24.1",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
-    "@solid-mediakit/trpc": "^2.01",
+    "@solid-mediakit/trpc": "^2.0.1",
     // next auth
     "@solid-mediakit/auth": "^2.0.1",
     "@auth/core": "0.15.0",
