@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.2.0
+
+### Minor Changes
+
+- [`fc23fb5`](https://github.com/OrJDev/create-jd-app/commit/fc23fb516ac6d465f9ab262d270208e49ddd68b0) Thanks [@OrJDev](https://github.com/OrJDev)! - bump: use trpc.createQuery instead of .useQuery
+
 ## 2.1.2
 
 ### Patch Changes
