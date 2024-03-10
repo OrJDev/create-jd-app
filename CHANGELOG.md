@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.2.1
+
+### Patch Changes
+
+- [`e0a2ce7`](https://github.com/OrJDev/create-jd-app/commit/e0a2ce7a5a997e5fd9fdbf45dfdb10de14f9a266) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use the correct import for the auth api handler
+
 ## 2.2.0
 
 ### Minor Changes
