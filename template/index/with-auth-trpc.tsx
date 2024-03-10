@@ -5,7 +5,7 @@ import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
 import { trpc } from "~/utils/trpc";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
+  const hello = trpc.example.hello.createQuery(() => ({ name: "from tRPC" }));
   return (
     <main>
       <div class={styles.container}>

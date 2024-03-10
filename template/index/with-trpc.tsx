@@ -4,7 +4,7 @@ import { A } from "@solidjs/router";
 import { trpc } from "~/utils/trpc";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.useQuery(() => ({ name: "from tRPC" }));
+  const hello = trpc.example.hello.createQuery(() => ({ name: "from tRPC" }));
   return (
     <main>
       <div class={styles.container}>

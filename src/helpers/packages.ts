@@ -14,9 +14,9 @@ const packages = {
     "@tanstack/solid-query": "^5.24.1",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
-    "@solid-mediakit/trpc": "^2.0.2",
+    "@solid-mediakit/trpc": "^3.0.0",
     // next auth
-    "@solid-mediakit/auth": "^2.0.1",
+    "@solid-mediakit/auth": "^2.0.2",
     "@auth/core": "0.15.0",
     "@auth/prisma-adapter": "^1.0.1",
     // upstash ratelimit
