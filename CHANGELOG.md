@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.1.2
+
+### Patch Changes
+
+- [`849a487`](https://github.com/OrJDev/create-jd-app/commit/849a48713d6c34f33d9774b85198bd2be9e24339) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: trpc api endpoint
+
 ## 2.1.1
 
 ### Patch Changes
