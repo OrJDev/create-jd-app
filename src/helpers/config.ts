@@ -7,14 +7,14 @@ export const getAppConfig: IUtil = (ctx) => {
   return `import { defineConfig } from '@solidjs/start/config'
   
 export default defineConfig({
-  ssr: true,${usePrisma ? `\n   ssr: { external: ["@prisma/client"] },` : ""}${
+  ssr: true,${usePrisma ? `\n  ssr: { external: ["@prisma/client"] },` : ""}${
     ctx.vercel
-      ? `\n   server: {
-      preset: 'vercel',
-    },`
+      ? `\n  server: {
+    preset: 'vercel',
+  },`
       : ""
   }
-})
+});
   `;
 };
 
