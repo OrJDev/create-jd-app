@@ -14,7 +14,7 @@ import {
 } from "./helpers";
 import type { IAppCtx, ICtx, IEnv, IVercelOpt } from "~types";
 import { updateEnv } from "~helpers/env";
-import { modifyConfigIfNeeded } from "~helpers/vite";
+import { modifyConfigIfNeeded } from "~helpers/config";
 import type { IExpectedPackages } from "~helpers/packages";
 
 export async function initApp(args: string[]): Promise<IAppCtx> {

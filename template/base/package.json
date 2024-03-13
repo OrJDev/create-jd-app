@@ -21,7 +21,8 @@
     "@solidjs/start": "^0.7.4",
     "solid-js": "^1.8.15",
     "vinxi": "^0.3.10",
-    "@solidjs/meta": "^0.29.3"
+    "@solidjs/meta": "^0.29.3",
+    "zod": "^3.22.4"
   },
   "engines": {
     "node": ">=16"
