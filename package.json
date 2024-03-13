@@ -1,6 +1,6 @@
 {
   "name": "create-jd-app",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc -p . && tsc-alias -p tsconfig.json && pnpm postbuild",
