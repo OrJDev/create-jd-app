@@ -1,5 +1,19 @@
 # create-jd-app
 
+## 2.2.2
+
+### Patch Changes
+
+- [`ecb8ff9`](https://github.com/OrJDev/create-jd-app/commit/ecb8ff96f4bb1f28773aa929af7c5d46ba67707f) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use the correct import for FileRoutes
+
+- [`a11abd0`](https://github.com/OrJDev/create-jd-app/commit/a11abd02f9303967688519260240d0d29fdcc077) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: prettify app.config
+
+- [`97c9329`](https://github.com/OrJDev/create-jd-app/commit/97c93290ecf8c3fc25cc87b2247229c816ae7e57) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: re-create queryClient on app.tsx
+
+- [`6e64869`](https://github.com/OrJDev/create-jd-app/commit/6e648691588f42a0c6337d0dd8af0d3fd239bd76) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: bump base template and packages to latest versions
+
+- [`aee3a7a`](https://github.com/OrJDev/create-jd-app/commit/aee3a7a7f2d2cd54da6982d10616d8bb5092cff2) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: move from vite to app config
+
 ## 2.2.1
 
 ### Patch Changes
