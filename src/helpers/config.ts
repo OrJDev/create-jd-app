@@ -4,10 +4,18 @@ import type { ICtx, IUtil } from "~types";
 
 export const getAppConfig: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  return `import { defineConfig } from '@solidjs/start/config'
+  return `import { defineConfig } from "@solidjs/start/config";
   
 export default defineConfig({
-  ssr: true,${usePrisma ? `\n  ssr: { external: ["@prisma/client"] },` : ""}${
+  ssr: true,${
+    usePrisma
+      ? `\n  vite: {
+    ssr: {
+      external: ["@prisma/client"],
+    },
+  },`
+      : ""
+  }${
     ctx.vercel
       ? `\n  server: {
     preset: 'vercel',
