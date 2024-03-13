@@ -11,7 +11,7 @@ const packages = {
     // prisma
     "@prisma/client": "^5.10.2",
     // trpc
-    "@tanstack/solid-query": "^5.24.1",
+    "@tanstack/solid-query": "^5.27.5",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
     "@solid-mediakit/trpc": "^3.0.0",
