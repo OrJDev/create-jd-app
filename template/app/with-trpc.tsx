@@ -4,10 +4,11 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start";
 import { Suspense } from "solid-js";
-import { queryClient, trpc } from "./utils/trpc";
-import { QueryClientProvider } from "@tanstack/solid-query";
+import { trpc } from "./utils/trpc";
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 
 export default function App() {
+  const queryClient = new QueryClient();
   return (
     <Router
       root={(props) => (
