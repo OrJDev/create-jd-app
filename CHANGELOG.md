@@ -1,5 +1,13 @@
 # create-jd-app
 
+## 2.2.4
+
+### Patch Changes
+
+- [`e52da36`](https://github.com/OrJDev/create-jd-app/commit/e52da36b0e18eeb2c7229a4e29b731becb9d467d) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: update auth deps
+
+- [`c890f64`](https://github.com/OrJDev/create-jd-app/commit/c890f64cb28a76a32d6eaec27e8d966e6f81c076) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use latest versions to fix ssr bugs
+
 ## 2.2.3
 
 ### Patch Changes
