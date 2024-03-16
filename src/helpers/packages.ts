@@ -11,12 +11,12 @@ const packages = {
     // prisma
     "@prisma/client": "^5.10.2",
     // trpc
-    "@tanstack/solid-query": "^5.27.5",
+    "@tanstack/solid-query": "^5.28.5",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
-    "@solid-mediakit/trpc": "^3.0.0",
+    "@solid-mediakit/trpc": "^3.0.1",
     // next auth
-    "@solid-mediakit/auth": "^2.0.2",
+    "@solid-mediakit/auth": "^2.0.3",
     "@auth/core": "0.15.0",
     "@auth/prisma-adapter": "^1.0.1",
     // upstash ratelimit
