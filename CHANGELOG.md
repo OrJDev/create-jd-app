@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.2.3
+
+### Patch Changes
+
+- [`937d8ae`](https://github.com/OrJDev/create-jd-app/commit/937d8aea438743fdbda584cca71331eed11a1a12) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use vite.ssr.external for prisma
+
 ## 2.2.2
 
 ### Patch Changes
