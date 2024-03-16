@@ -60,6 +60,12 @@ const config: IInstaller = (ctx) => {
         type: "string().optional()",
         kind: "server",
       },
+      {
+        key: "VITE_AUTH_PATH",
+        defaulValue: "/api/auth",
+        type: "string().optional()",
+        kind: "client",
+      },
     ],
   };
 };

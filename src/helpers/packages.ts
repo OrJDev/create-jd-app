@@ -16,12 +16,9 @@ const packages = {
     "@trpc/server": "^10.45.1",
     "@solid-mediakit/trpc": "^3.0.1",
     // next auth
-    "@solid-mediakit/auth": "^2.0.3",
+    "@solid-mediakit/auth": "^2.0.7",
     "@auth/core": "^0.28.0",
     "@auth/prisma-adapter": "^1.5.0",
-    // upstash ratelimit
-    "@upstash/ratelimit": "^0.4.1",
-    "@upstash/redis": "^1.28.4",
   },
 };
 

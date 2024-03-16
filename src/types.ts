@@ -52,9 +52,4 @@ export type IEnv = {
 
 export type IUtil<T = undefined> = (ctx: ICtx, passed?: T) => string;
 
-export type TInstallers =
-  | "AuthJS"
-  | "Prisma"
-  | "TailwindCSS"
-  | "Upstash Ratelimit"
-  | "tRPC";
+export type TInstallers = "AuthJS" | "Prisma" | "TailwindCSS" | "tRPC";

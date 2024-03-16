@@ -24,4 +24,3 @@ All addons are optional, you may select some, you may select all and you may sel
 - [pRPC](https://github.com/orjdev/prpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [AuthJS](https://github.com/solidjs-community/mediakit/tree/main/packages/auth)
-- [Upstash Ratelimit](https://github.com/upstash/ratelimit)
