@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 2.3.0
+
+### Minor Changes
+
+- [`774df7d`](https://github.com/OrJDev/create-jd-app/commit/774df7d44d9ac885d0c527e44e6e5fb41f873f7d) Thanks [@OrJDev](https://github.com/OrJDev)! - fix/feat: use latest auth/core and remove upstash
+
 ## 2.2.4
 
 ### Patch Changes
