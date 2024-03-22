@@ -1,12 +1,12 @@
 import type { IUtil } from "~types";
 
 const getAppLocation: IUtil = (ctx) => {
-  const usingTRPC = ctx.installers.includes("tRPC");
+  const usingPRPC = ctx.installers.includes("pRPC");
   const usingAuth = ctx.installers.includes("AuthJS");
 
-  if (usingTRPC && usingAuth)
-    return `${ctx.templateDir}/app/with-auth-trpc.tsx`;
-  else if (usingTRPC) return `${ctx.templateDir}/app/with-trpc.tsx`;
+  if (usingPRPC && usingAuth)
+    return `${ctx.templateDir}/app/with-auth-prpc.tsx`;
+  else if (usingPRPC) return `${ctx.templateDir}/app/with-prpc.tsx`;
   return ``;
 };
 

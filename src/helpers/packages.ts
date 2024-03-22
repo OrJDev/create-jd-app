@@ -10,11 +10,10 @@ const packages = {
   normal: {
     // prisma
     "@prisma/client": "^5.10.2",
-    // trpc
-    "@tanstack/solid-query": "^5.28.5",
-    "@trpc/client": "^10.45.1",
-    "@trpc/server": "^10.45.1",
-    "@solid-mediakit/trpc": "^3.0.1",
+    // prpc
+    "@tanstack/solid-query": "^5.28.6",
+    "@solid-mediakit/prpc": "^1.0.4",
+    "@solid-mediakit/prpc-plugin": "^1.0.2",
     // next auth
     "@solid-mediakit/auth": "^2.0.7",
     "@auth/core": "^0.28.0",

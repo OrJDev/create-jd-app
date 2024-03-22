@@ -4,15 +4,22 @@ import type { ICtx, IUtil } from "~types";
 
 export const getAppConfig: IUtil = (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  return `import { defineConfig } from "@solidjs/start/config";
+  const usePRPC = ctx.installers.includes("pRPC");
+  return `import { defineConfig } from "@solidjs/start/config";${
+    usePRPC ? `\nimport { prpcVite } from "@solid-mediakit/prpc-plugin";` : ""
+  }
   
 export default defineConfig({
   ssr: true,${
-    usePrisma
+    usePrisma || usePRPC
       ? `\n  vite: {
-    ssr: {
+    ${
+      usePrisma
+        ? `ssr: {
       external: ["@prisma/client"],
-    },
+    },`
+        : ""
+    }${usePRPC ? `\n    plugins: [prpcVite()],` : ""}
   },`
       : ""
   }${

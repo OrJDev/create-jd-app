@@ -4,9 +4,9 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
-import { trpc } from "./utils/trpc";
-import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
+import { QueryClient } from "@tanstack/solid-query";
 import { SessionProvider } from "@solid-mediakit/auth/client";
+import { PRPCProvider } from "@solid-mediakit/prpc/provider";
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -16,11 +16,11 @@ export default function App() {
         <MetaProvider>
           <Title>Create JD App</Title>
           <Suspense>
-            <QueryClientProvider client={queryClient}>
-              <trpc.Provider queryClient={queryClient}>
-                <SessionProvider>{props.children}</SessionProvider>
-              </trpc.Provider>
-            </QueryClientProvider>
+            <SessionProvider>
+              <PRPCProvider queryClient={queryClient}>
+                {props.children}
+              </PRPCProvider>
+            </SessionProvider>
           </Suspense>
         </MetaProvider>
       )}

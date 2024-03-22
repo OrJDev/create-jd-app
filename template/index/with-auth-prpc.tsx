@@ -2,10 +2,10 @@ import styles from "./index.module.css";
 import { type VoidComponent, Suspense, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
-import { trpc } from "~/utils/trpc";
+import { testQuery } from "~/server/queries";
 
 const Home: VoidComponent = () => {
-  const hello = trpc.example.hello.createQuery(() => ({ name: "from tRPC" }));
+  const hello = testQuery(() => ({ hello: "from pRPC" }));
   return (
     <main>
       <div class={styles.container}>
@@ -37,7 +37,7 @@ const Home: VoidComponent = () => {
         </div>
         <div class={styles.showcaseContainer}>
           <p class={styles.showcaseText}>
-            {hello.data ?? "Loading tRPC query"}
+            {hello.data ?? "Loading pRPC query"}
           </p>
           <Suspense>
             <AuthShowcase />
