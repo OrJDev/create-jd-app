@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 3.0.0
+
+### Major Changes
+
+- [`40ec503`](https://github.com/OrJDev/create-jd-app/commit/40ec5035344c9be7378dec24ac24cdffb1277fd4) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: add pRPC & remove tRPC
+
 ## 2.3.0
 
 ### Minor Changes
