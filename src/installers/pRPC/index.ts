@@ -13,14 +13,18 @@ const config: IInstaller = (ctx) => {
     }),
     files: [
       {
-        path: `${__dirname}/utils/getQueries`,
-        to: `${ctx.userDir}/src/server/queries.ts`,
+        path: `${__dirname}/files/hello.txt`,
+        to: `${ctx.userDir}/src/server/hello/hello.queries.ts`,
+      },
+      {
+        path: `${__dirname}/utils/getBuilder`,
+        to: `${ctx.userDir}/src/server/prpc.ts`,
         type: "exec",
       },
       useAuth
         ? {
-            path: `${__dirname}/files/authMw.txt`,
-            to: `${ctx.userDir}/src/server/middleware.ts`,
+            path: `${__dirname}/files/user.txt`,
+            to: `${ctx.userDir}/src/server/user/user.queries.ts`,
           }
         : undefined,
     ],

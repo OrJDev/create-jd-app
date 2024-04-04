@@ -19,7 +19,7 @@ export default defineConfig({
       external: ["@prisma/client"],
     },`
         : ""
-    }${usePRPC ? `\n    plugins: [prpcVite()],` : ""}
+    }${usePRPC ? `${usePrisma ? "\n" : ""}   plugins: [prpcVite()],` : ""}
   },`
       : ""
   }${
@@ -34,7 +34,11 @@ export default defineConfig({
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
-  if (ctx.vercel || ctx.installers.includes("Prisma")) {
+  if (
+    ctx.vercel ||
+    ctx.installers.includes("pRPC") ||
+    ctx.installers.includes("Prisma")
+  ) {
     await fs.writeFile(
       path.join(ctx.userDir, "app.config.ts"),
       getAppConfig(ctx)

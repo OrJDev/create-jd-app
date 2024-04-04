@@ -1,10 +1,10 @@
 import { type VoidComponent, Suspense, Show } from "solid-js";
 import { A } from "@solidjs/router";
 import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
-import { testQuery } from "~/server/queries";
+import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
-  const hello = testQuery(() => ({ hello: "from pRPC" }));
+  const hello = helloQuery(() => ({ hello: "from pRPC" }));
   return (
     <main class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#026d56] to-[#152a2c]">
       <div class="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">

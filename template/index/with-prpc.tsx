@@ -1,12 +1,10 @@
 import { type VoidComponent } from "solid-js";
 import { A } from "@solidjs/router";
 import styles from "./index.module.css";
-import { testQuery } from "~/server/queries";
+import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
-  const hello = testQuery(() => ({
-    hello: "from pRPC",
-  }));
+  const hello = helloQuery(() => ({ hello: "from pRPC" }));
   return (
     <main>
       <div class={styles.container}>
