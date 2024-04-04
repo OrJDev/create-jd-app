@@ -1,6 +1,6 @@
 # Create JD App
 
-Create modern Solid / SolidStart web application within seconds.
+Create advanced SolidStart web application within seconds.
 
 ## Getting Started
 
@@ -20,6 +20,6 @@ npm create jd-app@latest
 All addons are optional, you may select some, you may select all and you may select none.
 
 - [Prisma](https://github.com/prisma/prisma)
-- [pRPC](https://github.com/orjdev/prpc)
+- [pRPC](https://github.com/solidjs-community/mediakit/tree/main/packages/prpc)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [AuthJS](https://github.com/solidjs-community/mediakit/tree/main/packages/auth)
