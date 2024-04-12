@@ -5,19 +5,19 @@ const packages = {
     postcss: "^8.4.35",
     autoprefixer: "^10.4.17",
     // prisma
-    prisma: "^5.10.2",
+    prisma: "^5.12.2",
   },
   normal: {
     // prisma
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.12.1",
     // prpc
-    "@tanstack/solid-query": "^5.28.6",
-    "@solid-mediakit/prpc": "^1.2.1",
-    "@solid-mediakit/prpc-plugin": "^1.2.1",
-    // next auth
-    "@solid-mediakit/auth": "^2.0.7",
-    "@auth/core": "^0.28.0",
-    "@auth/prisma-adapter": "^1.5.0",
+    "@tanstack/solid-query": "^5.29.3",
+    "@solid-mediakit/prpc": "^1.2.2",
+    "@solid-mediakit/prpc-plugin": "^1.2.2",
+    // authjs
+    "@solid-mediakit/auth": "^2.0.8",
+    "@auth/core": "^0.29.0",
+    "@auth/prisma-adapter": "^1.6.0",
   },
 };
 

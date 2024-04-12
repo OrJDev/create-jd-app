@@ -9,18 +9,18 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^20.11.26",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-solid": "^0.13.1",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-solid": "^0.13.2",
     "typescript": "^4.9.5",
     "vite": "^5.1.6"
   },
   "dependencies": {
-    "@solidjs/router": "^0.13.1",
+    "@solidjs/router": "^0.13.2",
     "@solidjs/start": "^1.0.0-rc.0",
-    "solid-js": "^1.8.15",
-    "vinxi": "^0.3.10",
+    "solid-js": "^1.8.16",
+    "vinxi": "^0.3.11",
     "@solidjs/meta": "^0.29.3",
     "zod": "^3.22.4"
   },
