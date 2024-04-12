@@ -5,7 +5,7 @@ const packages = {
     postcss: "^8.4.35",
     autoprefixer: "^10.4.17",
     // prisma
-    prisma: "^5.12.2",
+    prisma: "^5.12.1",
   },
   normal: {
     // prisma
