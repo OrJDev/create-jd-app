@@ -1,9 +1,5 @@
 const packages = {
   dev: {
-    // tailwind
-    tailwindcss: "^3.4.1",
-    postcss: "^8.4.35",
-    autoprefixer: "^10.4.17",
     // prisma
     prisma: "^5.12.1",
   },
@@ -18,6 +14,10 @@ const packages = {
     "@solid-mediakit/auth": "^2.0.9",
     "@auth/core": "^0.29.0",
     "@auth/prisma-adapter": "^1.6.0",
+    // tailwind
+    "@tailwindcss/vite": "4.0.0-alpha.14",
+    tailwindcss: "^4.0.0-alpha.14",
+    "@tailwindcss/postcss": "^4.0.0-alpha.14",
   },
 };
 

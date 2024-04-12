@@ -25,7 +25,7 @@ const config: IInstaller = (ctx) => ({
     },
   ],
   pkgs: withPackages({
-    dev: ["tailwindcss", "postcss", "autoprefixer"],
+    normal: ["@tailwindcss/postcss", "@tailwindcss/vite", "tailwindcss"],
   }),
 });
 
