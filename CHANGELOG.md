@@ -1,5 +1,19 @@
 # create-jd-app
 
+## 3.0.0
+
+### Major Changes
+
+- [`40ec503`](https://github.com/OrJDev/create-jd-app/commit/40ec5035344c9be7378dec24ac24cdffb1277fd4) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: add pRPC & remove tRPC
+
+### Minor Changes
+
+- [`9616cef`](https://github.com/OrJDev/create-jd-app/commit/9616cef9604ee22aec481408a4f7701c9fb9e63e) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: use the builder$ api from prpc
+
+### Patch Changes
+
+- [`eaad67f`](https://github.com/OrJDev/create-jd-app/commit/eaad67fe2abf4185537269fa0a23e7048e1a84dd) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: bump everything to its lateset version
+
 ## 2.3.0
 
 ### Minor Changes
