@@ -27,7 +27,6 @@ export type IConfig = {
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];
-  ignorePrettier?: boolean;
 };
 
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;
@@ -52,6 +51,9 @@ export type IEnv = {
   kind: "server" | "client";
 };
 
-export type IUtil<T = undefined> = (ctx: ICtx, passed?: T) => string | Promise<string>;
+export type IUtil<T = undefined> = (
+  ctx: ICtx,
+  passed?: T,
+) => string | Promise<string>;
 
 export type TInstallers = "AuthJS" | "Prisma" | "TailwindCSS" | "pRPC";

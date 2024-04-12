@@ -10,7 +10,7 @@ import type { IExpectedPackages } from "./packages";
 import type { TInstallers } from "~types";
 
 export default async (
-  ctx: ICtx
+  ctx: ICtx,
 ): Promise<[Record<string, string>, IExpectedPackages, IEnv[], string[]]> => {
   let normalDeps: IExpectedPackages[0] = {};
   let devModeDeps: IExpectedPackages[1] = {};
@@ -40,7 +40,7 @@ export default async (
       scripts = { ...scripts, ...cfg.scripts };
     }
     if (cfg.files?.length) {
-      await execFiles(cfg.files, ctx, cfg.ignorePrettier);
+      await execFiles(cfg.files, ctx);
     }
     if (cfg.commands) {
       if (Array.isArray(cfg.commands)) {
@@ -59,9 +59,9 @@ export default async (
         (installer: { default: IInstaller }) =>
           typeof installer.default === "function"
             ? installer.default(ctx)
-            : installer.default
-      )
-    )
+            : installer.default,
+      ),
+    ),
   );
 
   console.log();
@@ -85,7 +85,7 @@ export default async (
 
 export async function getCtxWithInstallers(
   ctx: IAppCtx,
-  curr: string[]
+  curr: string[],
 ): Promise<ICtx> {
   let installers: string[] = [];
   let pkgs: TInstallers[] = [];
@@ -103,12 +103,12 @@ export async function getCtxWithInstallers(
       console.log(
         `${chalk.green("√")} Using installers: ${validInstallers
           .map((installer) => chalk.blue(installer))
-          .join(", ")}`
+          .join(", ")}`,
       );
     }
     if (!skip) {
       let optInstallers = installers.filter(
-        (pkg) => !validInstallers.includes(pkg)
+        (pkg) => !validInstallers.includes(pkg),
       );
       const newPkgs = (
         await inquirer.prompt<{ pkgs: TInstallers[] }>({

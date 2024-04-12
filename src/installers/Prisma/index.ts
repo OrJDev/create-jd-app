@@ -7,6 +7,7 @@ const config: IInstaller = (ctx) => ({
       path: `${__dirname}/utils/getSchema`,
       type: "exec",
       to: `${ctx.userDir}/prisma/schema.prisma`,
+      ignorePrettier: true,
     },
     {
       path: `${__dirname}/files/client.txt`,
@@ -36,7 +37,6 @@ const config: IInstaller = (ctx) => ({
     normal: "@prisma/client",
   }),
   commands: `${ctx.pkgManager === "npm" ? "npx" : "pnpm"} prisma db push`,
-  ignorePrettier: true
 });
 
 export default config;
