@@ -15,7 +15,7 @@ const packages = {
     "@solid-mediakit/prpc": "^1.2.2",
     "@solid-mediakit/prpc-plugin": "^1.2.2",
     // authjs
-    "@solid-mediakit/auth": "^2.0.8",
+    "@solid-mediakit/auth": "^2.0.9",
     "@auth/core": "^0.29.0",
     "@auth/prisma-adapter": "^1.6.0",
   },
