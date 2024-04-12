@@ -1,5 +1,15 @@
 # create-jd-app
 
+## 3.1.0
+
+### Minor Changes
+
+- [`0635596`](https://github.com/OrJDev/create-jd-app/commit/06355962f98a5c641acbf12163c16386ecbdc2a6) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use correct version of prisma
+
+### Patch Changes
+
+- [`378b327`](https://github.com/OrJDev/create-jd-app/commit/378b3270642a2b3c9881215822a524afa05ec209) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: use correct eslint version
+
 ## 3.0.0
 
 ### Major Changes
