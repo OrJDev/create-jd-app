@@ -40,7 +40,7 @@ export default async (
       scripts = { ...scripts, ...cfg.scripts };
     }
     if (cfg.files?.length) {
-      await execFiles(cfg.files, ctx);
+      await execFiles(cfg.files, ctx, cfg.ignorePrettier);
     }
     if (cfg.commands) {
       if (Array.isArray(cfg.commands)) {

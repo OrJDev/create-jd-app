@@ -1,18 +1,23 @@
 import fs from "fs-extra";
 import path from "path";
 import type { ICtx, IUtil } from "~types";
+import prettier from "prettier";
 
-export const getAppConfig: IUtil = (ctx) => {
+export const getAppConfig: IUtil = async (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
   const usePRPC = ctx.installers.includes("pRPC");
   const useTailwindCSS = ctx.installers.includes("TailwindCSS");
-  return `import { defineConfig } from "@solidjs/start/config";${
-    usePRPC ? `\nimport { prpcVite } from "@solid-mediakit/prpc-plugin";` : ""
-  }${
-    useTailwindCSS
-      ? `\n// @ts-ignore\nimport tailwindcss from "@tailwindcss/vite";`
-      : ""
-  }
+  const useAuth = ctx.installers.includes("AuthJS");
+  return await prettier.format(
+    `import { defineConfig } from "@solidjs/start/config";${
+      usePRPC ? `\nimport { prpcVite } from "@solid-mediakit/prpc-plugin";` : ""
+    }${
+      useAuth ? `\nimport { authVite } from "@solid-mediakit/auth-plugin";` : ""
+    }${
+      useTailwindCSS
+        ? `\n// @ts-ignore\nimport tailwindcss from "@tailwindcss/vite";`
+        : ""
+    }
   
 export default defineConfig({
   ssr: true,${
@@ -28,20 +33,34 @@ export default defineConfig({
           usePRPC || useTailwindCSS
             ? `${usePrisma ? "\n" : ""}   plugins: [${
                 usePRPC ? "prpcVite(), " : ""
-              }${useTailwindCSS ? "tailwindcss()" : ""}],`
+              }${useTailwindCSS ? "tailwindcss()," : ""}${
+                useAuth
+                  ? `authVite({ 
+                    authOpts:{
+                  name: "authOptions",
+                  dir: "~/server/auth"
+                },
+                redirectTo: "/"
+              })`
+                  : ""
+              }],`
             : ""
         }
   },`
       : ""
   }${
-    ctx.vercel
-      ? `\n  server: {
+      ctx.vercel
+        ? `\n  server: {
     preset: 'vercel',
   },`
-      : ""
-  }
+        : ""
+    }
 });
-  `;
+  `,
+    {
+      parser: "typescript",
+    }
+  );
 };
 
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
@@ -53,7 +72,7 @@ export const modifyConfigIfNeeded = async (ctx: ICtx) => {
   ) {
     await fs.writeFile(
       path.join(ctx.userDir, "app.config.ts"),
-      getAppConfig(ctx)
+      await getAppConfig(ctx)
     );
   }
 };

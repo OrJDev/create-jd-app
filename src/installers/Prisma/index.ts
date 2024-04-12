@@ -36,6 +36,7 @@ const config: IInstaller = (ctx) => ({
     normal: "@prisma/client",
   }),
   commands: `${ctx.pkgManager === "npm" ? "npx" : "pnpm"} prisma db push`,
+  ignorePrettier: true
 });
 
 export default config;

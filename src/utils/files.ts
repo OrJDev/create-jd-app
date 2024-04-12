@@ -2,30 +2,37 @@ import fs from "fs-extra";
 import ora from "ora";
 import type { ICtx, IFile } from "~types";
 import { formatError } from "./helpers";
+import prettier from "prettier"
 
-export async function execFiles(files: (IFile | undefined)[], ctx: ICtx) {
+export async function execFiles(files: (IFile | undefined)[], ctx: ICtx, ignorePrettier?:boolean) {
   const actualFiles = files.filter((f) => f !== undefined) as IFile[];
   // `sep` files are parent files, so they should be executed first ro resolve conflicts
   for (const file of actualFiles.filter((e) => e.sep)) {
-    await execFile(file, ctx);
+    await execFile(file, ctx, ignorePrettier);
   }
   await Promise.all(
     actualFiles
       .filter((e) => !e.sep)
       .map(async (file) => {
-        await execFile(file, ctx);
+        await execFile(file, ctx, ignorePrettier);
       })
   );
 }
 
-async function execFile(file: IFile, ctx: ICtx) {
+async function execFile(file: IFile, ctx: ICtx, ignorePrettier?: boolean) {
   if (file.type && file.type !== "copy") {
     if (file.type === "exec") {
       if (!file.path) {
         return;
       }
       const method = await import(file.path);
-      await fs.outputFile(file.to, method.default(ctx, file.pass));
+      let code = await method.default(ctx, file.pass)
+      if(!ignorePrettier && !file.ignorePrettier) {
+        code = await prettier.format(code, {
+          parser: "typescript",
+        });
+      }
+      await fs.outputFile(file.to,code);
     } else if (file.type === "delete") {
       await fs.remove(file.to);
     } else if (file.type === "write") {

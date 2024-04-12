@@ -27,6 +27,7 @@ export type IConfig = {
   scripts?: Record<string, string>;
   env?: IEnv[];
   commands?: string | string[];
+  ignorePrettier?: boolean;
 };
 
 type IInstallerCB = (ctx: ICtx) => IPromiseOrType<IConfig>;
@@ -40,6 +41,7 @@ export type IFile = {
   sep?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pass?: any;
+  ignorePrettier?: boolean;
 };
 
 export type IEnv = {
@@ -50,6 +52,6 @@ export type IEnv = {
   kind: "server" | "client";
 };
 
-export type IUtil<T = undefined> = (ctx: ICtx, passed?: T) => string;
+export type IUtil<T = undefined> = (ctx: ICtx, passed?: T) => string | Promise<string>;
 
 export type TInstallers = "AuthJS" | "Prisma" | "TailwindCSS" | "pRPC";

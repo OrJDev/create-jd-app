@@ -7,6 +7,7 @@ const config: IInstaller = (ctx) => {
   const normal: KeyOrKeyArray<"normal"> = [
     "@auth/core",
     "@solid-mediakit/auth",
+    "@solid-mediakit/auth-plugin",
   ];
   if (usePrisma) {
     normal.push("@auth/prisma-adapter");
@@ -29,7 +30,10 @@ const config: IInstaller = (ctx) => {
             path: `${__dirname}/files/app.txt`,
             to: `${ctx.userDir}/src/app.tsx`,
           }
-        : undefined,
+        : {
+            path: `${__dirname}/files/protected.txt`,
+            to: `${ctx.userDir}/src/routes/protected.tsx`,
+          },
     ],
     env: [
       {

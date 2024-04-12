@@ -1,6 +1,6 @@
-import type { ICtx, IUtil } from "~types";
+import type { ICtx } from "~types";
 
-const getIndexLocation: IUtil = (ctx) => {
+const getIndexLocation = (ctx: ICtx) => {
   const usingPRPC = ctx.installers.includes("pRPC");
   const usingTw = ctx.installers.includes("TailwindCSS");
   const usingAuth = ctx.installers.includes("AuthJS");

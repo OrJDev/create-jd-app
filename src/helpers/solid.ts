@@ -12,6 +12,7 @@ const helperFunc = async (ctx: ICtx, env: IEnv[]) => {
       type: "exec",
       to: `${ctx.userDir}/README.MD`,
       pass: env,
+      ignorePrettier: true
     },
   ];
   if (indexLocation) {
