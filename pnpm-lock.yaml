@@ -17,6 +17,9 @@ dependencies:
   ora:
     specifier: ^5.4.0
     version: 5.4.1
+  prettier:
+    specifier: ^3.2.5
+    version: 3.2.5
 
 devDependencies:
   '@changesets/changelog-github':
@@ -67,9 +70,6 @@ devDependencies:
   lint-staged:
     specifier: ^13.0.4
     version: 13.1.0
-  prettier:
-    specifier: ^3.2.5
-    version: 3.2.5
   sort-package-json:
     specifier: ^2.1.0
     version: 2.1.0
@@ -2708,7 +2708,7 @@ packages:
     resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: true
+    dev: false
 
   /pseudomap@1.0.2:
     resolution: {integrity: sha512-b/YwNhb8lk1Zz2+bXXpS/LK9OisiZZ1SNsSLxN1x2OXVEhW2Ckr/7mWE5vrC1ZTiJlD9g19jWszTmJsB+oEpFQ==}
