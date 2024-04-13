@@ -1,5 +1,17 @@
 # create-jd-app
 
+## 3.2.0
+
+### Minor Changes
+
+- [`6748179`](https://github.com/OrJDev/create-jd-app/commit/67481798126f514b999bd014ac69aaebae95c003) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: move to tailwind v4
+
+- [`e4f62f6`](https://github.com/OrJDev/create-jd-app/commit/e4f62f618a275a9e8fe818e9e2b2f3b8840ba972) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: add prettier and use protected$ api
+
+### Patch Changes
+
+- [`4390dc9`](https://github.com/OrJDev/create-jd-app/commit/4390dc95711fcfadc7b61238f742a08fe22d73fc) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: prettify all files
+
 ## 3.1.0
 
 ### Minor Changes
