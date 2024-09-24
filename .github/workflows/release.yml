@@ -10,34 +10,48 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 7
+      - uses: pnpm/action-setup@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: "pnpm"
 
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+          //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          EOF
+
+      - name: Verify NPM Authentication
+        continue-on-error: true
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm whoami
+
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Build
         run: pnpm build
+      - name: Test
+        run: pnpm test
 
       - name: Create Release
-        uses: changesets/action@v1.4.1
+        uses: changesets/action@v1.4.7
         with:
           commit: "chore(release): 📦 version packages"
-          title: "chore(release): 📦  version packages"
+          title: "chore(release): 📦 version packages"
           version: node .github/changeset-version.js
           publish: pnpm changeset publish
         env:
