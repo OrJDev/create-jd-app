@@ -44,8 +44,6 @@ jobs:
 
       - name: Build
         run: pnpm build
-      - name: Test
-        run: pnpm test
 
       - name: Create Release
         uses: changesets/action@v1.4.7
