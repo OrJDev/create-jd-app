@@ -5,7 +5,7 @@ Create advanced SolidStart web application within seconds.
 ## Getting Started
 
 ```bash
-npm create jd-app@latest
+pnpm create jd-app@latest
 ```
 
 ## Base Template
