@@ -8,7 +8,7 @@ const packages = {
     "@prisma/client": "^5.20.0",
     // prpc
     "@tanstack/solid-query": "^5.56.2",
-    "@solid-mediakit/prpc": "^1.2.4",
+    "@solid-mediakit/prpc": "^1.2.5",
     "@solid-mediakit/prpc-plugin": "^1.3.4",
     // authjs
     "@solid-mediakit/auth": "^2.1.4",
