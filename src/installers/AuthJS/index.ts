@@ -60,9 +60,15 @@ const config: IInstaller = (ctx) => {
       },
       {
         key: "AUTH_URL",
-        defaulValue: "http://localhost:3000/api/auth",
+        defaulValue: "http://localhost:3000",
         type: "string().optional()",
         kind: "server",
+      },
+      {
+        key: "VITE_AUTH_PATH",
+        defaulValue: "/api/auth",
+        type: "string().optional()",
+        kind: "client",
       },
     ],
   };
