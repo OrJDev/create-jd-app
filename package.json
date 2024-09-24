@@ -79,5 +79,6 @@
   "bugs": {
     "url": "https://github.com/OrJDev/create-jd-app/issues"
   },
-  "homepage": "https://github.com/OrJDev/create-jd-app#readme"
+  "homepage": "https://github.com/OrJDev/create-jd-app#readme",
+  "packageManager": "pnpm@9.6.0"
 }
