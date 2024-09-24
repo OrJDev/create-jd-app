@@ -16,9 +16,9 @@ const packages = {
     "@auth/core": "^0.35.0",
     "@auth/prisma-adapter": "^2.5.0",
     // tailwind
-    "@tailwindcss/vite": "4.0.0-alpha.24",
-    tailwindcss: "^4.0.0-alpha.24",
-    "@tailwindcss/postcss": "^4.0.0-alpha.24",
+    postcss: "^8.4.40",
+    tailwindcss: "^3.4.7",
+    autoprefixer: "^10.4.19",
   },
 };
 
