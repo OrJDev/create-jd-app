@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 3.3.0
+
+### Minor Changes
+
+- [`8152ce9`](https://github.com/OrJDev/create-jd-app/commit/8152ce9c2ec85bca18bafc538814b79e80ec5d0f) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: add prettier to the deps
+
 ## 3.2.0
 
 ### Minor Changes
