@@ -1,5 +1,21 @@
 # create-jd-app
 
+## 4.0.0
+
+### Major Changes
+
+- [`3560fa0`](https://github.com/OrJDev/create-jd-app/commit/3560fa0a7dab4d9d4d9b12add4876d5992c97ad9) Thanks [@OrJDev](https://github.com/OrJDev)! - update all deps
+
+### Minor Changes
+
+- [`5fae24d`](https://github.com/OrJDev/create-jd-app/commit/5fae24dcd3696646615905e6a5192ea2f1ca9137) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: revert tailwind to its latest version
+
+### Patch Changes
+
+- [`8eb3a71`](https://github.com/OrJDev/create-jd-app/commit/8eb3a713e362eb9ddc9330ca111525e8aaf81358) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: fix the auth env variables
+
+- [`f3cc8c7`](https://github.com/OrJDev/create-jd-app/commit/f3cc8c7252326faf3ae36aea3ceba95992668ea4) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: bump prpc
+
 ## 3.3.0
 
 ### Minor Changes
