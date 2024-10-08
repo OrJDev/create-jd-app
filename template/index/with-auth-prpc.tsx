@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
-import { type VoidComponent, Suspense, Show } from "solid-js";
 import { A } from "@solidjs/router";
-import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
+import { useAuth } from "@solid-mediakit/auth/client";
+import { type VoidComponent, Match, Switch } from "solid-js";
 import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
@@ -39,9 +39,7 @@ const Home: VoidComponent = () => {
           <p class={styles.showcaseText}>
             {hello.data ?? "Loading pRPC query"}
           </p>
-          <Suspense>
-            <AuthShowcase />
-          </Suspense>
+          <AuthShowcase />
         </div>
       </div>
     </main>
@@ -51,30 +49,30 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const session = createSession();
+  const auth = useAuth();
   return (
     <div class={styles.authContainer}>
-      <Show
-        when={session().status === "authenticated"}
-        fallback={
+      <Switch fallback={<div>Loading...</div>}>
+        <Match when={auth.status() === "authenticated"}>
+          <span class={styles.showcaseText}>
+            Welcome {auth.session()?.user?.name}
+          </span>
           <button
-            onClick={() => signIn("discord", { redirectTo: "/" })}
+            onClick={() => auth.signOut({ redirectTo: "/" })}
+            class={styles.loginButton}
+          >
+            Sign out
+          </button>
+        </Match>
+        <Match when={auth.status() === "unauthenticated"}>
+          <button
+            onClick={() => auth.signIn("discord", { redirectTo: "/" })}
             class={styles.loginButton}
           >
             Sign in
           </button>
-        }
-      >
-        <span class={styles.showcaseText}>
-          Welcome {session()?.data?.user?.name}
-        </span>
-        <button
-          onClick={() => signOut({ redirectTo: "/" })}
-          class={styles.loginButton}
-        >
-          Sign out
-        </button>
-      </Show>
+        </Match>
+      </Switch>
     </div>
   );
 };

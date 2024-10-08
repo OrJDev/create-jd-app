@@ -1,6 +1,6 @@
-import { type VoidComponent, Suspense, Show } from "solid-js";
 import { A } from "@solidjs/router";
-import { createSession, signOut, signIn } from "@solid-mediakit/auth/client";
+import { useAuth } from "@solid-mediakit/auth/client";
+import { type VoidComponent, Match, Switch } from "solid-js";
 
 const Home: VoidComponent = () => {
   return (
@@ -32,9 +32,7 @@ const Home: VoidComponent = () => {
             </div>
           </A>
         </div>
-        <Suspense>
-          <AuthShowcase />
-        </Suspense>
+        <AuthShowcase />
       </div>
     </main>
   );
@@ -43,30 +41,32 @@ const Home: VoidComponent = () => {
 export default Home;
 
 const AuthShowcase: VoidComponent = () => {
-  const session = createSession();
+  const auth = useAuth();
   return (
     <div class="flex flex-col items-center justify-center gap-4">
-      <Show
-        when={session().status === "authenticated"}
-        fallback={
+      <Switch fallback={<div>Loading...</div>}>
+        <Match when={auth.status() === "authenticated"}>
+          <div class="flex flex-col gap-3">
+            <span class="text-xl text-white">
+              Welcome {auth.session()?.user?.name}
+            </span>
+            <button
+              onClick={() => auth.signOut({ redirectTo: "/" })}
+              class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+            >
+              Sign out
+            </button>
+          </div>
+        </Match>
+        <Match when={auth.status() === "unauthenticated"}>
           <button
-            onClick={() => signIn("discord", { redirectTo: "/" })}
+            onClick={() => auth.signIn("discord", { redirectTo: "/" })}
             class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
           >
             Sign in
           </button>
-        }
-      >
-        <span class="text-xl text-white">
-          Welcome {session().data?.user?.name}
-        </span>
-        <button
-          onClick={() => signOut({ redirectTo: "/" })}
-          class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        >
-          Sign out
-        </button>
-      </Show>
+        </Match>
+      </Switch>
     </div>
   );
 };
