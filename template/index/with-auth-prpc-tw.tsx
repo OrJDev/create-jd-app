@@ -54,7 +54,7 @@ const AuthShowcase: VoidComponent = () => {
   return (
     <div class="flex flex-col items-center justify-center gap-4">
       <Show
-        when={session()}
+        when={session().status === "authenticated"}
         fallback={
           <button
             onClick={() => signIn("discord", { redirectTo: "/" })}
@@ -64,7 +64,9 @@ const AuthShowcase: VoidComponent = () => {
           </button>
         }
       >
-        <span class="text-xl text-white">Welcome {session()?.user?.name}</span>
+        <span class="text-xl text-white">
+          Welcome {session().data?.user?.name}
+        </span>
         <button
           onClick={() => signOut({ redirectTo: "/" })}
           class="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"

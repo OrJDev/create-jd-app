@@ -7,14 +7,14 @@ const packages = {
     // prisma
     "@prisma/client": "^5.20.0",
     // prpc
-    "@tanstack/solid-query": "^5.56.2",
-    "@solid-mediakit/prpc": "^1.2.5",
+    "@tanstack/solid-query": "^5.59.0",
+    "@solid-mediakit/prpc": "^1.3.3",
     "@solid-mediakit/prpc-plugin": "^1.3.4",
     // authjs
-    "@solid-mediakit/auth": "^2.1.4",
-    "@solid-mediakit/auth-plugin": "^1.1.2",
-    "@auth/core": "^0.35.0",
-    "@auth/prisma-adapter": "^2.5.0",
+    "@solid-mediakit/auth": "^2.1.6",
+    "@solid-mediakit/auth-plugin": "^1.1.4",
+    "@auth/core": "0.35.0",
+    "@auth/prisma-adapter": "^2.6.0",
     // tailwind
     postcss: "^8.4.40",
     tailwindcss: "^3.4.7",

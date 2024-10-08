@@ -48,7 +48,7 @@ const AuthShowcase: VoidComponent = () => {
   return (
     <div class={styles.authContainer}>
       <Show
-        when={session()}
+        when={session().status === "authenticated"}
         fallback={
           <button
             onClick={() => signIn("discord", { redirectTo: "/" })}
@@ -58,7 +58,9 @@ const AuthShowcase: VoidComponent = () => {
           </button>
         }
       >
-        <span class={styles.showcaseText}>Welcome {session()?.user?.name}</span>
+        <span class={styles.showcaseText}>
+          Welcome {session()?.data?.user?.name}
+        </span>
         <button
           onClick={() => signOut({ redirectTo: "/" })}
           class={styles.loginButton}
