@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 4.1.0
+
+### Minor Changes
+
+- [`0681403`](https://github.com/OrJDev/create-jd-app/commit/0681403a2c4ea6b7804dabad86c40a86a3af70db) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: get everything up to date
+
 ## 4.0.0
 
 ### Major Changes
