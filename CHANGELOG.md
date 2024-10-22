@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 4.1.1
+
+### Patch Changes
+
+- [`a6e45df`](https://github.com/OrJDev/create-jd-app/commit/a6e45dfea179dd0ede038cafd4e2e45443cd3090) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: use latest's auth api
+
 ## 4.1.0
 
 ### Minor Changes
