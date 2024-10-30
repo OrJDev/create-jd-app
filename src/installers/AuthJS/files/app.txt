@@ -13,7 +13,7 @@ export default function App() {
         <MetaProvider>
           <Title>Create JD APP</Title>
           <Suspense>
-            <SessionProvider>{props.children} </SessionProvider>
+            <SessionProvider>{props.children}</SessionProvider>
           </Suspense>
         </MetaProvider>
       )}

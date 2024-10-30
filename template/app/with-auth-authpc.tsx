@@ -5,7 +5,8 @@ import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import { QueryClient } from "@tanstack/solid-query";
-import { PRPCProvider } from "@solid-mediakit/prpc/provider";
+import { AuthPCProvider } from "@solid-mediakit/authpc/provider";
+import { SessionProvider } from "@solid-mediakit/auth/client";
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -14,11 +15,11 @@ export default function App() {
       root={(props) => (
         <MetaProvider>
           <Title>Create JD App</Title>
-          <Suspense>
-            <PRPCProvider queryClient={queryClient}>
-              {props.children}
-            </PRPCProvider>
-          </Suspense>
+          <SessionProvider>
+            <AuthPCProvider queryClient={queryClient}>
+              <Suspense>{props.children}</Suspense>
+            </AuthPCProvider>
+          </SessionProvider>
         </MetaProvider>
       )}
     >

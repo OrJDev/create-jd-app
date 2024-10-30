@@ -6,13 +6,12 @@ const packages = {
   normal: {
     // prisma
     "@prisma/client": "^5.20.0",
-    // prpc
+    // authpc
     "@tanstack/solid-query": "^5.59.0",
-    "@solid-mediakit/prpc": "^1.3.3",
-    "@solid-mediakit/prpc-plugin": "^1.3.4",
+    "@solid-mediakit/authpc": "^1.2.1",
+    "@solid-mediakit/authpc-plugin": "^1.5.2",
     // authjs
-    "@solid-mediakit/auth": "^3.0.0",
-    "@solid-mediakit/auth-plugin": "^1.1.4",
+    "@solid-mediakit/auth": "^3.0.1",
     "@auth/core": "0.35.0",
     "@auth/prisma-adapter": "^2.6.0",
     // tailwind

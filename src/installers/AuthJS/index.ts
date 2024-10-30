@@ -7,7 +7,6 @@ const config: IInstaller = (ctx) => {
   const normal: KeyOrKeyArray<"normal"> = [
     "@auth/core",
     "@solid-mediakit/auth",
-    "@solid-mediakit/auth-plugin",
   ];
   if (usePrisma) {
     normal.push("@auth/prisma-adapter");
@@ -25,15 +24,16 @@ const config: IInstaller = (ctx) => {
         path: `${__dirname}/files/handler.txt`,
         to: `${ctx.userDir}/src/routes/api/auth/[...solidauth].ts`,
       },
-      !ctx.installers.includes("pRPC")
+      {
+        path: `${__dirname}/files/middleware.txt`,
+        to: `${ctx.userDir}/src/middleware.ts`,
+      },
+      !ctx.installers.includes("AuthPC")
         ? {
             path: `${__dirname}/files/app.txt`,
             to: `${ctx.userDir}/src/app.tsx`,
           }
-        : {
-            path: `${__dirname}/files/protected.txt`,
-            to: `${ctx.userDir}/src/routes/protected.tsx`,
-          },
+        : undefined,
     ],
     env: [
       {

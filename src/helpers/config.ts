@@ -5,40 +5,69 @@ import prettier from "prettier";
 
 export const getAppConfig: IUtil = async (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const usePRPC = ctx.installers.includes("pRPC");
+  const useAuthPC = ctx.installers.includes("AuthPC");
   const useAuth = ctx.installers.includes("AuthJS");
+  if (useAuthPC) {
+    return await prettier.format(
+      `import { withAuthPC } from "@solid-mediakit/authpc-plugin";
+
+const config = withAuthPC(
+  {
+    ssr: true,${useAuth ? "\n    middleware: './src/middleware.ts'," : ""}${
+      usePrisma
+        ? `\n    vite: {
+      ssr: {
+        external: ["@prisma/client"],
+      },
+    },`
+        : ""
+    }${
+      ctx.vercel
+        ? `\n  server: {
+    preset: 'vercel',
+  },`
+        : ""
+    }
+  },${
+    useAuth
+      ? `\n  {
+    auth: "authjs",
+    authCfg: {
+      configName: "authOptions",
+      source: "~/server/auth",
+    },
+  }`
+      : ""
+  }
+);
+
+export default config;
+
+declare module "@solid-mediakit/authpc" {
+  interface Settings {
+    config: typeof config;
+  }
+}
+`,
+      {
+        parser: "typescript",
+      },
+    );
+  }
   return await prettier.format(
     `import { defineConfig } from "@solidjs/start/config";${
-      usePRPC ? `\nimport { prpcVite } from "@solid-mediakit/prpc-plugin";` : ""
-    }${
       useAuth ? `\nimport { authVite } from "@solid-mediakit/auth-plugin";` : ""
     }
   
 export default defineConfig({
   ssr: true,${
-    usePrisma || usePRPC
+    usePrisma
       ? `\n  vite: {
     ${
       usePrisma
         ? `ssr: {
       external: ["@prisma/client"],
     },`
-        : ""
-    }${
-      usePRPC
-        ? `${usePrisma ? "\n" : ""}   plugins: [${
-            usePRPC ? "prpcVite(), " : ""
-          }${
-            useAuth
-              ? `authVite({ 
-                    authOpts:{
-                  name: "authOptions",
-                  dir: "~/server/auth"
-                },
-                redirectTo: "/"
-              })`
-              : ""
-          }],`
         : ""
     }
   },`
@@ -61,7 +90,7 @@ export default defineConfig({
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
   if (
     ctx.vercel ||
-    ctx.installers.includes("pRPC") ||
+    ctx.installers.includes("AuthPC") ||
     ctx.installers.includes("Prisma")
   ) {
     await fs.writeFile(

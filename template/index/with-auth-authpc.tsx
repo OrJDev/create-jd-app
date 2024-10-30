@@ -5,7 +5,7 @@ import { type VoidComponent, Match, Switch } from "solid-js";
 import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
-  const hello = helloQuery(() => ({ hello: "from pRPC" }));
+  const hello = helloQuery(() => ({ hello: "from AuthPC" }));
   return (
     <main>
       <div class={styles.container}>
@@ -36,9 +36,7 @@ const Home: VoidComponent = () => {
           </A>
         </div>
         <div class={styles.showcaseContainer}>
-          <p class={styles.showcaseText}>
-            {hello.data ?? "Loading pRPC query"}
-          </p>
+          <p class={styles.showcaseText}>{hello.data}</p>
           <AuthShowcase />
         </div>
       </div>

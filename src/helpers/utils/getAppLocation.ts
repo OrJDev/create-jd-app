@@ -1,12 +1,12 @@
 import type { ICtx } from "~types";
 
 const getAppLocation = (ctx: ICtx) => {
-  const usingPRPC = ctx.installers.includes("pRPC");
+  const usingAuthPC = ctx.installers.includes("AuthPC");
   const usingAuth = ctx.installers.includes("AuthJS");
 
-  if (usingPRPC && usingAuth)
-    return `${ctx.templateDir}/app/with-auth-prpc.tsx`;
-  else if (usingPRPC) return `${ctx.templateDir}/app/with-prpc.tsx`;
+  if (usingAuthPC && usingAuth)
+    return `${ctx.templateDir}/app/with-auth-authpc.tsx`;
+  else if (usingAuthPC) return `${ctx.templateDir}/app/with-authpc.tsx`;
   return ``;
 };
 

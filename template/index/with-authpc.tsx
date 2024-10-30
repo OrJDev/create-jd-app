@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
-  const hello = helloQuery(() => ({ hello: "from pRPC" }));
+  const hello = helloQuery(() => ({ hello: "from AuthPC" }));
   return (
     <main>
       <div class={styles.container}>
@@ -34,7 +34,7 @@ const Home: VoidComponent = () => {
             </div>
           </A>
         </div>
-        <p>{hello.data ?? "Loading pRPC query"}</p>
+        <p>{hello.data}</p>
       </div>
     </main>
   );

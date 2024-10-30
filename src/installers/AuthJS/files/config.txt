@@ -4,7 +4,7 @@ import { serverEnv } from "~/env/server";
 
 declare module "@auth/core/types" {
   export interface Session {
-    user?: DefaultSession["user"];
+    user: DefaultSession["user"];
   }
 }
 
