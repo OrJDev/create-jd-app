@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 4.1.2
+
+### Patch Changes
+
+- [`9858a28`](https://github.com/OrJDev/create-jd-app/commit/9858a28e592fea1be99086765f9adc0efbc5bd08) Thanks [@OrJDev](https://github.com/OrJDev)! - fix: latest
+
 ## 4.1.1
 
 ### Patch Changes
