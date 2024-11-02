@@ -5,13 +5,13 @@ import prettier from "prettier";
 
 export const getAppConfig: IUtil = async (ctx) => {
   const usePrisma = ctx.installers.includes("Prisma");
-  const useAuthPC = ctx.installers.includes("AuthPC");
+  const usePRPC = ctx.installers.includes("pRPC");
   const useAuth = ctx.installers.includes("AuthJS");
-  if (useAuthPC) {
+  if (usePRPC) {
     return await prettier.format(
-      `import { withAuthPC } from "@solid-mediakit/authpc-plugin";
+      `import { withPRPC } from "@solid-mediakit/prpc-plugin";
 
-const config = withAuthPC(
+const config = withPRPC(
   {
     ssr: true,${useAuth ? "\n    middleware: './src/middleware.ts'," : ""}${
       usePrisma
@@ -43,7 +43,7 @@ const config = withAuthPC(
 
 export default config;
 
-declare module "@solid-mediakit/authpc" {
+declare module "@solid-mediakit/prpc" {
   interface Settings {
     config: typeof config;
   }
@@ -90,7 +90,7 @@ export default defineConfig({
 export const modifyConfigIfNeeded = async (ctx: ICtx) => {
   if (
     ctx.vercel ||
-    ctx.installers.includes("AuthPC") ||
+    ctx.installers.includes("pRPC") ||
     ctx.installers.includes("Prisma")
   ) {
     await fs.writeFile(

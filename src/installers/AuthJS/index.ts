@@ -28,7 +28,7 @@ const config: IInstaller = (ctx) => {
         path: `${__dirname}/files/middleware.txt`,
         to: `${ctx.userDir}/src/middleware.ts`,
       },
-      !ctx.installers.includes("AuthPC")
+      !ctx.installers.includes("pRPC")
         ? {
             path: `${__dirname}/files/app.txt`,
             to: `${ctx.userDir}/src/app.tsx`,

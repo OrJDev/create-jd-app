@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { helloCaller } from "../authpc";
+import { helloCaller } from "../prpc";
 
 export const helloQuery = helloCaller(
   z.object({

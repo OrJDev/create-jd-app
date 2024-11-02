@@ -20,6 +20,6 @@ pnpm create jd-app@latest
 All addons are optional, you may select some, you may select all and you may select none.
 
 - [Prisma](https://github.com/prisma/prisma)
-- [AuthPC](https://github.com/solidjs-community/mediakit/tree/main/packages/authpc/solid)
+- [pRPC](https://github.com/solidjs-community/mediakit/tree/main/packages/prpc/solid)
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
 - [AuthJS](https://github.com/solidjs-community/mediakit/tree/main/packages/auth)

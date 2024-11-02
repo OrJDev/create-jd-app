@@ -1,33 +1,33 @@
 import type { ICtx } from "~types";
 
 const getIndexLocation = (ctx: ICtx) => {
-  const usingAuthPC = ctx.installers.includes("AuthPC");
+  const usingPRPC = ctx.installers.includes("pRPC");
   const usingTw = ctx.installers.includes("TailwindCSS");
   const usingAuth = ctx.installers.includes("AuthJS");
-  return createFileHelper(usingAuthPC, usingTw, usingAuth, ctx);
+  return createFileHelper(usingPRPC, usingTw, usingAuth, ctx);
 };
 
 export default getIndexLocation;
 
 function createFileHelper(
-  usingAuthPC: boolean,
+  usingPRPC: boolean,
   usingTw: boolean,
   usingAuth: boolean,
   ctx: ICtx,
 ) {
-  const fileName = usingAuthPC ? `authpc` : "";
+  const fileName = usingPRPC ? `prpc` : "";
   let indexFile = "";
-  if (usingAuthPC && usingTw && usingAuth) {
+  if (usingPRPC && usingTw && usingAuth) {
     indexFile = `with-auth-${fileName}-tw.tsx`;
-  } else if (usingAuthPC && !usingTw && usingAuth) {
+  } else if (usingPRPC && !usingTw && usingAuth) {
     indexFile = `with-auth-${fileName}.tsx`;
-  } else if (usingAuthPC && usingTw) {
+  } else if (usingPRPC && usingTw) {
     indexFile = `with-${fileName}-tw.tsx`;
-  } else if (usingAuthPC && !usingTw) {
+  } else if (usingPRPC && !usingTw) {
     indexFile = `with-${fileName}.tsx`;
   } else if (usingAuth && usingTw) {
     indexFile = "with-auth-tw.tsx";
-  } else if (!usingAuthPC && usingTw) {
+  } else if (!usingPRPC && usingTw) {
     indexFile = "with-tw.tsx";
   } else if (usingAuth) {
     indexFile = "with-auth.tsx";

@@ -4,7 +4,7 @@ const getBuilder: IUtil = (ctx) => {
   const useAuth = ctx.installers.includes("AuthJS");
   return `import { createCaller${
     useAuth ? ", error$" : ""
-  } } from "@solid-mediakit/authpc";${
+  } } from "@solid-mediakit/prpc";${
     useAuth
       ? `\nimport { authOptions } from "./auth";\nimport { getSession } from "@solid-mediakit/auth";`
       : ""

@@ -56,4 +56,4 @@ export type IUtil<T = undefined> = (
   passed?: T,
 ) => string | Promise<string>;
 
-export type TInstallers = "AuthJS" | "Prisma" | "TailwindCSS" | "AuthPC";
+export type TInstallers = "AuthJS" | "Prisma" | "TailwindCSS" | "pRPC";

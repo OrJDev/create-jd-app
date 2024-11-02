@@ -2,4 +2,4 @@
 "create-jd-app": minor
 ---
 
-feat: remove prpc & add AuthPC + bump
+feat: remove prpc & add pRPC + bump

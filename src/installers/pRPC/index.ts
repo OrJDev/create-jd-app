@@ -6,8 +6,8 @@ const config: IInstaller = (ctx) => {
   return {
     pkgs: withPackages({
       normal: [
-        "@solid-mediakit/authpc",
-        "@solid-mediakit/authpc-plugin",
+        "@solid-mediakit/prpc",
+        "@solid-mediakit/prpc-plugin",
         "@tanstack/solid-query",
       ],
     }),
@@ -18,7 +18,7 @@ const config: IInstaller = (ctx) => {
       },
       {
         path: `${__dirname}/utils/getBuilder`,
-        to: `${ctx.userDir}/src/server/authpc.ts`,
+        to: `${ctx.userDir}/src/server/prpc.ts`,
         type: "exec",
       },
       useAuth

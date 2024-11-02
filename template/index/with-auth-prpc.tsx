@@ -5,7 +5,7 @@ import { type VoidComponent, Match, Switch } from "solid-js";
 import { helloQuery } from "~/server/hello/hello.queries";
 
 const Home: VoidComponent = () => {
-  const hello = helloQuery(() => ({ hello: "from AuthPC" }));
+  const hello = helloQuery(() => ({ hello: "from pRPC" }));
   return (
     <main>
       <div class={styles.container}>

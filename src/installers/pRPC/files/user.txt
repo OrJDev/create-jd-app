@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { userCaller } from "../authpc";
+import { userCaller } from "../prpc";
 
 export const protectedQuery = userCaller(
   z.object({
