@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 4.2.0
+
+### Minor Changes
+
+- [`e722670`](https://github.com/OrJDev/create-jd-app/commit/e72267073f36d025fc402fce05d9e2b903a9f650) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: remove prpc & add AuthPC + bump
+
 ## 4.1.2
 
 ### Patch Changes
