@@ -1,5 +1,17 @@
 # create-jd-app
 
+## 5.0.0
+
+### Major Changes
+
+- testing
+
+### Minor Changes
+
+- [`280b89e`](https://github.com/OrJDev/create-jd-app/commit/280b89e575d7a9f14de870ece9b86f6c711fda3f) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: use new prpc
+
+- [`e722670`](https://github.com/OrJDev/create-jd-app/commit/e72267073f36d025fc402fce05d9e2b903a9f650) Thanks [@OrJDev](https://github.com/OrJDev)! - feat: remove prpc & add pRPC + bump
+
 ## 4.2.0
 
 ### Minor Changes
