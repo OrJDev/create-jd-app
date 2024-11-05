@@ -8,10 +8,10 @@ const packages = {
     "@prisma/client": "^5.20.0",
     // prpc
     "@tanstack/solid-query": "^5.59.0",
-    "@solid-mediakit/prpc": "^2.0.0",
-    "@solid-mediakit/prpc-plugin": "^2.0.0",
+    "@solid-mediakit/prpc": "^2.1.0",
+    "@solid-mediakit/prpc-plugin": "^2.1.0",
     // authjs
-    "@solid-mediakit/auth": "^3.0.1",
+    "@solid-mediakit/auth": "^3.1.0",
     "@auth/core": "0.35.0",
     "@auth/prisma-adapter": "^2.6.0",
     // tailwind

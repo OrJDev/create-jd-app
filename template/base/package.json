@@ -17,12 +17,12 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
-    "@solidjs/router": "^0.15.0",
+    "@solidjs/router": "^0.15.1",
     "@solidjs/start": "^1.0.10",
     "solid-js": "^1.9.3",
     "vinxi": "^0.4.3",
     "@solidjs/meta": "^0.29.4",
-    "zod": "^3.22.4"
+    "zod": "^3.23.8"
   },
   "engines": {
     "node": ">=16"
