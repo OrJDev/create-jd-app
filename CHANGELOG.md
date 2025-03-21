@@ -1,5 +1,11 @@
 # create-jd-app
 
+## 5.0.1
+
+### Patch Changes
+
+- [`99a2ebe`](https://github.com/OrJDev/create-jd-app/commit/99a2ebe036cca1297b69d22e2672eeaf65d796bf) Thanks [@OrJDev](https://github.com/OrJDev)! - deps: bump everything
+
 ## 5.0.0
 
 ### Major Changes
